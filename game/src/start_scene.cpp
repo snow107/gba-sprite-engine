@@ -10,7 +10,7 @@
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
-#include "test_image.h"
+#include "kurby.h"
 
 std::vector<Background *> start_scene::backgrounds() {
     return {};
@@ -21,15 +21,16 @@ std::vector<Sprite *> start_scene::sprites() {
 }
 
 void start_scene::load() {
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(test_image_palette, sizeof(test_image_palette)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(kurby_palette, sizeof(kurby_palette)));
 
     TextStream::instance().setText("PRESS START TO PLAY", 3, 8);
 
     SpriteBuilder<Sprite> builder;
 
     testsprite = builder
-            .withData(test_image_data, sizeof(test_image_data))
-            .withSize(SIZE_16_16)
+            .withData(kurby_data, sizeof(kurby_data))
+            .withSize(SIZE_64_64)
+            .withAnimated(12,10)
             .withLocation(0, 0)
             .buildPtr();
 
