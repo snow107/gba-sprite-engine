@@ -10,28 +10,36 @@
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
-#include "kurby.h"
+#include "mainCharcters.h"
 
 std::vector<Background *> start_scene::backgrounds() {
     return {};
 }
 
 std::vector<Sprite *> start_scene::sprites() {
-    return {testsprite.get()};
+    return {kurby.get(),sonic.get()};
 }
 
 void start_scene::load() {
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(kurby_palette, sizeof(kurby_palette)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
 
     TextStream::instance().setText("PRESS START TO PLAY", 3, 8);
 
     SpriteBuilder<Sprite> builder;
 
-    testsprite = builder
-            .withData(kurby_data, sizeof(kurby_data))
-            .withSize(SIZE_64_64)
+    kurby = builder
+            .withData(kurbyTiles, sizeof(kurbyTiles))
+            .withSize(SIZE_32_32) //smaller kurby because memory issues? or me stupid
             .withAnimated(12,10)
             .withLocation(0, 0)
+            .buildPtr();
+
+    sonic = builder
+            .withData(sonicTiles, sizeof(sonicTiles))
+            .withSize(SIZE_32_32)
+            .withAnimated(16,10)
+            .withLocation(0, 40)
             .buildPtr();
 
     engine->getTimer()->start();
