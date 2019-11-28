@@ -8,10 +8,10 @@
 #include <libgba-sprite-engine/scene.h>
 
 
-class scene_1 {
+class scene_1 : public Scene {
     private:
-        std::unique_ptr<Sprite> kurby;
-        std::unique_ptr<Sprite> sonic;
+        //std::unique_ptr<Sprite> kurby;
+        //std::unique_ptr<Sprite> sonic;
 
     public:
         std::vector<Sprite *> sprites() override;
@@ -21,8 +21,6 @@ class scene_1 {
 
         void load() override;
         void tick(u16 keys) override;
-
-    };
 
 };
 

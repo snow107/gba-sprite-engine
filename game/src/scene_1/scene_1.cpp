@@ -17,12 +17,12 @@ std::vector<Background *> scene_1::backgrounds() {
 }
 
 std::vector<Sprite *> scene_1::sprites() {
-    return {kurby.get(),sonic.get()};
+    return {};
 }
 
 void scene_1::load() {
-    //foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
-    //backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager();
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
 
     engine->getTimer()->start();
 }
