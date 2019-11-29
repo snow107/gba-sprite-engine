@@ -29,7 +29,7 @@ void scene_1::load() {
 
     engine->getTimer()->start();
 
-    //bg1 = std::unique_ptr<Background>(new Background(1, blok2Tiles, sizeof(blok2Tiles), tilemap, sizeof(tilemap)));
+    bg1 = std::unique_ptr<Background>(new Background(1, blok2Tiles, sizeof(blok2Tiles), tilemap, sizeof(tilemap)));
 
     bg1X = 0;
     bg1Y = 60;
@@ -73,6 +73,7 @@ void scene_1::tick(u16 keys) {
     }
 }
 
-void move(int x,int y){
-
+void scene_1::move(int x,int y){
+    bg1X += x;
+    bg1Y += y;
 }

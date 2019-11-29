@@ -14,6 +14,7 @@ class scene_1 : public Scene {
         std::unique_ptr<Background> bg1;
         int bg1X,bg1Y;
         int v1X,v1Y;
+        void move(int x,int y);
 
     public:
         std::vector<Sprite *> sprites() override;
