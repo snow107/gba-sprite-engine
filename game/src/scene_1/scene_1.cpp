@@ -57,13 +57,14 @@ void scene_1::tick(u16 keys) {
             //engine->transitionIntoScene(new FlyingStuffScene(engine), new FadeOutScene(2));
         }
     } else if(keys & KEY_LEFT) {
-        bg1X+=v1X;
-        bg1.get()->scroll(bg1X,bg1Y);
+        v1X = -1;
     } else if(keys & KEY_RIGHT) {
-        bg1X-=2;
-        bg1.get()->scroll(bg1X,bg1Y);
+        v1X = 1;
     } else if(keys & KEY_UP) {
-
+        if(charcterOnGround()){
+            v1Y = 2;
+            move(0,1);
+        }
     } else if(keys & KEY_DOWN) {
 
     } else if(keys & KEY_B) {
@@ -71,9 +72,28 @@ void scene_1::tick(u16 keys) {
     } else if(keys & KEY_A) {
 
     }
+
+    if(distanceToGround() > 0){
+        v1Y -= 1;
+    }
+    else{
+        v1Y = 0;
+        bg1Y = 110;
+    }
+
+    move(v1X,v1Y);
+}
+
+bool scene_1::charcterOnGround() {
+    return distanceToGround();
+}
+
+int scene_1::distanceToGround(){
+    return 110-bg1Y;
 }
 
 void scene_1::move(int x,int y){
     bg1X += x;
     bg1Y += y;
+    bg1.get()->scroll(bg1X,bg1Y);
 }

@@ -15,6 +15,8 @@ class scene_1 : public Scene {
         int bg1X,bg1Y;
         int v1X,v1Y;
         void move(int x,int y);
+        bool charcterOnGround();
+        int distanceToGround();
 
     public:
         std::vector<Sprite *> sprites() override;
