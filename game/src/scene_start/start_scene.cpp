@@ -11,7 +11,7 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
 #include "mainCharcters.h"
-#include "scene_1/scene_1.h"
+#include "../scene_1/scene_1.h"
 
 std::vector<Background *> start_scene::backgrounds() {
     return {};

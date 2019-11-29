@@ -9,7 +9,7 @@
 #include <libgba-sprite-engine/palette/palette_manager.h>
 #include <libgba-sprite-engine/allocator.h>
 
-#include "start_scene.h"
+#include "scene_start/start_scene.h"
 
 int main() {
     std::shared_ptr<GBAEngine> engine(new GBAEngine());
