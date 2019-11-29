@@ -10,10 +10,10 @@
 
 class scene_1 : public Scene {
     private:
-        //std::unique_ptr<Sprite> kurby;
-        //std::unique_ptr<Sprite> sonic;
+        std::unique_ptr<Sprite> sonic;
         std::unique_ptr<Background> bg1;
         int bg1X,bg1Y;
+        int v1X,v1Y;
 
     public:
         std::vector<Sprite *> sprites() override;

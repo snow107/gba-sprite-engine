@@ -13,27 +13,36 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
 #include "../genericScene.h"
+#include "../scene_start/mainCharcters.h""
 
 std::vector<Background *> scene_1::backgrounds() {
     return {bg1.get()};
 }
 
 std::vector<Sprite *> scene_1::sprites() {
-    return {};
+    return {sonic.get()};
 }
 
 void scene_1::load() {
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager());
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(blok2Pal, sizeof(blok2Pal)));
 
     engine->getTimer()->start();
 
-    bg1 = std::unique_ptr<Background>(new Background(1, blok2Tiles, sizeof(blok2Tiles), tilemap, sizeof(tilemap)));
-    bg1.get()->useMapScreenBlock(16);
-    bg1.get()->getScreenBlock();
+    //bg1 = std::unique_ptr<Background>(new Background(1, blok2Tiles, sizeof(blok2Tiles), tilemap, sizeof(tilemap)));
 
     bg1X = 0;
     bg1Y = 60;
+    bg1.get()->scroll(bg1X,bg1Y);
+
+    SpriteBuilder<Sprite> builder;
+
+    sonic = builder
+            .withData(sonicTiles, sizeof(sonicTiles))
+            .withSize(SIZE_32_32)
+            .withAnimated(16,10)
+            .withLocation(0, 110)
+            .buildPtr();
 }
 
 void scene_1::tick(u16 keys) {
@@ -48,10 +57,10 @@ void scene_1::tick(u16 keys) {
             //engine->transitionIntoScene(new FlyingStuffScene(engine), new FadeOutScene(2));
         }
     } else if(keys & KEY_LEFT) {
-        bg1X-=2;
+        bg1X+=v1X;
         bg1.get()->scroll(bg1X,bg1Y);
     } else if(keys & KEY_RIGHT) {
-        bg1X+=2;
+        bg1X-=2;
         bg1.get()->scroll(bg1X,bg1Y);
     } else if(keys & KEY_UP) {
 
@@ -62,4 +71,8 @@ void scene_1::tick(u16 keys) {
     } else if(keys & KEY_A) {
 
     }
+}
+
+void move(int x,int y){
+
 }
