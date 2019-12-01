@@ -13,7 +13,9 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
 #include "../genericScene.h"
-#include "../scene_start/mainCharcters.h""
+#include "../scene_start/mainCharcters.h"
+
+#define GROUND_DISTANCE 80
 
 std::vector<Background *> scene_1::backgrounds() {
     return {bg1.get()};
@@ -29,10 +31,15 @@ void scene_1::load() {
 
     engine->getTimer()->start();
 
+    tilemap[(208/8)*tilemap_width+tilemap_width/4] = 0x0001;
+    tilemap[(192/8)*tilemap_width+tilemap_width/4] = 0x0001;
+    tilemap[(200/8)*tilemap_width+tilemap_width/4] = 0x0001;
+
     bg1 = std::unique_ptr<Background>(new Background(1, blok2Tiles, sizeof(blok2Tiles), tilemap, sizeof(tilemap)));
 
     bg1X = 0;
-    bg1Y = 60;
+    bg1Y = GROUND_DISTANCE;
+    v1Y =0;v1X=0;
     bg1.get()->scroll(bg1X,bg1Y);
 
     SpriteBuilder<Sprite> builder;
@@ -41,59 +48,94 @@ void scene_1::load() {
             .withData(sonicTiles, sizeof(sonicTiles))
             .withSize(SIZE_32_32)
             .withAnimated(16,10)
-            .withLocation(0, 110)
+            .withLocation(0, GROUND_DISTANCE-32)
             .buildPtr();
 }
 
 void scene_1::tick(u16 keys) {
     //TextStream::instance().setText(engine->getTimer()->to_string(), 18, 1);
 
-    if(((keys & KEY_A) || (keys & KEY_B))) {
-        engine->getTimer()->toggle();
+    if (!(ticknumber % 20)) { //searching for better solution (ideas are welcome)
+        if (keys & KEY_LEFT) {
+            if (v1X > 0) {
+                v1X -= 2;
+            } else if (v1X > -5) {
+                v1X -= 1;
+            }
+        } else if (keys & KEY_RIGHT) {
+            if (v1X < 0) {
+                v1X += 2;
+            } else if (v1X < 5) {
+                v1X += 1;
+            }
+        } else {
+            if (v1X > 0) v1X--;
+            if (v1X < 0) v1X++;
+        }
     }
 
-    if(keys & KEY_START) {
-        if(!engine->isTransitioning()) {
-            //engine->transitionIntoScene(new FlyingStuffScene(engine), new FadeOutScene(2));
-        }
-    } else if(keys & KEY_LEFT) {
-        v1X = -1;
-    } else if(keys & KEY_RIGHT) {
-        v1X = 1;
-    } else if(keys & KEY_UP) {
-        if(charcterOnGround()){
-            v1Y = 2;
-            move(0,1);
-        }
-    } else if(keys & KEY_DOWN) {
+    if (keys & KEY_START) {
 
-    } else if(keys & KEY_B) {
+    } else if (keys & KEY_UP) {
+        if (charcterOnGround()) {
+            v1Y = 5;
+            move(0, 5);
+        }
+    } else if (keys & KEY_DOWN) {
 
-    } else if(keys & KEY_A) {
+    } else if (keys & KEY_B) {
+
+    } else if (keys & KEY_A) {
 
     }
 
-    if(distanceToGround() > 0){
+
+    if (!charcterOnGround()) {
+        if (!(ticknumber % 5))
         v1Y -= 1;
-    }
-    else{
+    } else {
         v1Y = 0;
-        bg1Y = 110;
     }
 
-    move(v1X,v1Y);
+    if(charcteragainstwall(true))
+    {
+        v1X = 0;
+    }
+
+    move(v1X, v1Y);
+
+
+    ticknumber++;
 }
 
 bool scene_1::charcterOnGround() {
-    return distanceToGround();
+    //return (distanceToGround()<1);
+    int charctertile = bg1Y / 8;
+    if(tilemap[((charctertile)+10)*tilemap_width] != 0) { // 10 = (RESUTION_HEIGTH/2)/BLOCK_SIZE8
+        bg1Y = (charctertile*8)+2;
+        return true;
+    }
+    return false;
 }
 
 int scene_1::distanceToGround(){
-    return 110-bg1Y;
+    return GROUND_DISTANCE-bg1Y;
+}
+
+bool scene_1::charcteragainstwall(bool right) { //otherwise left
+    int character_bottem_left_corner_tile = ((((bg1Y+(GBA_SCREEN_HEIGHT/2))/8)+1)*tilemap_width);
+    if(right)
+    {
+        return (tilemap[character_bottem_left_corner_tile+32/*charcter width*//8+1] == 0);
+    }
+    else //left
+    {
+        return (tilemap[character_bottem_left_corner_tile-1] == 0);
+    }
 }
 
 void scene_1::move(int x,int y){
     bg1X += x;
-    bg1Y += y;
+    bg1Y -= y;
     bg1.get()->scroll(bg1X,bg1Y);
 }

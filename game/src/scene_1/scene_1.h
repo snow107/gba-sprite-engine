@@ -14,9 +14,12 @@ class scene_1 : public Scene {
         std::unique_ptr<Background> bg1;
         int bg1X,bg1Y;
         int v1X,v1Y;
+        int ticknumber;
         void move(int x,int y);
         bool charcterOnGround();
+        bool charcteragainstwall(bool right); //otherwise left
         int distanceToGround();
+
 
     public:
         std::vector<Sprite *> sprites() override;
