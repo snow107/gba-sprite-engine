@@ -10,16 +10,16 @@
 
 class scene_1 : public Scene {
     private:
-        std::unique_ptr<Sprite> sonic;
+        std::unique_ptr<Sprite> charcter;
         std::unique_ptr<Background> bg1;
         int bg1X,bg1Y;
         int v1X,v1Y;
+        int charcterX,charcterY;
         int ticknumber;
-        void move(int x,int y);
+        void movebg1(int x, int y);
+        void movecharcter(int x, int y);
         bool charcterOnGround();
         bool charcteragainstwall(bool right); //otherwise left
-        int distanceToGround();
-
 
     public:
         std::vector<Sprite *> sprites() override;
