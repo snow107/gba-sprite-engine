@@ -8,6 +8,7 @@
 #include "newBigMap.h"
 #include "klein_probeer.h"
 #include "domMap.h"
+#include "Labview1.h"
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
@@ -38,7 +39,7 @@ void scene_1::load() {
     tilemap[(192/8)*tilemap_width+tilemap_width/4] = 0x0001;
     tilemap[(200/8)*tilemap_width+tilemap_width/4] = 0x0001;*/
 
-    bg1 = std::unique_ptr<Background>(new Background(1, blok2Tiles, sizeof(blok2Tiles), bigNieuw, sizeof(bigNieuw)));
+    bg1 = std::unique_ptr<Background>(new Background(1, blok2Tiles, sizeof(blok2Tiles), bigMap, sizeof(bigMap)));
 
     charcterX = 0;
     charcterY = 10;
