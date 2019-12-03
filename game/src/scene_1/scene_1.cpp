@@ -5,6 +5,8 @@
 #include "scene_1.h"
 #include "blok2.h"
 #include "tilemap.h"
+#include "newBigMap.h"
+#include "klein_probeer.h"
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
