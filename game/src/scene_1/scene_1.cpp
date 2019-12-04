@@ -18,8 +18,9 @@
 
 #include "../genericScene.h"
 #include "../scene_start/mainCharcters.h"
-
 #define CHARTERHEIGTH 32
+#define CHARTERWIDTH 32
+#define SCENE_WIDTH 32
 
 std::vector<Background *> scene_1::backgrounds() {
     return {bg1.get()};
@@ -35,14 +36,10 @@ void scene_1::load() {
 
     engine->getTimer()->start();
 
-    /*tilemap[(208/8)*tilemap_width+tilemap_width/4] = 0x0001;
-    tilemap[(192/8)*tilemap_width+tilemap_width/4] = 0x0001;
-    tilemap[(200/8)*tilemap_width+tilemap_width/4] = 0x0001;*/
-
     bg1 = std::unique_ptr<Background>(new Background(1, blok2Tiles, sizeof(blok2Tiles), bigMap, sizeof(bigMap)));
 
-    charcterX = 0;
-    charcterY = 10;
+    charcterX = 20;
+    charcterY = 50;
     bg1X = 0;
     bg1Y = 20;
     v1Y =0;v1X=0;
@@ -103,9 +100,9 @@ void scene_1::tick(u16 keys) {
         v1Y = 0;
     }
 
-    if(charcteragainstwall(true))
+    if(charcteragainstwall(true ) && v1X > 0 )
     {
-        //v1X = 0;
+        v1X = 0;
     }
 
     movebg1(v1X, v1Y);
@@ -115,10 +112,10 @@ void scene_1::tick(u16 keys) {
 
 bool scene_1::charcterOnGround() {
 
-    //this code doesn't work
+    //this code works half
     int charctertileY = (bg1Y + charcterY + CHARTERHEIGTH) / 8;
-    int chartertileX = (bg1X + CHARTERHEIGTH/2 + charcterX)/8 /*width = heigt*/; //half width of charcter
-    if(tilemap[(charctertileY+1)*tilemap_width+chartertileX] != 0) {
+    int charctertileX = (bg1X + CHARTERHEIGTH/2 + charcterX)/8; //half width of charcter
+    if(bigMap[((charctertileY+1)*SCENE_WIDTH)+charctertileX] != 0) {
         bg1Y = ((bg1Y/8)*8)+2; //yes I change the heigth, just so it looks nice
         return true;
     }
@@ -136,11 +133,11 @@ bool scene_1::charcterOnGround() {
 }
 
 bool scene_1::charcteragainstwall(bool right) { //otherwise left
-    int character_bottem_left_corner_tile = ((((bg1Y+(GBA_SCREEN_HEIGHT/2))/8)+1)*tilemap_width);
+    int character_bottem_left_corner_tile = (((bg1Y+CHARTERHEIGTH)/8)*tilemap_width);
 
     if(right)
     {
-        return (tilemap[character_bottem_left_corner_tile+32/*charcter width*//8+1] == 0);
+        return (tilemap[character_bottem_left_corner_tile+CHARTERWIDTH/*charcter width*//8+1] == 0);
     }
     else //left
     {
