@@ -12,8 +12,12 @@ class BeginScene : public Scene {
 private:
 
     std::unique_ptr<Background> bg1;
+    int scrollX=0,scrollY;
+    int control=1;
+
 
 public:
+
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 

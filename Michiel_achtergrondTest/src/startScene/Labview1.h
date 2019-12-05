@@ -5,7 +5,9 @@
 
 #ifndef GBA_SPRITE_ENGINE_PROJECT_LABVIEW1_H
 #define GBA_SPRITE_ENGINE_PROJECT_LABVIEW1_H
- #endif // GBA_SPRITE_ENGINE_PROJECT_LABVIEW1_H
+#define tilemapHeight 256
+#define tilemapWith 256
+
 
 unsigned short bigMap [] = { 
 
@@ -138,3 +140,5 @@ unsigned short bigMap [] = {
 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 
 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0009, 
 };
+
+#endif // GBA_SPRITE_ENGINE_PROJECT_LABVIEW1_H
