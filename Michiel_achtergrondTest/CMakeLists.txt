@@ -3,7 +3,7 @@ project(Michiel_achtergrondTest)
 add_executable(${PROJECT_NAME}.elf
         src/main.cpp
         src/startScene/start_scene.cpp src/startScene/start_scene.h
-        src/scene1/probeerSpiegel.h
+        src/startScene/probeerSpiegel.h
         )
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)

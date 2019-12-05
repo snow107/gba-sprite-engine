@@ -5,3 +5,9 @@ day,hours
 3/12/2019 3
 5/12/2019 1
 5/12/2019 2
+
+
+
+
+vragen: hoe weet de engine hoe hoog en breed de map is die je inlaadt zijn toch maar gewoon een array van referenties naar de tiles
+wat doet precies scrollspeed in u bibliotheek van de scene

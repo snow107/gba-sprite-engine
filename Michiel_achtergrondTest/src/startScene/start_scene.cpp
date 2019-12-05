@@ -10,6 +10,7 @@
 #include "start_scene.h"
 #include "blok2.h"
 #include "Labview1.h"
+#include  "probeerSpiegel.h"
 
 std::vector<Background *> BeginScene::backgrounds() {
     return {bg1.get()};
@@ -22,7 +23,7 @@ void BeginScene::load() {
 
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(blok2Pal, sizeof(blok2Pal)));
     engine->getTimer()->start();
-    bg1 = std::unique_ptr<Background>(new Background(1, blok2Tiles, sizeof(blok2Tiles), bigMap, sizeof(bigMap)));
+    bg1 = std::unique_ptr<Background>(new Background(1, blok2Tiles, sizeof(bigMap), bigMap, sizeof(bigMap)));
     scrollY=tilemapHeight-160;
     bg1.get()->scroll(scrollX, scrollY);
 
