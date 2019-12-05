@@ -1,0 +1,8 @@
+//
+// Created by michi on 5/12/2019.
+//
+
+#ifndef GBA_SPRITE_ENGINE_PROJECT_SCENE_1_H
+#define GBA_SPRITE_ENGINE_PROJECT_SCENE_1_H
+
+#endif //GBA_SPRITE_ENGINE_PROJECT_SCENE_1_H
