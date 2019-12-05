@@ -20,6 +20,8 @@ class scene_1 : public Scene {
         void movecharcter(int x, int y);
         bool charcterOnGround();
         bool charcteragainstwall(bool right); //otherwise left
+        int getBottemLeftCharcterTile();
+        void move(int x,int y);
 
     public:
         std::vector<Sprite *> sprites() override;

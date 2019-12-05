@@ -4,10 +4,10 @@
 
 #include "scene_1.h"
 #include "blok2.h"
-#include "tilemap.h"
-#include "newBigMap.h"
-#include "klein_probeer.h"
-#include "domMap.h"
+//#include "tilemap.h"
+//#include "newBigMap.h"
+//#include "klein_probeer.h"
+//#include "domMap.h"
 #include "Labview1.h"
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
@@ -81,15 +81,15 @@ void scene_1::tick(u16 keys) {
 
     } else if (keys & KEY_UP) {
         if (charcterOnGround()) {
-            v1Y = 5;
+            v1Y = 7;
             movebg1(0, 5);
         }
     } else if (keys & KEY_DOWN) {
 
     } else if (keys & KEY_B) {
-
+        movebg1(32,0); //test function
     } else if (keys & KEY_A) {
-
+        backgroundPalette.get()->increaseBrightness(1);
     }
 
 
@@ -105,18 +105,20 @@ void scene_1::tick(u16 keys) {
         v1X = 0;
     }
 
-    movebg1(v1X, v1Y);
+    if(charcteragainstwall(false ) && v1X < 0 )
+    {
+        v1X = 0;
+    }
+
+    move(v1X,v1Y);
 
     ticknumber++;
 }
 
 bool scene_1::charcterOnGround() {
 
-    //this code works half
-    int charctertileY = (bg1Y + charcterY + CHARTERHEIGTH) / 8;
-    int charctertileX = (bg1X + CHARTERHEIGTH/2 + charcterX)/8; //half width of charcter
-    if(bigMap[((charctertileY+1)*SCENE_WIDTH)+charctertileX] != 0) {
-        bg1Y = ((bg1Y/8)*8)+2; //yes I change the heigth, just so it looks nice
+    
+    if(bigMap[((1)*SCENE_WIDTH)+getBottemLeftCharcterTile()] != 0) {
         return true;
     }
 
@@ -133,16 +135,17 @@ bool scene_1::charcterOnGround() {
 }
 
 bool scene_1::charcteragainstwall(bool right) { //otherwise left
-    int character_bottem_left_corner_tile = (((bg1Y+CHARTERHEIGTH)/8)*tilemap_width);
 
     if(right)
     {
-        return (tilemap[character_bottem_left_corner_tile+CHARTERWIDTH/*charcter width*//8+1] == 0);
+        return (bigMap[getBottemLeftCharcterTile() + (CHARTERWIDTH/8)+1] != 0);
     }
     else //left
     {
-        return (tilemap[character_bottem_left_corner_tile-1] == 0);
+        return (bigMap[getBottemLeftCharcterTile()-1] != 0);
     }
+
+    //return (bigMap[getBottemLeftCharcterTile()] != 0);
 }
 
 void scene_1::movebg1(int x, int y){
@@ -155,4 +158,29 @@ void scene_1::movecharcter(int x, int y) {
     charcterX += x;
     charcterY -= y;
     charcter.get()->moveTo(charcterX,charcterY);
+}
+
+int scene_1::getBottemLeftCharcterTile() {
+    int charctertileY = ((bg1Y + charcterY + CHARTERHEIGTH) / 8)*SCENE_WIDTH;
+    int charctertileX = (bg1X + charcterX)/8;
+    return charctertileX + charctertileY;
+}
+
+void scene_1::move(int x, int y) {
+    if((charcterY+CHARTERHEIGTH+128) - bg1Y < GBA_SCREEN_HEIGHT)
+    {
+        movecharcter(0,y);
+    }
+    else
+    {
+        movebg1(0,y);
+    }
+    if(charcterX-bg1X < GBA_SCREEN_WIDTH/2)
+    {
+        movecharcter(x,0);
+    }
+    else
+    {
+        movebg1(x,0);
+    }
 }
