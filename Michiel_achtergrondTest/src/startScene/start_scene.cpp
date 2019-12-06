@@ -16,8 +16,8 @@
 #include "try1.h"
 #include "try3.h"
 #include "../scene1/try4.h"
-#include "../scene1/PAL_SPEL2.h"
 
+//#include "../scene1/achtergrond20X18.h"
 
 std::vector<Background *> BeginScene::backgrounds() {
     return {bg1.get()};

@@ -8,11 +8,14 @@
 #include <libgba-sprite-engine/palette/palette_manager.h>
 #include <libgba-sprite-engine/allocator.h>
 #include "scene_1.h"
-#include "PAL_SPEL2.h"
+
 #include "try4.h"
 #include "achtergrond20X18.h"
 #include "try5.h"
-
+#include "try6.h"
+#include "PAL_SPEL2.c"
+#include "try7.h"
+#include "SPEL2PAL.c"
 #include "../../../game/src/scene_1/blok2.h"
 
 
@@ -26,9 +29,9 @@ std :: vector<Background *> SecondScene::backgrounds()
 
 void SecondScene::load()
 {
-    backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(blok2Pal, sizeof(blok2Pal)));
+    backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(SPEL2PALPal, sizeof(SPEL2PALPal)));
     engine->getTimer()->start();
-    bg1=std::unique_ptr<Background>(new Background(1,blok2Tiles,sizeof(blok2Tiles),try5,sizeof(try5)));
+    bg1=std::unique_ptr<Background>(new Background(1,SPEL2PALTiles,sizeof(SPEL2PALTiles),try7  ,sizeof(try7)));
     bg1.get()->scroll(scrollX,scrollY);
 }
 

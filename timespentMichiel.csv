@@ -6,9 +6,12 @@ day,hours
 5/12/2019 1
 5/12/2019 2
 5/12/2019 2
+6/12/2019 5
 
 
 
 
 vragen: hoe weet de engine hoe hoog en breed de map is die je inlaadt zijn toch maar gewoon een array van referenties naar de tiles
 wat doet precies scrollspeed in u bibliotheek van de scene
+
+gba engine.cpp regel 109
