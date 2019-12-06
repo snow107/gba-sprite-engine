@@ -13,6 +13,11 @@
 #include "Labview1.h"
 #include  "probeerSpiegel.h"
 #include "../scene1/scene_1.h"
+#include "try1.h"
+#include "try3.h"
+#include "../scene1/try4.h"
+#include "../scene1/PAL_SPEL2.h"
+
 
 std::vector<Background *> BeginScene::backgrounds() {
     return {bg1.get()};
