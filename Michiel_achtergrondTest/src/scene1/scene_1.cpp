@@ -11,6 +11,7 @@
 #include "PAL_SPEL2.h"
 #include "try4.h"
 #include "achtergrond20X18.h"
+#include "try5.h"
 
 #include "../../../game/src/scene_1/blok2.h"
 
@@ -25,9 +26,9 @@ std :: vector<Background *> SecondScene::backgrounds()
 
 void SecondScene::load()
 {
-    backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(PAL_SPEL2Pal, sizeof(PAL_SPEL2Pal)));
+    backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(blok2Pal, sizeof(blok2Pal)));
     engine->getTimer()->start();
-    bg1=std::unique_ptr<Background>(new Background(1,PAL_SPEL2Tiles,sizeof(PAL_SPEL2Tiles),try4,sizeof(try4)));
+    bg1=std::unique_ptr<Background>(new Background(1,blok2Tiles,sizeof(blok2Tiles),try5,sizeof(try5)));
     bg1.get()->scroll(scrollX,scrollY);
 }
 
