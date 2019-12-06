@@ -8,12 +8,13 @@
 
 #include <libgba-sprite-engine/scene.h>
 
+
 class BeginScene : public Scene {
 private:
 
     std::unique_ptr<Background> bg1;
-    int scrollX=0,scrollY;
-    int control=1;
+    int scrollX=0,scrollY=0;
+
 
 
 public:

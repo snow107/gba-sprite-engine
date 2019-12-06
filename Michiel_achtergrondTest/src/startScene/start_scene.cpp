@@ -7,10 +7,12 @@
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/palette/palette_manager.h>
 #include <libgba-sprite-engine/allocator.h>
+#include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include "start_scene.h"
 #include "blok2.h"
 #include "Labview1.h"
 #include  "probeerSpiegel.h"
+#include "../scene1/scene_1.h"
 
 std::vector<Background *> BeginScene::backgrounds() {
     return {bg1.get()};
@@ -23,8 +25,8 @@ void BeginScene::load() {
 
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(blok2Pal, sizeof(blok2Pal)));
     engine->getTimer()->start();
-    bg1 = std::unique_ptr<Background>(new Background(1, blok2Tiles, sizeof(bigMap), bigMap, sizeof(bigMap)));
-    scrollY=tilemapHeight-160;
+    bg1 = std::unique_ptr<Background>(new Background(1, blok2Tiles, sizeof(blok2Tiles), bigMap, sizeof(bigMap)));
+    scrollY=tilemapHeight-GBA_SCREEN_HEIGHT;
     bg1.get()->scroll(scrollX, scrollY);
 
 }
@@ -33,8 +35,8 @@ void BeginScene ::tick(u16 keys) {
 
     if (keys & KEY_RIGHT )
     {
-    control =0;
-        if(scrollX <tilemapWith-240)
+
+        if(scrollX <tilemapWith-GBA_SCREEN_WIDTH)
         {
             scrollX++;
             //bg1.get()->scrollSpeed(1, 0);
@@ -53,7 +55,7 @@ void BeginScene ::tick(u16 keys) {
     }
     else if(keys & KEY_DOWN)
     {
-        if(scrollY <tilemapHeight-160)
+        if(scrollY <tilemapHeight-GBA_SCREEN_HEIGHT)
         {
             scrollY++;
             bg1.get()->scroll(scrollX,scrollY);
@@ -66,9 +68,13 @@ void BeginScene ::tick(u16 keys) {
             bg1.get()->scroll(scrollX, scrollY);
         }
     }
+    else if(keys & KEY_START) {
+        if (!engine->isTransitioning()) {
 
-    if(!(keys && KEY_ANY))
-    {
-        control=0;
+
+            engine->transitionIntoScene(new SecondScene(engine), new FadeOutScene(2));
+        }
     }
+
+
 }
