@@ -18,9 +18,10 @@
 
 #include "../genericScene.h"
 #include "../scene_start/mainCharcters.h"
-#define CHARTERHEIGTH 32
-#define CHARTERWIDTH 32
-#define SCENE_WIDTH 32
+#define CHARTERHEIGTH 32 //pixels
+#define CHARTERWIDTH 32 //pixels
+#define SCENE_WIDTH 32 //tiles
+#define SCENE_HEIGTH 32 //tiles
 
 std::vector<Background *> scene_1::backgrounds() {
     return {bg1.get()};
@@ -117,8 +118,8 @@ void scene_1::tick(u16 keys) {
 
 bool scene_1::charcterOnGround() {
 
-    
-    if(bigMap[((1)*SCENE_WIDTH)+getBottemLeftCharcterTile()] != 0) {
+
+    if(bigMap[getBottemLeftCharcterTile()+((1)*SCENE_WIDTH) + ((CHARTERWIDTH/8)/2)] != 0) {
         return true;
     }
 
@@ -136,13 +137,19 @@ bool scene_1::charcterOnGround() {
 
 bool scene_1::charcteragainstwall(bool right) { //otherwise left
 
+    int charctertopleft = ((bg1Y + charcterY) / 8)*SCENE_WIDTH + (bg1X + charcterX)/8;
     if(right)
     {
-        return (bigMap[getBottemLeftCharcterTile() + (CHARTERWIDTH/8)+1] != 0);
+        int chartertopright = charctertopleft + (CHARTERWIDTH/8);
+        for (int i = 0; i < CHARTERHEIGTH/8; ++i) {
+            return (bigMap[(chartertopright)+(i*SCENE_WIDTH)] != 0);
+        }
     }
     else //left
     {
-        return (bigMap[getBottemLeftCharcterTile()-1] != 0);
+        for (int i = 0; i < CHARTERHEIGTH/8; ++i) {
+            return (bigMap[(charctertopleft)+(i*SCENE_WIDTH)] != 0);
+        }
     }
 
     //return (bigMap[getBottemLeftCharcterTile()] != 0);
@@ -167,7 +174,7 @@ int scene_1::getBottemLeftCharcterTile() {
 }
 
 void scene_1::move(int x, int y) {
-    if((charcterY+CHARTERHEIGTH+128) - bg1Y < GBA_SCREEN_HEIGHT)
+    if(((charcterY+CHARTERHEIGTH+128) - bg1Y < GBA_SCREEN_HEIGHT)|| ((SCENE_HEIGTH*8)-bg1Y <= GBA_SCREEN_HEIGHT) )
     {
         movecharcter(0,y);
     }
@@ -175,7 +182,7 @@ void scene_1::move(int x, int y) {
     {
         movebg1(0,y);
     }
-    if(charcterX-bg1X < GBA_SCREEN_WIDTH/2)
+    if((charcterX-bg1X < GBA_SCREEN_WIDTH/2)|| (SCENE_WIDTH*8)-bg1X <= GBA_SCREEN_WIDTH)
     {
         movecharcter(x,0);
     }
