@@ -53,6 +53,7 @@ void scene_1::load() {
             .withSize(SIZE_32_32)
             .withAnimated(16,10)
             .withLocation(charcterX, charcterY)
+            .withinBounds()
             .buildPtr();
 }
 
@@ -73,8 +74,12 @@ void scene_1::tick(u16 keys) {
                 v1X += 1;
             }
         } else {
-            if (v1X > 0) v1X--;
-            if (v1X < 0) v1X++;
+            if (v1X > 0) {
+                v1X--;
+            }
+            if (v1X < 0) {
+                v1X++;
+            }
         }
     }
 
@@ -93,6 +98,17 @@ void scene_1::tick(u16 keys) {
         backgroundPalette.get()->increaseBrightness(1);
     }
 
+    if (v1X > 0) {
+        charcter.get()->flipHorizontally(false);
+    }
+    if (v1X < 0) {
+        charcter.get()->flipHorizontally(true);
+    }
+    if(v1X==0){
+        charcter.get()->stopAnimating();
+    } else{
+        charcter.get()->animate();
+    }
 
     if (!charcterOnGround()) {
         if (!(ticknumber % 5))
@@ -142,17 +158,23 @@ bool scene_1::charcteragainstwall(bool right) { //otherwise left
     {
         int chartertopright = charctertopleft + (CHARTERWIDTH/8);
         for (int i = 0; i < CHARTERHEIGTH/8; ++i) {
-            return (bigMap[(chartertopright)+(i*SCENE_WIDTH)] != 0);
+            if(bigMap[(chartertopright)+(i*SCENE_WIDTH)] != 0)
+            {
+                return true;
+            }
         }
     }
     else //left
     {
         for (int i = 0; i < CHARTERHEIGTH/8; ++i) {
-            return (bigMap[(charctertopleft)+(i*SCENE_WIDTH)] != 0);
+            if (bigMap[(charctertopleft)+(i*SCENE_WIDTH)] != 0)
+            {
+                return true;
+            }
         }
     }
 
-    //return (bigMap[getBottemLeftCharcterTile()] != 0);
+    return false;
 }
 
 void scene_1::movebg1(int x, int y){
