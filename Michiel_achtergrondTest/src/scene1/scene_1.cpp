@@ -24,15 +24,54 @@ std :: vector< Sprite *> SecondScene::sprites() {
 }
 std :: vector<Background *> SecondScene::backgrounds()
 {
-    return {bg1.get()};
+    return{bg2.get() , bg1.get()};
 }
+
 
 void SecondScene::load()
 {
     backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(SPEL2PALPal, sizeof(SPEL2PALPal)));
     engine->getTimer()->start();
-    bg1=std::unique_ptr<Background>(new Background(1,SPEL2PALTiles,sizeof(SPEL2PALTiles),try7  ,sizeof(try7)));
-    bg1.get()->scroll(scrollX,scrollY);
+
+    bg1=std::unique_ptr<Background>(new Background(1,SPEL2PALTiles,sizeof(SPEL2PALTiles),achterGrond  ,sizeof(achterGrond)));
+    bg2=std::unique_ptr<Background>(new Background(2,SPEL2PALTiles,sizeof(SPEL2PALTiles),try6  ,sizeof(try6)));
+   // bg1.get()->scroll(scrollX,scrollY);
 }
 
-void SecondScene::tick(u16 keys) {}
+void SecondScene::tick(u16 keys) {
+    if (keys & KEY_RIGHT )
+    {
+
+        if(scrollX <500-GBA_SCREEN_WIDTH)
+        {
+            scrollX++;
+            //bg1.get()->scrollSpeed(1, 0);
+            bg1.get()->scroll(scrollX,scrollY);
+        }
+    }
+
+    else if(keys & KEY_LEFT)
+    {
+        if(scrollX >0)
+        {
+            scrollX--;
+            //bg1.get()->scrollSpeed(1, 0);
+            bg1.get()->scroll(scrollX,scrollY);
+        }
+    }
+    else if(keys & KEY_DOWN)
+    {
+        if(scrollY <500-GBA_SCREEN_HEIGHT)
+        {
+            scrollY++;
+            bg1.get()->scroll(scrollX,scrollY);
+        }
+    }
+    else if (keys & KEY_UP)
+    {
+        if (scrollY > 0) {
+            scrollY--;
+            bg1.get()->scroll(scrollX, scrollY);
+        }
+    }
+}

@@ -12,8 +12,8 @@ class SecondScene : public Scene
 {
 private :
     int scrollX=0,scrollY=0;
-    std:: unique_ptr<Background> bg1;
-   // std:: unique_ptr<Background> bg2;
+    std:: unique_ptr<Background> bg1,bg2;
+
 public:
 
     std :: vector< Sprite *> sprites() override;
