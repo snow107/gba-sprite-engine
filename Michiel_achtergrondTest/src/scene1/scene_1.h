@@ -15,6 +15,7 @@ private :
     std:: unique_ptr<Background> bg1,bg2;
     std :: vector<Background *> bgvector;
     int ticknumber;
+    bool loadcomplete = false;
 
 public:
 
