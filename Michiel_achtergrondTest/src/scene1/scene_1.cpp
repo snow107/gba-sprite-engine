@@ -9,13 +9,13 @@
 #include <libgba-sprite-engine/allocator.h>
 #include "scene_1.h"
 
-#include "try4.h"
+//#include "try4.h"
 #include "achtergrond20X18.h"
-#include "try5.h"
+//#include "try5.h"
 #include "try6.h"
-#include "PAL_SPEL2.c"
-#include "try7.h"
-#include "SPEL2PAL.c"
+//#include "PAL_SPEL2.c"
+//#include "try7.h"
+#include "SPEL2PAL.h"
 #include "../../../game/src/scene_1/blok2.h"
 
 
@@ -24,21 +24,38 @@ std :: vector< Sprite *> SecondScene::sprites() {
 }
 std :: vector<Background *> SecondScene::backgrounds()
 {
-    return{bg2.get() , bg1.get()};
+    return bgvector;
 }
+
 
 
 void SecondScene::load()
 {
+    engine.get()->disableText();
     backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(SPEL2PALPal, sizeof(SPEL2PALPal)));
-    engine->getTimer()->start();
 
-    bg1=std::unique_ptr<Background>(new Background(1,SPEL2PALTiles,sizeof(SPEL2PALTiles),achterGrond  ,sizeof(achterGrond)));
-    bg2=std::unique_ptr<Background>(new Background(2,SPEL2PALTiles,sizeof(SPEL2PALTiles),try6  ,sizeof(try6)));
+    bg2.get()->clearMap();
+    bg1.get()->clearMap();
+
+
+
+    bg1=std::unique_ptr<Background>(new Background(1,SPEL2PALTiles,sizeof(SPEL2PALTiles),try6  ,sizeof(try6)));
+    bg2=std::unique_ptr<Background>(new Background(2,SPEL2PALTiles2,sizeof(SPEL2PALTiles2),achterGrond  ,sizeof(achterGrond)));
    // bg1.get()->scroll(scrollX,scrollY);
+
+    bgvector.push_back(bg1.get());
+    bgvector.push_back(bg2.get());
+
 }
 
 void SecondScene::tick(u16 keys) {
+    if (!(ticknumber%200)){
+        bg1.get()->updateMap(try6);
+    }
+    if (!((ticknumber+100)%200)){
+        bg2.get()->updateMap(achterGrond);
+    }
+
     if (keys & KEY_RIGHT )
     {
 
@@ -74,4 +91,6 @@ void SecondScene::tick(u16 keys) {
             bg1.get()->scroll(scrollX, scrollY);
         }
     }
+
+    ticknumber++;
 }
