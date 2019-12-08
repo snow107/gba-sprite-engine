@@ -18,6 +18,8 @@
 #include "../scene1/try4.h"
 #include "../Map/Huis_Spikes.h"
 #include "../Tileset/Pal_trans.c"
+#include "../Map/langeMap.h"
+#include "../Map/BesteMap.h"
 
 //#include "../scene1/achtergrond20X18.h"
 
