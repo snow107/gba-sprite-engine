@@ -16,6 +16,8 @@
 #include "try1.h"
 #include "try3.h"
 #include "../scene1/try4.h"
+#include "../Map/Huis_Spikes.h"
+#include "../Tileset/Pal_trans.c"
 
 //#include "../scene1/achtergrond20X18.h"
 
@@ -28,9 +30,9 @@ std::vector<Sprite *> BeginScene::sprites() {
 
 void BeginScene::load() {
 
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(blok2Pal, sizeof(blok2Pal)));
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Pal_transPal, sizeof(Pal_transPal)));
     engine->getTimer()->start();
-    bg1 = std::unique_ptr<Background>(new Background(1, blok2Tiles, sizeof(blok2Tiles), bigMap, sizeof(bigMap)));
+    bg1 = std::unique_ptr<Background>(new Background(1, Pal_transTiles, sizeof(Pal_transTiles), Map1, sizeof(Map1)));
     scrollY=tilemapHeight-GBA_SCREEN_HEIGHT;
     bg1.get()->scroll(scrollX, scrollY);
 
