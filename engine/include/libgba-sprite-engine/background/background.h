@@ -12,6 +12,7 @@ class Background {
 private:
     void buildRegister();
     u32 getBgControlRegisterIndex();
+    void* screen_block2(unsigned long block,int index);
 
 protected:
     const void *data;

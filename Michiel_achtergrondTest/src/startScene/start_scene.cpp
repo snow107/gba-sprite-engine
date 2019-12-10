@@ -25,7 +25,7 @@
 //#include "../scene1/achtergrond20X18.h"
 
 std::vector<Background *> BeginScene::backgrounds() {
-    return {bg1.get()};
+    return {bg1.get(),bg2.get()};
 }
 std::vector<Sprite *> BeginScene::sprites() {
     return {};
@@ -36,7 +36,7 @@ void BeginScene::load() {
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Pal_transPal, sizeof(Pal_transPal)));
     engine->getTimer()->start();
     bg1 = std::unique_ptr<Background>(new Background(1, Pal_transTiles, sizeof(Pal_transTiles), Map_Best, sizeof(Map_Best)));
-    //bg2 = std::unique_ptr<Background>(new Background(2, Pal_transTiles, sizeof(Pal_transTiles), background, sizeof(background)));
+    bg2 = std::unique_ptr<Background>(new Background(2, Pal_transTiles, sizeof(Pal_transTiles), background, sizeof(background)));
     scrollY=tilemapHeight-GBA_SCREEN_HEIGHT;
     bg1.get()->scroll(scrollX, scrollY);
 

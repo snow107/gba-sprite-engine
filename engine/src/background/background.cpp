@@ -20,24 +20,26 @@
 // Use the bgIndex as a hardcoded char block and let the background decide on the map screen block.
 
 
-
-void* screen_block(unsigned long block, int index) {
-    return (void *) (0x6000000 + ((block+index) * 0x800));
+void* Background::screen_block2(unsigned long block, int index) {
+    return (void*) (0x6000000 + (0x800*index));
+}
+void* screen_block(unsigned long block) {
+    return (void *) (0x6000000 + (block * 0x800));
 }
 void* char_block(unsigned long block) {
-    return (void*) (0x6000000 + ( 0x4000));
+    return (void*) (0x6000000 + (block * 0x4000));
 }
 
 void Background::updateMap(const void *map) {
     this->map = map;
-    dma3_cpy(screen_block(screenBlockIndex,bgIndex), this->map, this->mapSize);
+    dma3_cpy(screen_block2(screenBlockIndex,bgIndex), this->map, this->mapSize);
 }
 
 void Background::persist() {
     dma3_cpy(char_block(bgIndex), this->data, this->size);
 
     if(this->map) {
-        dma3_cpy(screen_block(screenBlockIndex,bgIndex), this->map, this->mapSize);
+        dma3_cpy(screen_block2(screenBlockIndex,bgIndex), this->map, this->mapSize);
     }
 
     buildRegister();
@@ -91,18 +93,6 @@ if(bgIndex==2){
             (0 << 14)|
             (0<<15);
 }
-//else
-//{
-//    *(vu16*)(REG_BASE+getBgControlRegisterIndex()) =
-//            bgIndex |        /* priority, 0 is highest, 3 is lowest */
-//            (bgIndex << 2) |    /* the char block the image data is stored in */
-//            (0 << 6)  |       /* the mosaic flag */
-//            (1 << 7)  |       /* color mode, 0 is 16 colors, 1 is 256 colors */
-//            (0 << 8) |       /* the screen block the tile data is stored in */
-//            (1 << 13) |       /* wrapping flag */
-//            (0 << 14)|
-//            (0<<15);
-//}
 //
 //    *(vu16*)(REG_BASE+getBgControlRegisterIndex()) =
 //            bgIndex |        /* priority, 0 is highest, 3 is lowest */
