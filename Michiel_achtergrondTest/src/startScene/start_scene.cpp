@@ -13,13 +13,14 @@
 #include "Labview1.h"
 #include  "probeerSpiegel.h"
 #include "../scene1/scene_1.h"
-#include "try1.h"
+#include "../Map/try1.h"
 #include "try3.h"
 #include "../scene1/try4.h"
 #include "../Map/Huis_Spikes.h"
 #include "../Tileset/Pal_trans.c"
 #include "../Map/langeMap.h"
 #include "../Map/BesteMap.h"
+#include "../Map/background.h"
 
 //#include "../scene1/achtergrond20X18.h"
 
@@ -34,7 +35,8 @@ void BeginScene::load() {
 
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Pal_transPal, sizeof(Pal_transPal)));
     engine->getTimer()->start();
-    bg1 = std::unique_ptr<Background>(new Background(1, Pal_transTiles, sizeof(Pal_transTiles), Map1, sizeof(Map1)));
+    bg1 = std::unique_ptr<Background>(new Background(1, Pal_transTiles, sizeof(Pal_transTiles), Map_Best, sizeof(Map_Best)));
+    //bg2 = std::unique_ptr<Background>(new Background(2, Pal_transTiles, sizeof(Pal_transTiles), background, sizeof(background)));
     scrollY=tilemapHeight-GBA_SCREEN_HEIGHT;
     bg1.get()->scroll(scrollX, scrollY);
 
@@ -45,7 +47,7 @@ void BeginScene ::tick(u16 keys) {
     if (keys & KEY_RIGHT )
     {
 
-        if(scrollX <tilemapWith-GBA_SCREEN_WIDTH)
+        if(scrollX <BesteMap_Map_Whith*8-GBA_SCREEN_WIDTH)
         {
             scrollX++;
             //bg1.get()->scrollSpeed(1, 0);
@@ -81,7 +83,7 @@ void BeginScene ::tick(u16 keys) {
         if (!engine->isTransitioning()) {
 
 
-            engine->transitionIntoScene(new SecondScene(engine), new FadeOutScene(2));
+            engine->transitionIntoScene(new SecondScene(engine), new FadeOutScene(255));
         }
     }
 

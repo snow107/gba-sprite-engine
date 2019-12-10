@@ -6,7 +6,7 @@
 #define GBA_SPRITE_ENGINE_PROJECT_PROBEERSPIEGEL_H
  #endif // GBA_SPRITE_ENGINE_PROJECT_PROBEERSPIEGEL_H
 
-unsigned short try1 [] = { 
+unsigned short trySpiegel [] = {
 
 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 

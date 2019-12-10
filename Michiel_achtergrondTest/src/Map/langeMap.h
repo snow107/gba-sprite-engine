@@ -4,8 +4,8 @@
 
 #ifndef GBA_SPRITE_ENGINE_PROJECT_LANGEMAP_H
 #define GBA_SPRITE_ENGINE_PROJECT_LANGEMAP_H
-#define Map_Height  32
-#define  Map_whith  96
+#define LangeMap_Map_Height  32
+#define  LangeMap_Map_whith  96
 
 unsigned short Map_lang [] = { 
 
