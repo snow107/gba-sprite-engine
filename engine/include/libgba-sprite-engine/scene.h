@@ -14,6 +14,8 @@
 class GBAEngine;
 
 class Scene {
+private:
+    int screenblock=0,charblock=2;
 protected:
     std::unique_ptr<ForegroundPaletteManager> foregroundPalette;
     std::unique_ptr<BackgroundPaletteManager> backgroundPalette;

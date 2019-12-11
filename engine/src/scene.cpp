@@ -12,22 +12,22 @@ void Scene::addSprite(Sprite *sprite) {
 }
 
 Background *Scene::CreateBackground(int bgIndex, const void *data, int size, const void *map, int mapSize, int grootte) {
-    int static screenblock=0,charblock=2;
+
     switch (grootte)
     {
         case 0:
             screenblock++;
-            return (new Background(bgIndex,data,size,map,mapSize,screenblock,charblock,grootte));
-
+            return (new Background(bgIndex,data,size,map,mapSize,screenblock-1,charblock,grootte));
         case 1:
             screenblock +=2;
-            return (new Background(bgIndex,data,size,map,mapSize,screenblock,charblock,grootte));
+            return (new Background(bgIndex,data,size,map,mapSize,screenblock-2,charblock,grootte));
 
         case 2:
-            screenblock +=2;
-            return (new Background(bgIndex,data,size,map,mapSize,screenblock,charblock,grootte));
+            screenblock +=3;
+            return (new Background(bgIndex,data,size,map,mapSize,screenblock-2,charblock,grootte));
         case 3:
             screenblock +=4;
-            return (new Background(bgIndex,data,size,map,mapSize,screenblock,charblock,grootte));
+            return (new Background(bgIndex,data,size,map,mapSize,screenblock-4,charblock,grootte));
     }
+
 }
