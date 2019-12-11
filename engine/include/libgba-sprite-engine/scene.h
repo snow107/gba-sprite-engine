@@ -20,6 +20,7 @@ protected:
     std::shared_ptr<GBAEngine> engine;
 
     void addSprite(Sprite* sprite);
+   Background* CreateBackground(int bgIndex, const void *data, int size, const void* map, int mapSize ,int grootte);
 
 public:
     ForegroundPaletteManager* getForegroundPalette() { return foregroundPalette.get(); }

@@ -35,11 +35,11 @@ void SecondScene::load()
 
     backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Pal_transPal, sizeof(Pal_transPal)));
 
-    bg1=std::unique_ptr<Background>(new Background(1,Pal_transTiles,sizeof(Pal_transTiles),try6  ,sizeof(try6)));
-    bg2=std::unique_ptr<Background>(new Background(2,Pal_transTiles,sizeof(Pal_transTiles),achterGrond  ,sizeof(achterGrond)));
+  //  bg1=std::unique_ptr<Background>(new Background(1,Pal_transTiles,sizeof(Pal_transTiles),try6  ,sizeof(try6)));
+  //  bg2=std::unique_ptr<Background>(new Background(2,Pal_transTiles,sizeof(Pal_transTiles),achterGrond  ,sizeof(achterGrond)));
 
-
-
+    bg1=std::unique_ptr<Background>(CreateBackground(1,Pal_transTiles, sizeof(Pal_transTiles),try6,sizeof(try6),MAP32X32));
+    bg2=std::unique_ptr<Background>(CreateBackground(2,Pal_transTiles,sizeof(Pal_transTiles),achterGrond, sizeof(achterGrond),MAP32X32));
 
     engine.get()->disableText();
 

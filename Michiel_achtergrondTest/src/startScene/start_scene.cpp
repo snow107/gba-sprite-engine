@@ -35,8 +35,12 @@ void BeginScene::load() {
 
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Pal_transPal, sizeof(Pal_transPal)));
     engine->getTimer()->start();
-    bg1 = std::unique_ptr<Background>(new Background(1, Pal_transTiles, sizeof(Pal_transTiles), Map_Best, sizeof(Map_Best)));
-    bg2 = std::unique_ptr<Background>(new Background(2, Pal_transTiles, sizeof(Pal_transTiles), background, sizeof(background)));
+  //  bg1 = std::unique_ptr<Background>(new Background(1, Pal_transTiles, sizeof(Pal_transTiles), Map_Best, sizeof(Map_Best),1,1,MAP32X32));
+  //  bg2 = std::unique_ptr<Background>(new Background(2, Pal_transTiles, sizeof(Pal_transTiles), background, sizeof(background),16,1,MAP32X32));
+
+
+    bg1=std::unique_ptr<Background>(CreateBackground(1,Pal_transTiles, sizeof(Pal_transTiles),Map_Best, sizeof(Map_Best),MAP64X32));
+    bg2=std::unique_ptr<Background>(CreateBackground(2,Pal_transTiles, sizeof(Pal_transTiles),background,sizeof(background),MAP32X32));
     scrollY=tilemapHeight-GBA_SCREEN_HEIGHT;
     bg1.get()->scroll(scrollX, scrollY);
 
@@ -82,7 +86,8 @@ void BeginScene ::tick(u16 keys) {
     else if(keys & KEY_START) {
         if (!engine->isTransitioning()) {
 
-
+            bg1.get()->clearMap();
+            bg2.get()->clearMap();
             engine->transitionIntoScene(new SecondScene(engine), new FadeOutScene(255));
         }
     }

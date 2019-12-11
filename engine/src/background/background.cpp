@@ -20,26 +20,24 @@
 // Use the bgIndex as a hardcoded char block and let the background decide on the map screen block.
 
 
-void* Background::screen_block2(unsigned long block, int index) {
-    return (void*) (0x6000000 + (0x800*index));
+
+void* screen_block(unsigned long screenblock) {
+    return (void *) (0x6000000 + (screenblock * 0x800));
 }
-void* screen_block(unsigned long block) {
-    return (void *) (0x6000000 + (block * 0x800));
-}
-void* char_block(unsigned long block) {
-    return (void*) (0x6000000 + (block * 0x4000));
+void* char_block(unsigned long charblock) {
+    return (void*) (0x6000000 + (charblock * 0x4000));
 }
 
 void Background::updateMap(const void *map) {
     this->map = map;
-    dma3_cpy(screen_block2(screenBlockIndex,bgIndex), this->map, this->mapSize);
+    dma3_cpy(screen_block(screenBlockIndex), this->map, this->mapSize);
 }
 
 void Background::persist() {
-    dma3_cpy(char_block(bgIndex), this->data, this->size);
+    dma3_cpy(char_block(charBlockIndex), this->data, this->size);
 
     if(this->map) {
-        dma3_cpy(screen_block2(screenBlockIndex,bgIndex), this->map, this->mapSize);
+        dma3_cpy(screen_block(screenBlockIndex), this->map, this->mapSize);
     }
 
     buildRegister();
@@ -48,7 +46,7 @@ void Background::persist() {
 void Background::clearData() {
     this->clearMap();
     int empty[this->size];
-    dma3_cpy(char_block(bgIndex), empty, this->size);
+    dma3_cpy(char_block(charBlockIndex), empty, this->size);
 }
 
 void Background::clearMap() {
@@ -70,29 +68,20 @@ u32 Background::getBgControlRegisterIndex() {
 
 void Background::buildRegister() {
 
-if(bgIndex==1)
-{
-    *(vu16*)(REG_BASE+getBgControlRegisterIndex()) =
+
+    *(vu16 *) (REG_BASE + getBgControlRegisterIndex()) =
             bgIndex |        /* priority, 0 is highest, 3 is lowest */
-            (bgIndex << 2) |    /* the char block the image data is stored in */
-            (0 << 6)  |       /* the mosaic flag */
-            (1 << 7)  |       /* color mode, 0 is 16 colors, 1 is 256 colors */
-            (1 << 8) |       /* the screen block the tile data is stored in */
+            (charBlockIndex << 2) |    /* the char block the image data is stored in */
+            (0 << 6) |       /* the mosaic flag */
+            (1 << 7) |       /* color mode, 0 is 16 colors, 1 is 256 colors */
+            (screenBlockIndex << 8) |       /* the screen block the tile data is stored in */
             (1 << 13) |       /* wrapping flag */
-            (0 << 14)|
-            (0<<15);
+            (grootte << 14) ;
+
 }
-if(bgIndex==2){
-    *(vu16*)(REG_BASE+getBgControlRegisterIndex()) =
-            bgIndex |        /* priority, 0 is highest, 3 is lowest */
-            (bgIndex << 2) |    /* the char block the image data is stored in */
-            (0 << 6)  |       /* the mosaic flag */
-            (1 << 7)  |       /* color mode, 0 is 16 colors, 1 is 256 colors */
-            (2 << 8) |       /* the screen block the tile data is stored in */
-            (1 << 13) |       /* wrapping flag */
-            (0 << 14)|
-            (0<<15);
-}
+
+
+
 //
 //    *(vu16*)(REG_BASE+getBgControlRegisterIndex()) =
 //            bgIndex |        /* priority, 0 is highest, 3 is lowest */
@@ -101,13 +90,13 @@ if(bgIndex==2){
 //            (1 << 7)  |       /* color mode, 0 is 16 colors, 1 is 256 colors */
 //            (screenBlockIndex << 8) |       /* the screen block the tile data is stored in */
 //            (1 << 13) |       /* wrapping flag */
-//            (0 << 14)|
-//            (0b1<<0xe);
+//            (grootte << 14)|
+//
 
 
 
 
-}
+
 
 void Background::scroll(int x, int y) {
     REG_BG_OFS[bgIndex].x = x;
