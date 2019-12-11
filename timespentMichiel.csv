@@ -9,16 +9,20 @@ day,hours
 6/12/2019 5
 7/12/2019 2
 9/12/2019 2
+10/12/2019 3
+11/12/2019 3
 
 
 
 
-vragen: hoe weet de engine hoe hoog en breed de map is die je inlaadt zijn toch maar gewoon een array van referenties naar de tiles
+
 wat doet precies scrollspeed in u bibliotheek van de scene
+
+waarom is charblock3 al in gebruik;
 
 gba engine.cpp regel 109
 
-hoe zit da met groott mappen en u kut achtergrond files
+
 kunt ge de mode aanpassen ?
 
-map grootte aanpassen in background.cpp regel76
+

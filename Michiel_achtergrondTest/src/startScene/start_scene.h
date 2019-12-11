@@ -14,6 +14,7 @@ private:
 
     std::unique_ptr<Background> bg1;
     std::unique_ptr<Background> bg2;
+    std::unique_ptr<Background> bg3;
     int scrollX=0,scrollY=0;
 
 
