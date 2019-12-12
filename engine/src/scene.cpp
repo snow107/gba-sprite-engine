@@ -12,27 +12,27 @@ void Scene::addSprite(Sprite *sprite) {
 }
 
 Background *Scene::CreateBackground(int bgIndex, const void *data, int size, const void *map, int mapSize, int grootte) {
-    int x=0;
+
+    int currentScreenBlock=screenblock;
     switch (grootte)
     {
         case 0:
             screenblock++;
-            x=1;
         break;
         case 1:
             screenblock +=2;
-            x=2;
+
         break;
         case 2:
             screenblock +=2;
-            x=2;
+
         break;
         case 3:
             screenblock +=4;
-            x=4;
+
         break;
     }
-    return (new Background(bgIndex,data,size,map,mapSize,screenblock-x,charblock,grootte));
-    //return (new Background(bgIndex,data,sizeof(data),map, sizeof(map),screenblock-x,charblock,grootte));
+    return (new Background(bgIndex,data,size,map,mapSize,currentScreenBlock,charblock,grootte));
+    
 
 }

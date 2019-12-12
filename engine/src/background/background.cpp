@@ -21,11 +21,11 @@
 
 
 
-void* screen_block(unsigned long screenblock) {
-    return (void *) (0x6000000 + (screenblock * 0x800));
+void* screen_block(unsigned long screenBlock) {
+    return (void *) (0x6000000 + (screenBlock * 0x800));
 }
-void* char_block(unsigned long charblock) {
-    return (void*) (0x6000000 + (charblock * 0x4000));
+void* char_block(unsigned long charBlock) {
+    return (void*) (0x6000000 + (charBlock * 0x4000));
 }
 
 void Background::updateMap(const void *map) {
@@ -76,7 +76,7 @@ void Background::buildRegister() {
             (1 << 7) |       /* color mode, 0 is 16 colors, 1 is 256 colors */
             (screenBlockIndex << 8) |       /* the screen block the tile data is stored in */
             (1 << 13) |       /* wrapping flag */
-            (grootte << 14) ;
+            (mapLayout << 14) ;
 
 }
 

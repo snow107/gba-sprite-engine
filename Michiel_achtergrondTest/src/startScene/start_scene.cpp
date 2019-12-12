@@ -37,6 +37,7 @@ std::vector<Sprite *> BeginScene::sprites() {
 
 void BeginScene::load() {
 
+    engine.get()->disableText();
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Pal_transPal, sizeof(Pal_transPal)));
     engine->getTimer()->start();
   //  bg1 = std::unique_ptr<Background>(new Background(1, Pal_transTiles, sizeof(Pal_transTiles), Map_Best, sizeof(Map_Best),1,1,MAP32X32));

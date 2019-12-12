@@ -51,6 +51,7 @@ public:
     bool isTransitioning() { return currentEffectForTransition != nullptr; }
     void disableText() { this->disableTextBg = true; }
     void enableText() { this->disableTextBg = false; }
+    bool isTextEnabled(){return disableTextBg;}
 
     void dequeueAllSounds();
     void enqueueMusic(const s8 *data, int totalSamples, int sampleRate = 16000) {

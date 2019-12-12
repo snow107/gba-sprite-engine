@@ -24,7 +24,7 @@ protected:
     int size, bgIndex;
     int mapSize;
     int screenBlockIndex, charBlockIndex;
-    int grootte;
+    int mapLayout;
 
 public:
     const int getScreenBlock() { return screenBlockIndex; }
@@ -34,10 +34,10 @@ public:
     void scrollSpeed(int dx, int dy);
 
     Background(int bgIndex, const void *data, int size, const void* map, int mapSize) : data(data), bgIndex(bgIndex), size(size), map(map),
-                                                                                        screenBlockIndex(0), charBlockIndex(1), mapSize(mapSize) {grootte=0;}
+                                                                                        screenBlockIndex(0), charBlockIndex(1), mapSize(mapSize) { mapLayout=0;}
                                                                                         
-    Background(int bgIndex,const void *data,int size,const void* map, int mapSize, int screenblock,int charblock, int grootte) : data(data),size(size),map(map),mapSize(mapSize),bgIndex(bgIndex),
-                                                                                                                                  screenBlockIndex(screenblock),charBlockIndex(charblock),grootte(grootte){}
+    Background(int bgIndex,const void *data,int size,const void* map, int mapSize, int screenBlock,int charBlock, int mapLayout) : data(data), size(size), map(map), mapSize(mapSize), bgIndex(bgIndex),
+                                                                                                                                   screenBlockIndex(screenBlock), charBlockIndex(charBlock), mapLayout(mapLayout){}
 
      virtual void persist();
     void updateMap(const void* map);
