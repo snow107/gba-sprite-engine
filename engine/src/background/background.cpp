@@ -90,7 +90,8 @@ void Background::buildRegister() {
 //            (1 << 7)  |       /* color mode, 0 is 16 colors, 1 is 256 colors */
 //            (screenBlockIndex << 8) |       /* the screen block the tile data is stored in */
 //            (1 << 13) |       /* wrapping flag */
-//            (grootte << 14)|
+//            (0 << 14)|
+//            (0<<15);
 //
 
 
