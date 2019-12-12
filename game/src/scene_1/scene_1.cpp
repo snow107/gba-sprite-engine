@@ -3,12 +3,6 @@
 //
 
 #include "scene_1.h"
-#include "blok2.h"
-//#include "tilemap.h"
-//#include "newBigMap.h"
-//#include "klein_probeer.h"
-//#include "domMap.h"
-#include "Labview1.h"
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
@@ -18,13 +12,17 @@
 
 #include "../genericScene.h"
 #include "../scene_start/mainCharcters.h"
+#include "Main_background.h"
+#include "Main_level.h"
+#include "../Tileset/tileset.h"
+
 #define CHARTERHEIGTH 32 //pixels
 #define CHARTERWIDTH 32 //pixels
-#define SCENE_WIDTH 32 //tiles
+#define SCENE_WIDTH 64 //tiles
 #define SCENE_HEIGTH 32 //tiles
 
 std::vector<Background *> scene_1::backgrounds() {
-    return {bg1.get()};
+    return {bg1.get(),bg2.get()};
 }
 
 std::vector<Sprite *> scene_1::sprites() {
@@ -32,12 +30,12 @@ std::vector<Sprite *> scene_1::sprites() {
 }
 
 void scene_1::load() {
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(blok2Pal, sizeof(blok2Pal)));
+    engine.get()->disableText();
 
-    engine->getTimer()->start();
-
-    bg1 = std::unique_ptr<Background>(new Background(1, blok2Tiles, sizeof(blok2Tiles), bigMap, sizeof(bigMap)));
+    foregroundPalette=std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
+    backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Pal_transPal, sizeof(Pal_transPal)));
+    bg1=std::unique_ptr<Background>(CreateBackground(1,Pal_transTiles, sizeof(Pal_transTiles),Main_level,sizeof(Main_level),MAP32X64));
+    bg2=std::unique_ptr<Background>(CreateBackground(2,Pal_transTiles, sizeof(Pal_transTiles),Main_background,sizeof(Main_background),MAP32X32));
 
     charcterX = 20;
     charcterY = 50;
@@ -53,7 +51,6 @@ void scene_1::load() {
             .withSize(SIZE_32_32)
             .withAnimated(16,10)
             .withLocation(charcterX, charcterY)
-            .withinBounds()
             .buildPtr();
 }
 
@@ -135,7 +132,7 @@ void scene_1::tick(u16 keys) {
 bool scene_1::charcterOnGround() {
 
 
-    if(bigMap[getBottemLeftCharcterTile()+((1)*SCENE_WIDTH) + ((CHARTERWIDTH/8)/2)] != 0) {
+    if(Main_level[getBottemLeftCharcterTile()+((1)*SCENE_WIDTH) + ((CHARTERWIDTH/8)/2)] != 0) {
         return true;
     }
 
@@ -158,7 +155,7 @@ bool scene_1::charcteragainstwall(bool right) { //otherwise left
     {
         int chartertopright = charctertopleft + (CHARTERWIDTH/8);
         for (int i = 0; i < CHARTERHEIGTH/8; ++i) {
-            if(bigMap[(chartertopright)+(i*SCENE_WIDTH)] != 0)
+            if(Main_level[(chartertopright)+(i*SCENE_WIDTH)] != 0)
             {
                 return true;
             }
@@ -167,7 +164,7 @@ bool scene_1::charcteragainstwall(bool right) { //otherwise left
     else //left
     {
         for (int i = 0; i < CHARTERHEIGTH/8; ++i) {
-            if (bigMap[(charctertopleft)+(i*SCENE_WIDTH)] != 0)
+            if (Main_level[(charctertopleft)+(i*SCENE_WIDTH)] != 0)
             {
                 return true;
             }

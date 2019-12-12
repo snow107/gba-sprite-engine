@@ -12,6 +12,7 @@ class scene_1 : public Scene {
     private:
         std::unique_ptr<Sprite> charcter;
         std::unique_ptr<Background> bg1;
+        std::unique_ptr<Background> bg2;
         int bg1X,bg1Y;
         int v1X,v1Y;
         int charcterX,charcterY;
