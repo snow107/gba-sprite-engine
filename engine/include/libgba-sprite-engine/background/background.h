@@ -7,11 +7,16 @@
 
 
 #include <libgba-sprite-engine/gba/tonc_types.h>
+#define MAP32X32 0
+#define MAP32X64 1
+#define MAP64X32 2
+#define MAP64X64 3
 
 class Background {
 private:
     void buildRegister();
     u32 getBgControlRegisterIndex();
+
 
 protected:
     const void *data;
@@ -19,6 +24,7 @@ protected:
     int size, bgIndex;
     int mapSize;
     int screenBlockIndex, charBlockIndex;
+    int grootte;
 
 public:
     const int getScreenBlock() { return screenBlockIndex; }
@@ -28,8 +34,12 @@ public:
     void scrollSpeed(int dx, int dy);
 
     Background(int bgIndex, const void *data, int size, const void* map, int mapSize) : data(data), bgIndex(bgIndex), size(size), map(map),
-                                                                                        screenBlockIndex(0), charBlockIndex(0), mapSize(mapSize) {}
-    virtual void persist();
+                                                                                        screenBlockIndex(0), charBlockIndex(1), mapSize(mapSize) {grootte=0;}
+                                                                                        
+    Background(int bgIndex,const void *data,int size,const void* map, int mapSize, int screenblock,int charblock, int grootte) : data(data),size(size),map(map),mapSize(mapSize),bgIndex(bgIndex),
+                                                                                                                                  screenBlockIndex(screenblock),charBlockIndex(charblock),grootte(grootte){}
+
+     virtual void persist();
     void updateMap(const void* map);
     void clearMap();
     void clearData();
