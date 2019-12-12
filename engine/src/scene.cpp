@@ -13,26 +13,30 @@ void Scene::addSprite(Sprite *sprite) {
 
 Background *Scene::CreateBackground(int bgIndex, const void *data, int size, const void *map, int mapSize, int grootte) {
 
-    int currentScreenBlock=screenblock;
+    int currentScreenBlock=screenBlock;
     switch (grootte)
     {
         case 0:
-            screenblock++;
+            screenBlock++;
         break;
         case 1:
-            screenblock +=2;
+            screenBlock +=2;
 
         break;
         case 2:
-            screenblock +=2;
+            screenBlock +=2;
 
         break;
         case 3:
-            screenblock +=4;
+            screenBlock +=4;
 
         break;
     }
-    return (new Background(bgIndex,data,size,map,mapSize,currentScreenBlock,charblock,grootte));
-    
+    if(screenBlock >= 16)
+    {
+        throw std::runtime_error("screenBlock index 16 is the same place in the memory as the charBlock index 2");
+    }
+    return (new Background(bgIndex, data, size, map, mapSize, currentScreenBlock, charBlock, grootte));
+
 
 }
