@@ -16,7 +16,7 @@
 //#include "PAL_SPEL2.c"
 //#include "try7.h"
 #include "SPEL2PAL.h"
-#include "../../../game/src/scene_1/blok2.h"
+
 #include "../Tileset/Pal_trans.c"
 
 
