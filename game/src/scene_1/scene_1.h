@@ -21,10 +21,13 @@ class scene_1 : public Scene {
         void movecharcter(int x, int y);
         bool charcterOnGround();
         bool charcteragainstwall(bool right); //otherwise left
+        unsigned short tileBelowCharcter();
+        unsigned short tileAgainstCharcter(bool right); //otherwise lift
         int getBottemLeftCharcterTile();
         void move(int x,int y);
+        int getTilenumber(int tilex,int tiley);
 
-    public:
+public:
         std::vector<Sprite *> sprites() override;
         std::vector<Background *> backgrounds() override;
 

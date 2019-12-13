@@ -132,9 +132,7 @@ void scene_1::tick(u16 keys) {
 bool scene_1::charcterOnGround() {
 
 
-    if(Main_level[getBottemLeftCharcterTile()+((1)*SCENE_WIDTH) + ((CHARTERWIDTH/8)/2)] != 0) {
-        return true;
-    }
+    return (Main_level[getTilenumber((charcterX + bg1X + CHARTERWIDTH/2)/8,((charcterY+bg1Y+CHARTERHEIGTH)/8))] != 0);
 
 
     //this code "works"
@@ -143,20 +141,15 @@ bool scene_1::charcterOnGround() {
 //        bg1Y = (charctertile*8)+2;
 //        return true;
 //    }
-
-
-    return false;
+//    return false;
 }
 
 bool scene_1::charcteragainstwall(bool right) { //otherwise left
 
-    int charctertopleft = ((bg1Y + charcterY) / 8)*SCENE_WIDTH + (bg1X + charcterX)/8;
     if(right)
     {
-        int chartertopright = charctertopleft + (CHARTERWIDTH/8);
         for (int i = 0; i < CHARTERHEIGTH/8; ++i) {
-            if(Main_level[(chartertopright)+(i*SCENE_WIDTH)] != 0)
-            {
+            if(Main_level[getTilenumber(((bg1X+charcterX+CHARTERWIDTH)/8)+1,((bg1Y+charcterY)/8)+i)] != 0){
                 return true;
             }
         }
@@ -164,8 +157,7 @@ bool scene_1::charcteragainstwall(bool right) { //otherwise left
     else //left
     {
         for (int i = 0; i < CHARTERHEIGTH/8; ++i) {
-            if (Main_level[(charctertopleft)+(i*SCENE_WIDTH)] != 0)
-            {
+            if(Main_level[getTilenumber(((bg1X+charcterX+CHARTERWIDTH)/8)-1,((bg1Y+charcterY)/8)+i)] != 0){
                 return true;
             }
         }
@@ -201,7 +193,7 @@ void scene_1::move(int x, int y) {
     {
         movebg1(0,y);
     }
-    if((charcterX-bg1X < GBA_SCREEN_WIDTH/2)|| (SCENE_WIDTH*8)-bg1X <= GBA_SCREEN_WIDTH)
+    if(SCENE_WIDTH + bg1X >= GBA_SCREEN_WIDTH && x > 0)
     {
         movecharcter(x,0);
     }
@@ -209,4 +201,26 @@ void scene_1::move(int x, int y) {
     {
         movebg1(x,0);
     }
+}
+
+int scene_1::getTilenumber(int tilex,int tiley) {
+    int tile = tilex + tiley*32;
+    if (tilex >= 32){
+        tile += 0x03E0;;
+    }
+    if(tiley >= 32 && SCENE_HEIGTH == 64 && SCENE_WIDTH == 64)
+    {
+        tile += 0x0400;
+    }
+    return tile;
+    //code used from: https://www.coranac.com/tonc/text/regbg.htm
+}
+
+unsigned short scene_1::tileBelowCharcter() {
+    return Main_level[getTilenumber((charcterX + bg1X + CHARTERWIDTH/2)/8,((charcterY+bg1Y+CHARTERHEIGTH)/8))];
+}
+
+unsigned short scene_1::tileAgainstCharcter(bool right) {
+    return  Main_background[getTilenumber(((bg1X+charcterX+CHARTERWIDTH)/8)+1,((bg1Y+charcterY)/8))];
+    //W.I.P.
 }
