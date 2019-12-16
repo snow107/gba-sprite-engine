@@ -16,8 +16,12 @@
 #include "Main_level.h"
 #include "../Tileset/tileset.h"
 
-#define CHARTERHEIGTH 32 //pixels
-#define CHARTERWIDTH 32 //pixels
+#define CHARTER_X_OFFSET 6 // pixels vanaf links getelt
+#define CHARTER_Y_OFFSET 3 //pixels vanaf boven geteld
+
+#define CHARTERHEIGTH 26 //pixels
+#define CHARTERWIDTH 20 //pixels
+
 #define SCENE_WIDTH 64 //tiles
 #define SCENE_HEIGTH 32 //tiles
 
@@ -84,7 +88,7 @@ void scene_1::tick(u16 keys) {
 
     } else if (keys & KEY_UP) {
         if (charcterOnGround()) {
-            v1Y = 7;
+            v1Y = 4;
             movebg1(0, 5);
         }
     } else if (keys & KEY_DOWN) {
@@ -130,40 +134,19 @@ void scene_1::tick(u16 keys) {
 }
 
 bool scene_1::charcterOnGround() {
-
-
-    return (Main_level[getTilenumber((charcterX + bg1X + CHARTERWIDTH/2)/8,((charcterY+bg1Y+CHARTERHEIGTH)/8))] != 0);
-
-
-    //this code "works"
-//    int charctertile = bg1Y / 8;
-//    if(tilemap[((charctertile)+10)*tilemap_width] != 0) { // 10 = (RESUTION_HEIGTH/2)/BLOCK_SIZE8
-//        bg1Y = (charctertile*8)+2;
-//        return true;
-//    }
-//    return false;
+    return charcterNotOnTile(0);
 }
 
 bool scene_1::charcteragainstwall(bool right) { //otherwise left
 
-    if(right)
-    {
-        for (int i = 0; i < CHARTERHEIGTH/8; ++i) {
-            if(Main_level[getTilenumber(((bg1X+charcterX+CHARTERWIDTH)/8)+1,((bg1Y+charcterY)/8)+i)] != 0){
+    std::vector<unsigned short> tiles = tilesAgainstCharcter(right);
+    for (int i = 0; i < tiles.size(); ++i) {
+            if(tiles.data()[i] != 0){
                 return true;
             }
-        }
     }
-    else //left
-    {
-        for (int i = 0; i < CHARTERHEIGTH/8; ++i) {
-            if(Main_level[getTilenumber(((bg1X+charcterX+CHARTERWIDTH)/8)-1,((bg1Y+charcterY)/8)+i)] != 0){
-                return true;
-            }
-        }
-    }
+    return  false;
 
-    return false;
 }
 
 void scene_1::movebg1(int x, int y){
@@ -180,7 +163,7 @@ void scene_1::movecharcter(int x, int y) {
 
 int scene_1::getBottemLeftCharcterTile() {
     int charctertileY = ((bg1Y + charcterY + CHARTERHEIGTH) / 8)*SCENE_WIDTH;
-    int charctertileX = (bg1X + charcterX)/8;
+    int charctertileX = (bg1X + charcterX + CHARTER_X_OFFSET)/8;
     return charctertileX + charctertileY;
 }
 
@@ -216,11 +199,56 @@ int scene_1::getTilenumber(int tilex,int tiley) {
     //code used from: https://www.coranac.com/tonc/text/regbg.htm
 }
 
-unsigned short scene_1::tileBelowCharcter() {
-    return Main_level[getTilenumber((charcterX + bg1X + CHARTERWIDTH/2)/8,((charcterY+bg1Y+CHARTERHEIGTH)/8))];
+std::vector<unsigned short> scene_1::tilesBelowCharcter() {
+    std::vector< unsigned short> tiles;
+    for (int i = 0; i < CHARTERWIDTH/8; ++i) {
+        tiles.push_back(Main_level[getTilenumber(getCharcterXTile()+i,getCharcterYTile() + CHARTERHEIGTH/8)]);
+    }
+    return tiles;
 }
 
-unsigned short scene_1::tileAgainstCharcter(bool right) {
-    return  Main_background[getTilenumber(((bg1X+charcterX+CHARTERWIDTH)/8)+1,((bg1Y+charcterY)/8))];
-    //W.I.P.
+std::vector<unsigned short> scene_1::tilesAgainstCharcter(bool right) {
+
+    std::vector< unsigned short> tiles;
+    if (right) {
+        for (int i = 0; i < CHARTERHEIGTH / 8; ++i) {
+            tiles.push_back(Main_level[getTilenumber(getCharcterXTile()+(CHARTERWIDTH)/8+1,getCharcterYTile()+i)]);
+        }
+    }
+    else {
+        for (int i = 0; i < CHARTERHEIGTH / 8; ++i) {
+            tiles.push_back(Main_level[getTilenumber(getCharcterXTile()-1,getCharcterYTile()+i)]);
+        }
+    }
+
+    return tiles;
+}
+
+bool scene_1::charcterOnTile(unsigned short tilenumber){ //returns true if charcters stands on this tile
+    std::vector<unsigned short> tiles = tilesBelowCharcter();
+    for (int i = 0; i < tiles.size(); ++i) {
+        if(tiles.data()[i] == tilenumber){
+            return true;
+        }
+    }
+    return  false;
+}
+
+bool scene_1::charcterNotOnTile(unsigned short tilenumber){ //returns true if charcters stands on this tile
+    std::vector<unsigned short> tiles = tilesBelowCharcter();
+    for (int i = 0; i < tiles.size(); ++i) {
+        if(tiles.data()[i] != tilenumber){
+            return true;
+        }
+    }
+    return  false;
+}
+
+
+unsigned short scene_1::getCharcterXTile(){
+    return (bg1X+charcterX+CHARTER_X_OFFSET)/8;
+}
+
+unsigned short scene_1::getCharcterYTile(){
+    return (bg1Y+charcterY+CHARTER_Y_OFFSET)/8;
 }
