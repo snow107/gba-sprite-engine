@@ -131,6 +131,11 @@ void scene_1::tick(u16 keys) {
     move(v1X,v1Y);
 
     ticknumber++;
+
+    if(charcterOnTile(0x0006) || charcterOnTile(0x0006)) {
+        engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
+        //you died
+    }
 }
 
 bool scene_1::charcterOnGround() {
@@ -202,7 +207,7 @@ int scene_1::getTilenumber(int tilex,int tiley) {
 std::vector<unsigned short> scene_1::tilesBelowCharcter() {
     std::vector< unsigned short> tiles;
     for (int i = 0; i < CHARTERWIDTH/8; ++i) {
-        tiles.push_back(Main_level[getTilenumber(getCharcterXTile()+i,getCharcterYTile() + CHARTERHEIGTH/8)]);
+        tiles.push_back(Main_level[getTilenumber(getCharcterXTile()+i,getCharcterYTile() + (CHARTERHEIGTH+CHARTER_Y_OFFSET)/8)]);
     }
     return tiles;
 }
@@ -251,4 +256,24 @@ unsigned short scene_1::getCharcterXTile(){
 
 unsigned short scene_1::getCharcterYTile(){
     return (bg1Y+charcterY+CHARTER_Y_OFFSET)/8;
+}
+
+bool scene_1::charterAgainstTile(bool right, int tilenumber) {
+    std::vector<unsigned short> tiles = tilesAgainstCharcter(right);
+    for (int i = 0; i < tiles.size(); ++i) {
+        if(tiles.data()[i] == tilenumber){
+            return true;
+        }
+    }
+    return  false;
+}
+
+bool scene_1::charterNotAgainstTile(bool right, int tilenumber) {
+    std::vector<unsigned short> tiles = tilesAgainstCharcter(right);
+    for (int i = 0; i < tiles.size(); ++i) {
+        if(tiles.data()[i] != tilenumber){
+            return true;
+        }
+    }
+    return  false;
 }

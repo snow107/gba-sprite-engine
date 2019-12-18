@@ -30,6 +30,8 @@ class scene_1 : public Scene {
         unsigned short getCharcterYTile(); //returns top tile number
         bool charcterOnTile(unsigned short tilenumber);
         bool charcterNotOnTile(unsigned short tilenumber);
+        bool charterAgainstTile(bool right, int tilenumber); //otherwise left
+        bool charterNotAgainstTile(bool right, int tilenumber); //otherwise left
 
 public:
         std::vector<Sprite *> sprites() override;
