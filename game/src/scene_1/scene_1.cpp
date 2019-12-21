@@ -25,6 +25,9 @@
 #define SCENE_WIDTH 64 //tiles
 #define SCENE_HEIGTH 32 //tiles
 
+#define COLLISIONARRAYSIZE 6
+int collisionArray[] = {0x07, 0x08,0x18,0x02,0x09,0x0A};
+
 std::vector<Background *> scene_1::backgrounds() {
     return {bg1.get(),bg2.get()};
 }
@@ -132,10 +135,13 @@ void scene_1::tick(u16 keys) {
 
     ticknumber++;
 
-    if(charcterOnTile(0x0006) || charcterOnTile(0x0006)) {
-        engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
-        //you died
+    for (int i = 0; i < COLLISIONARRAYSIZE; ++i) {
+        if(charcterOnTile(collisionArray[i]) || charterAgainstTile(true, collisionArray[i]) || charterAgainstTile(false, collisionArray[i])){
+            engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
+            //you died
+        }
     }
+
 }
 
 bool scene_1::charcterOnGround() {
