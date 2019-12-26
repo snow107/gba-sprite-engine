@@ -3,7 +3,7 @@ project(game)
 add_executable(${PROJECT_NAME}.elf
         src/main.cpp
         src/scene_start/start_scene.cpp
-        src/scene_start/start_scene.h src/scene_start/mainCharcters.h src/scene_1/scene_1.cpp src/scene_1/scene_1.h src/genericScene.cpp src/genericScene.h
+        src/scene_start/start_scene.h src/scene_start/mainCharcters.h src/scene_1/scene_1.cpp src/scene_1/scene_1.h src/GenericScene.cpp src/GenericScene.h
         src/Tileset/tileset.h)
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)
