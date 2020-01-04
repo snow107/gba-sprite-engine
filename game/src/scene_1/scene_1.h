@@ -9,14 +9,18 @@
 #include "../GenericScene.h"
 #include "Main_level.h"
 
-#define CHARTER_X_OFFSET 6 // pixels vanaf links getelt
+#define CHARTER_X_OFFSET 8 // pixels vanaf links getelt
 #define CHARTER_Y_OFFSET 3 //pixels vanaf boven geteld
 
 #define CHARTERHEIGTH 26 //pixels
-#define CHARTERWIDTH 20 //pixels
+#define CHARTERWIDTH 16 //pixels
 
 #define SCENE_WIDTH 64 //tiles
 #define SCENE_HEIGTH 32 //tiles
+
+
+#define COLLISIONARRAYSIZE 6
+
 
 class scene_1 : public  GenericScene{
     private:

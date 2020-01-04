@@ -2,10 +2,10 @@
 //Bin converted to hex in labview, program created by Michiel
 
 
-#ifndef GBA_SPRITE_ENGINE_PROJECT_MAPSCENE2.H_H
-#define GBA_SPRITE_ENGINE_PROJECT_MAPSCENE2.H_H
-#define  mapScene2.h_Map_Height  64
-#define  mapScene2.h_Map_Width  64
+#ifndef GBA_SPRITE_ENGINE_PROJECT_MAPSCENE2_H
+#define GBA_SPRITE_ENGINE_PROJECT_MAPSCENE2_H
+#define  mapScene2_Map_Height  64
+#define  mapScene2_Map_Width  64
 
 const unsigned short mapScene2 [] = { 
 
@@ -266,4 +266,4 @@ const unsigned short mapScene2 [] = {
 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
 };
- #endif  // GBA_SPRITE_ENGINE_PROJECT_MAPSCENE2.H_H
+ #endif  // GBA_SPRITE_ENGINE_PROJECT_MAPSCENE2_H 

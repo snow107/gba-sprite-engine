@@ -114,27 +114,64 @@ void GenericScene::movecharcter(int x, int y) {
 }
 
 int GenericScene::getBottemLeftCharcterTile() {
-    int charctertileY = ((bg1Y + charcterY + CHARTERHEIGTH) / 8)*SCENE_WIDTH;
-    int charctertileX = (bg1X + charcterX + CHARTER_X_OFFSET)/8;
+    int charctertileY = ((bg1Y + charcterY + Charcter_heigth) / 8)*Scene_width;
+    int charctertileX = (bg1X + charcterX + Charcter_x_offset)/8;
     return charctertileX + charctertileY;
 }
 
 void GenericScene::move(int x, int y) {
-    if(((charcterY+CHARTERHEIGTH+128) - bg1Y < GBA_SCREEN_HEIGHT)|| ((SCENE_HEIGTH*8)-bg1Y <= GBA_SCREEN_HEIGHT) )
-    {
-        movecharcter(0,y);
+//    if(((charcterY+Charcter_heigth+128) - bg1Y < GBA_SCREEN_HEIGHT)|| ((Scene_heigth*8)-bg1Y <= GBA_SCREEN_HEIGHT) )
+//    {
+//        movecharcter(0,y);
+//    }
+//    else
+//    {
+//        movebg1(0,y);
+//    }
+//    if(Scene_width + bg1X >= GBA_SCREEN_WIDTH && x > 0)
+//    {
+//        movecharcter(x,0);
+//    }
+//    else
+//    {
+//        movebg1(x,0);
+//    }
+
+    if(x > 0) {
+        if ((Scene_width * 8 >= bg1X + (GBA_SCREEN_WIDTH / 2)) || charcterX < (GBA_SCREEN_WIDTH / 2)) {
+            movecharcter(x, 0);
+        } else {
+            movebg1(x, 0);
+        }
     }
-    else
+
+    if(x < 0)
     {
-        movebg1(0,y);
+        if(bg1X == 0 || charcterX > GBA_SCREEN_WIDTH/2)
+        {
+            movecharcter(x, 0);
+        } else {
+            movebg1(x, 0);
+        }
     }
-    if(SCENE_WIDTH + bg1X >= GBA_SCREEN_WIDTH && x > 0)
+
+    if(y<0)
     {
-        movecharcter(x,0);
+        if ((Scene_heigth * 8 <= bg1Y + GBA_SCREEN_HEIGHT) || charcterY < GBA_SCREEN_HEIGHT / 2) {
+            movecharcter(0, y);
+        } else {
+            movebg1(0, y);
+        }
     }
-    else
+
+    if(y > 0)
     {
-        movebg1(x,0);
+        if(bg1Y <= 0 || charcterY > GBA_SCREEN_HEIGHT / 2)
+        {
+            movecharcter(0, y);
+        } else {
+            movebg1(0, y);
+        }
     }
 }
 
@@ -143,7 +180,7 @@ int GenericScene::getTilenumber(int tilex, int tiley) {
     if (tilex >= 32){
         tile += 0x03E0;;
     }
-    if(tiley >= 32 && SCENE_HEIGTH == 64 && SCENE_WIDTH == 64)
+    if(tiley >= 32 && Scene_heigth == 64 && Scene_width == 64)
     {
         tile += 0x0400;
     }
@@ -153,8 +190,8 @@ int GenericScene::getTilenumber(int tilex, int tiley) {
 
 std::vector<unsigned short> GenericScene::tilesBelowCharcter() {
     std::vector< unsigned short> tiles;
-    for (int i = 0; i < CHARTERWIDTH/8; ++i) {
-        tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + i, getCharcterYTile() + (CHARTERHEIGTH + CHARTER_Y_OFFSET) / 8)]);
+    for (int i = 0; i < Charcter_width/8; ++i) {
+        tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + i, getCharcterYTile() + (Charcter_heigth + Charcter_y_offset) / 8)]);
     }
     return tiles;
 }
@@ -163,12 +200,12 @@ std::vector<unsigned short> GenericScene::tilesAgainstCharcter(bool right) {
 
     std::vector< unsigned short> tiles;
     if (right) {
-        for (int i = 0; i < CHARTERHEIGTH / 8; ++i) {
-            tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + (CHARTERWIDTH) / 8 + 1, getCharcterYTile() + i)]);
+        for (int i = 0; i < Charcter_heigth / 8; ++i) {
+            tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + (Charcter_width) / 8 + 1, getCharcterYTile() + i)]);
         }
     }
     else {
-        for (int i = 0; i < CHARTERHEIGTH / 8; ++i) {
+        for (int i = 0; i < Charcter_heigth / 8; ++i) {
             tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() - 1, getCharcterYTile() + i)]);
         }
     }
@@ -198,11 +235,11 @@ bool GenericScene::charcterNotOnTile(unsigned short tilenumber){ //returns true 
 
 
 unsigned short GenericScene::getCharcterXTile(){
-    return (bg1X+charcterX+CHARTER_X_OFFSET)/8;
+    return (bg1X+charcterX+Charcter_x_offset)/8;
 }
 
 unsigned short GenericScene::getCharcterYTile(){
-    return (bg1Y+charcterY+CHARTER_Y_OFFSET)/8;
+    return (bg1Y+charcterY+Charcter_y_offset)/8;
 }
 
 bool GenericScene::charterAgainstTile(bool right, int tilenumber) {

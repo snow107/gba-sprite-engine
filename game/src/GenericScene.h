@@ -7,15 +7,17 @@
 
 #include <libgba-sprite-engine/scene.h>
 
+
+
 class GenericScene : public Scene {
 private:
     const unsigned short* Level_Tiles;
-    short CHARTERHEIGTH;
-    short CHARTERWIDTH;
-    short CHARTER_Y_OFFSET;
-    short CHARTER_X_OFFSET;
-    short SCENE_WIDTH;
-    short SCENE_HEIGTH;
+    short Charcter_heigth;
+    short Charcter_width;
+    short Charcter_y_offset;
+    short Charcter_x_offset;
+    short Scene_width;
+    short Scene_heigth;
     void tick(u16 keys) override;
 protected:
     std::unique_ptr<Background> bg1;
@@ -44,9 +46,9 @@ public:
     GenericScene(std::shared_ptr<GBAEngine> engine, short sceneWidth,
                  short sceneHeigth, short charterwidth, short charterheigth, short charterXOffsetTiles,
                  short charterYOffsetTiles, const unsigned short *levelTiles)
-            : Scene(engine), CHARTERWIDTH(charterwidth) , CHARTERHEIGTH(charterheigth)
-            , CHARTER_X_OFFSET(charterXOffsetTiles), CHARTER_Y_OFFSET(charterYOffsetTiles), SCENE_WIDTH(sceneWidth),
-              SCENE_HEIGTH(sceneHeigth), Level_Tiles(levelTiles) {}
+            : Scene(engine), Charcter_width(charterwidth) , Charcter_heigth(charterheigth)
+            , Charcter_x_offset(charterXOffsetTiles), Charcter_y_offset(charterYOffsetTiles), Scene_width(sceneWidth),
+              Scene_heigth(sceneHeigth), Level_Tiles(levelTiles) {}
     virtual void onTick(u16 keys) =0;
 };
 

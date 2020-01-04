@@ -1,37 +1,35 @@
 //
-// Created by jelle on 2019/11/28.
+// Created by jelle on 2020/01/04.
 //
 
-#include "scene_1.h"
+#include "scene_2.h"
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
-#include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include "../scene_start/mainCharcters.h"
-#include "Main_background.h"
-#include "Main_level.h"
+#include "../scene_1/Main_background.h"
+#include "map/mapScene2.h"
 #include "../Tileset/tileset.h"
-#include "../scene_2/scene_2.h"
+#include "../scene_1/scene_1.h"
 
 
 
-
-std::vector<Background *> scene_1::backgrounds() {
+std::vector<Background *> scene_2::backgrounds() {
     return {bg1.get(),bg2.get()};
 }
 
-std::vector<Sprite *> scene_1::sprites() {
+std::vector<Sprite *> scene_2::sprites() {
     return {charcter.get()};
 }
 
-void scene_1::load() {
+void scene_2::load() {
     engine.get()->disableText();
 
     foregroundPalette=std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Pal_transPal, sizeof(Pal_transPal)));
-    bg1=std::unique_ptr<Background>(CreateBackground(1, Pal_transTiles, sizeof(Pal_transTiles), Main_level, sizeof(Main_level), MAP32X64));
+    bg1=std::unique_ptr<Background>(CreateBackground(1, Pal_transTiles, sizeof(Pal_transTiles), mapScene2, sizeof(mapScene2), MAP64X64));
     bg2=std::unique_ptr<Background>(CreateBackground(2,Pal_transTiles, sizeof(Pal_transTiles),Main_background,sizeof(Main_background),MAP32X32));
 
     charcterX = 20;
@@ -51,22 +49,16 @@ void scene_1::load() {
             .buildPtr();
 }
 
-void scene_1::onTick(u16 keys) {
-    int collisionArray[] = {0x07, 0x08,0x18,0x02,0x09,0x0A};
-    if (!(ticknumber % 5)) {
-        if (keys & KEY_START)
-        {
-            engine->transitionIntoScene(new scene_2(engine), new FadeOutScene(2));
-        }
-        for (int i = 0; i < COLLISIONARRAYSIZE; ++i) {
-            if (charcterOnTile(collisionArray[i]) || charterAgainstTile(true, collisionArray[i]) ||
-                charterAgainstTile(false, collisionArray[i])) {
-                engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
-                //you died
-            }
-        }
-    }
+void scene_2::onTick(u16 keys) {
+//    int collisionArray[] = {0x07, 0x08,0x18,0x02,0x09,0x0A};
+//    if (!(ticknumber % 5)) {
+//        for (int i = 0; i < COLLISIONARRAYSIZE; ++i) {
+//            if (charcterOnTile(collisionArray[i]) || charterAgainstTile(true, collisionArray[i]) ||
+//                charterAgainstTile(false, collisionArray[i])) {
+//                engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
+//                //you died
+//            }
+//        }
+//    }
 
 }
-
-
