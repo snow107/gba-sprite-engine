@@ -68,10 +68,7 @@ void GenericScene::tick(u16 keys) {
         charcter.get()->animate();
     }
 
-  /*  if (!charcterOnGround()) {
-        if (!(ticknumber % 5))
-            v1Y -= 1;
-  */
+
       if(charcteragainstwall(true ) && v1X > 0 )
     {
         v1X = 0;
@@ -142,17 +139,30 @@ void GenericScene::move(int x, int y) {
 //        movebg1(x,0);
 //    }
 
-    if(x > 0) {
-        if ((Scene_width * 8 >= bg1X + (GBA_SCREEN_WIDTH / 2)) || charcterX < (GBA_SCREEN_WIDTH / 2)) {
+ /*  if(x > 0) {
+        if ((Scene_width * 8 >= bg1X + (GBA_SCREEN_WIDTH / 2)) || (charcterX < (GBA_SCREEN_WIDTH / 2))) {
             movecharcter(x, 0);
         } else {
             movebg1(x, 0);
         }
+    }*/
+ /*   if(x>0)
+    {
+       if((charcterX <=(GBA_SCREEN_WIDTH/2) ) || ((bg1X+ (GBA_SCREEN_WIDTH))  >=Scene_width*8))
+        {
+            movecharcter(x,0);
+        }
+        else
+        {
+           movebg1(x,0);
+        }
+
+
     }
 
     if(x < 0)
     {
-        if(bg1X == 0 || charcterX > GBA_SCREEN_WIDTH/2)
+        if((charcterX <=(GBA_SCREEN_WIDTH/2) ) || ((bg1X+ (GBA_SCREEN_WIDTH))  >=Scene_width*8))
         {
             movecharcter(x, 0);
         } else {
@@ -178,7 +188,35 @@ void GenericScene::move(int x, int y) {
         else {
             movebg1(0, y);
         }
-    }
+    }*/
+
+        if((charcterX+15) < (GBA_SCREEN_WIDTH/2) && (bg1X==0)) {
+            charcterX += x;
+            if (charcterX +16>= (GBA_SCREEN_WIDTH / 2)) {
+                charcterX = (GBA_SCREEN_WIDTH / 2)-16;
+            }
+        }
+        if((charcterX+16 )== (GBA_SCREEN_WIDTH/2) && (bg1X<Scene_width*8-GBA_SCREEN_WIDTH)) {
+            bg1X += x;
+            if((bg1X+GBA_SCREEN_WIDTH>=Scene_width*8)){
+                bg1X=Scene_width*8-GBA_SCREEN_WIDTH;
+            }
+            if(bg1X<0)bg1X=0;
+        }
+        if((charcterX+16)>=(GBA_SCREEN_WIDTH/2) && (bg1X==Scene_width*8-GBA_SCREEN_WIDTH))
+        {
+            charcterX+=x;
+            if(charcterX+16<=GBA_SCREEN_WIDTH/2)
+            {
+                charcterX = (GBA_SCREEN_WIDTH / 2)-16;
+                bg1X-=1;
+            }
+            if(charcterX+32 >= GBA_SCREEN_WIDTH) charcterX=GBA_SCREEN_WIDTH-32;
+        }
+     //   if(bg1X)
+
+    charcter.get()->moveTo(charcterX,charcterY);
+    bg1.get()->scroll(bg1X,bg1Y);
 }
 
 int GenericScene::getTilenumber(int tilex, int tiley) {

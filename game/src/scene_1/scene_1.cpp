@@ -62,7 +62,7 @@ void scene_1::onTick(u16 keys) {
         for (int i = 0; i < COLLISIONARRAYSIZE; ++i) {
             if (charcterOnTile(collisionArray[i]) || charterAgainstTile(true, collisionArray[i]) ||
                 charterAgainstTile(false, collisionArray[i])) {
-                engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
+            //    engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
                 //you died
             }
         }

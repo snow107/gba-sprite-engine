@@ -35,7 +35,7 @@ void scene_2::load() {
     charcterX = 20;
     charcterY = 50;
     bg1X = 0;
-    bg1Y = 30;
+    bg1Y = 5;
     v1Y =0;v1X=0;
     bg1.get()->scroll(bg1X,bg1Y);
 
