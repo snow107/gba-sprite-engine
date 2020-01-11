@@ -254,7 +254,8 @@ std::vector<unsigned short> GenericScene::tilesAgainstCharcter(bool right) {
     std::vector< unsigned short> tiles;
     if (right) {
         for (int i = 0; i < Charcter_heigth / 8; i++) {
-            tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + (Charcter_width) / 8 + 1, getCharcterYTile() + i)]);
+      //      tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + (Charcter_width) / 8 + 1, getCharcterYTile() + i)]);
+            tiles.push_back(Level_Tiles[getTilenumber(charXtile + 32 / 8 + 1, getCharcterYTile() - i)]);
         }
     }
     else {
