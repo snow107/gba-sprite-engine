@@ -8,6 +8,7 @@
 #include <libgba-sprite-engine/scene.h>
 #include "../GenericScene.h"
 #include "Main_level.h"
+#include "map/testmap.h"
 
 #define CHARTER_X_OFFSET 8 // pixels vanaf links getelt
 #define CHARTER_Y_OFFSET 3 //pixels vanaf boven geteld
