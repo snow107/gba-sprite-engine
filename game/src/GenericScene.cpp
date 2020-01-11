@@ -11,7 +11,7 @@
 #include "GenericScene.h"
 
 void GenericScene::tick(u16 keys) {
-    if (!(ticknumber % 20)) { //searching for better solution (ideas are welcome)
+    if (!(ticknumber % 5)) { //searching for better solution (ideas are welcome)
         if (keys & KEY_LEFT) {
             if (v1X > 0) {
                 v1X -= 2;
@@ -32,16 +32,23 @@ void GenericScene::tick(u16 keys) {
                 v1X++;
             }
         }
+        if (keys & KEY_START) {}
+        if (!charcterOnGround()) {
+            v1Y -= 1;
+        }
+        else{
+            v1Y = 0;
+            if (keys & KEY_UP) {
+                v1Y += 4;
+            }
+        }
     }
 
-    if (keys & KEY_START) {
 
-    } else if (keys & KEY_UP) {
-        if (charcterOnGround()) {
-            v1Y = 4;
-            movebg1(0, 5);
-        }
-    } else if (keys & KEY_DOWN) {
+
+
+
+    if (keys & KEY_DOWN) {
 
     } else if (keys & KEY_B) {
         movebg1(32,0); //test function
@@ -61,14 +68,11 @@ void GenericScene::tick(u16 keys) {
         charcter.get()->animate();
     }
 
-    if (!charcterOnGround()) {
+  /*  if (!charcterOnGround()) {
         if (!(ticknumber % 5))
             v1Y -= 1;
-    } else {
-        v1Y = 0;
-    }
-
-    if(charcteragainstwall(true ) && v1X > 0 )
+  */
+      if(charcteragainstwall(true ) && v1X > 0 )
     {
         v1X = 0;
     }
@@ -83,6 +87,7 @@ void GenericScene::tick(u16 keys) {
     ticknumber++;
 
     onTick(keys);
+
 }
 
 bool GenericScene::charcterOnGround() {
@@ -169,7 +174,8 @@ void GenericScene::move(int x, int y) {
         if(bg1Y <= 0 || charcterY > GBA_SCREEN_HEIGHT / 2)
         {
             movecharcter(0, y);
-        } else {
+        }
+        else {
             movebg1(0, y);
         }
     }
