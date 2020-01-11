@@ -43,11 +43,6 @@ void GenericScene::tick(u16 keys) {
             }
         }
     }
-
-
-
-
-
     if (keys & KEY_DOWN) {
 
     } else if (keys & KEY_B) {
@@ -64,6 +59,7 @@ void GenericScene::tick(u16 keys) {
     }
     if(v1X==0){
         charcter.get()->stopAnimating();
+      //  charcter.get()->animateToFrame(5);
     } else{
         charcter.get()->animate();
     }
@@ -78,11 +74,8 @@ void GenericScene::tick(u16 keys) {
     {
         v1X = 0;
     }
-
     move(v1X,v1Y);
-
     ticknumber++;
-
     onTick(keys);
 
 }
@@ -214,7 +207,8 @@ void GenericScene::move(int x, int y) {
             }
             if(charcterX+32 >= GBA_SCREEN_WIDTH) charcterX=GBA_SCREEN_WIDTH-32;
         }
-        
+        charcterY-=y;
+     //   bg1Y-=y;
 
 
     charcter.get()->moveTo(charcterX,charcterY);
@@ -235,15 +229,28 @@ int GenericScene::getTilenumber(int tilex, int tiley) {
 }
 
 std::vector<unsigned short> GenericScene::tilesBelowCharcter() {
+    int charXtile=getCharcterXTile();
+    int charYtile=getCharcterYTile();
     std::vector< unsigned short> tiles;
     for (int i = 0; i < Charcter_width/8; ++i) {
-        tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + i, getCharcterYTile() + (Charcter_heigth + Charcter_y_offset) / 8)]);
+      //  tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + i, getCharcterYTile() + (Charcter_heigth + Charcter_y_offset) / 8)]);
+        tiles.push_back(Level_Tiles[getTilenumber(charXtile + i, charYtile + 1)]);
     }
     return tiles;
 }
+unsigned short GenericScene::getCharcterXTile(){
+    // return (bg1X+charcterX+Charcter_x_offset)/8;
+    return(bg1X+charcterX)/8;
+}
+
+unsigned short GenericScene::getCharcterYTile(){
+     return (bg1Y+charcterY+32)/8;
+
+}
 
 std::vector<unsigned short> GenericScene::tilesAgainstCharcter(bool right) {
-
+    int charXtile=getCharcterXTile();
+    int charYtile=getCharcterYTile();
     std::vector< unsigned short> tiles;
     if (right) {
         for (int i = 0; i < Charcter_heigth / 8; i++) {
@@ -269,7 +276,7 @@ bool GenericScene::charcterOnTile(unsigned short tilenumber){ //returns true if 
     return  false;
 }
 
-bool GenericScene::charcterNotOnTile(unsigned short tilenumber){ //returns true if charcters stands on this tile
+bool GenericScene::charcterNotOnTile(unsigned short tilenumber){ //returns true if charcters stands not on this tile
     std::vector<unsigned short> tiles = tilesBelowCharcter();
     for (int i = 0; i < tiles.size(); ++i) {
         if(tiles.data()[i] != tilenumber){
@@ -280,13 +287,7 @@ bool GenericScene::charcterNotOnTile(unsigned short tilenumber){ //returns true 
 }
 
 
-unsigned short GenericScene::getCharcterXTile(){
-    return (bg1X+charcterX+Charcter_x_offset)/8;
-}
 
-unsigned short GenericScene::getCharcterYTile(){
-    return (bg1Y+charcterY+Charcter_y_offset)/8;
-}
 
 bool GenericScene::charterAgainstTile(bool right, int tilenumber) {
     std::vector<unsigned short> tiles = tilesAgainstCharcter(right);

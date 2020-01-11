@@ -36,9 +36,9 @@ void scene_1::load() {
     bg2=std::unique_ptr<Background>(CreateBackground(2,Pal_transTiles, sizeof(Pal_transTiles),Main_background,sizeof(Main_background),MAP32X32));
 
     charcterX = 20;
-    charcterY = 50;
+    charcterY = 0;
     bg1X = 0;
-    bg1Y = 30;
+    bg1Y = 32*8-GBA_SCREEN_HEIGHT;
     v1Y =0;v1X=0;
     bg1.get()->scroll(bg1X,bg1Y);
 
@@ -50,6 +50,7 @@ void scene_1::load() {
             .withAnimated(16,10)
             .withLocation(charcterX, charcterY)
             .buildPtr();
+
 }
 
 void scene_1::onTick(u16 keys) {
