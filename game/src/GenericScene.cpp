@@ -32,7 +32,7 @@ void GenericScene::tick(u16 keys) {
                 v1X++;
             }
         }
-   /*     if (keys & KEY_START) {}
+       if (keys & KEY_START) {}
         if (!charcterOnGround()) {
             v1Y -= 1;
         }
@@ -41,7 +41,7 @@ void GenericScene::tick(u16 keys) {
             if (keys & KEY_UP) {
                 v1Y += 4;
             }
-        }*/
+        }
     }
     if (keys & KEY_DOWN) {
 
@@ -234,7 +234,7 @@ std::vector<unsigned short> GenericScene::tilesBelowCharcter() {
     std::vector< unsigned short> tiles;
     for (int i = 0; i < Charcter_width/8; ++i) {
       //  tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + i, getCharcterYTile() + (Charcter_heigth + Charcter_y_offset) / 8)]);
-        tiles.push_back(Level_Tiles[getTilenumber(charXtile +1+ i, charYtile+1) ]);
+        tiles.push_back(Level_Tiles[getTilenumber(charXtile +2+ i, charYtile) ]);
     }
     return tiles;
 }
@@ -244,7 +244,7 @@ unsigned short GenericScene::getCharcterXTile(){
 }
 
 unsigned short GenericScene::getCharcterYTile(){
-     return 4+(bg1Y+charcterY)/8;
+     return (bg1Y+charcterY+32)/8;
 
 }
 
