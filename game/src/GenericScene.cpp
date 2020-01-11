@@ -32,7 +32,7 @@ void GenericScene::tick(u16 keys) {
                 v1X++;
             }
         }
-        if (keys & KEY_START) {}
+   /*     if (keys & KEY_START) {}
         if (!charcterOnGround()) {
             v1Y -= 1;
         }
@@ -41,7 +41,7 @@ void GenericScene::tick(u16 keys) {
             if (keys & KEY_UP) {
                 v1Y += 4;
             }
-        }
+        }*/
     }
     if (keys & KEY_DOWN) {
 
@@ -59,7 +59,7 @@ void GenericScene::tick(u16 keys) {
     }
     if(v1X==0){
         charcter.get()->stopAnimating();
-      //  charcter.get()->animateToFrame(5);
+        //charcter.get()->animateToFrame(5);
     } else{
         charcter.get()->animate();
     }
@@ -234,7 +234,7 @@ std::vector<unsigned short> GenericScene::tilesBelowCharcter() {
     std::vector< unsigned short> tiles;
     for (int i = 0; i < Charcter_width/8; ++i) {
       //  tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + i, getCharcterYTile() + (Charcter_heigth + Charcter_y_offset) / 8)]);
-        tiles.push_back(Level_Tiles[getTilenumber(charXtile + i, charYtile + 1)]);
+        tiles.push_back(Level_Tiles[getTilenumber(charXtile +1+ i, charYtile+1) ]);
     }
     return tiles;
 }
@@ -244,7 +244,7 @@ unsigned short GenericScene::getCharcterXTile(){
 }
 
 unsigned short GenericScene::getCharcterYTile(){
-     return (bg1Y+charcterY+32)/8;
+     return 4+(bg1Y+charcterY)/8;
 
 }
 
@@ -255,12 +255,13 @@ std::vector<unsigned short> GenericScene::tilesAgainstCharcter(bool right) {
     if (right) {
         for (int i = 0; i < Charcter_heigth / 8; i++) {
       //      tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + (Charcter_width) / 8 + 1, getCharcterYTile() + i)]);
-            tiles.push_back(Level_Tiles[getTilenumber(charXtile + 32 / 8 + 1, getCharcterYTile() - i)]);
+            tiles.push_back(Level_Tiles[getTilenumber(charXtile + 4, charYtile- i)]);
         }
     }
     else {
         for (int i = 0; i < Charcter_heigth / 8; ++i) {
-            tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() - 1, getCharcterYTile() + i)]);
+        //    tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() - 1, getCharcterYTile() + i)]);
+            tiles.push_back(Level_Tiles[getTilenumber(charXtile , charYtile - i)]);
         }
     }
 
