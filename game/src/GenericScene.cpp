@@ -36,20 +36,16 @@ void GenericScene::tick(u16 keys) {
 
     if (keys & KEY_START) {
 
-    }
-    else if (keys & KEY_UP) {
+    } else if (keys & KEY_UP) {
         if (charcterOnGround()) {
             v1Y = 4;
             movebg1(0, 5);
         }
-    }
-    else if (keys & KEY_DOWN) {
+    } else if (keys & KEY_DOWN) {
 
-    }
-    else if (keys & KEY_B) {
+    } else if (keys & KEY_B) {
         movebg1(32,0); //test function
-    }
-    else if (keys & KEY_A) {
+    } else if (keys & KEY_A) {
         backgroundPalette.get()->increaseBrightness(1);
     }
 

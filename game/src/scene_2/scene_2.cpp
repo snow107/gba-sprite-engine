@@ -12,7 +12,7 @@
 #include "../scene_1/Main_background.h"
 #include "map/mapScene2.h"
 #include "../Tileset/tileset.h"
-//#include "../scene_1/scene_1.h"
+#include "../scene_1/scene_1.h"
 
 
 
