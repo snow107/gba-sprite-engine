@@ -192,6 +192,7 @@ void GenericScene::move(int x, int y) {
 
         if((charcterX+15) < (GBA_SCREEN_WIDTH/2) && (bg1X==0)) {
             charcterX += x;
+            if(charcterX<=0)charcterX=0;
             if (charcterX +16>= (GBA_SCREEN_WIDTH / 2)) {
                 charcterX = (GBA_SCREEN_WIDTH / 2)-16;
             }
@@ -213,7 +214,8 @@ void GenericScene::move(int x, int y) {
             }
             if(charcterX+32 >= GBA_SCREEN_WIDTH) charcterX=GBA_SCREEN_WIDTH-32;
         }
-     //   if(bg1X)
+        
+
 
     charcter.get()->moveTo(charcterX,charcterY);
     bg1.get()->scroll(bg1X,bg1Y);
