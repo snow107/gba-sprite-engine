@@ -14,15 +14,17 @@ void GenericScene::tick(u16 keys) {
     onTick(keys);
     //keys inlezen en snelheid zetten
         if (keys & KEY_LEFT) {
-            v1X=5;
+            v1X+=1;
+            if(v1X>5){v1X=5;}
            d1X = -1;
         }
         else if (keys & KEY_RIGHT) {
-            v1X=5;
+            v1X+=1;
+            if(v1X>5){v1X=5;}
             d1X =+1;
         }
         else{
-            v1X=0;
+            v1X--;
             d1X=0;
         }
             v1Y=3;
@@ -306,7 +308,7 @@ void GenericScene::move() {
         bg1Y = y - GBA_SCREEN_HEIGHT/2+56;
         charcterY = GBA_SCREEN_HEIGHT/2-56;
     }
-
+   // code used from  https://wiki.nycresistor.com/wiki/GB101:Collision_Detection
 
 
 
