@@ -14,31 +14,35 @@ void GenericScene::tick(u16 keys) {
     onTick(keys);
     //keys inlezen en snelheid zetten
         if (keys & KEY_LEFT) {
-           v1X = -1;
+            v1X=5;
+           d1X = -1;
         }
         else if (keys & KEY_RIGHT) {
-            v1X =+1;
+            v1X=5;
+            d1X =+1;
         }
         else{
             v1X=0;
+            d1X=0;
         }
+            v1Y=3;
+            d1Y= +1;
 
-            v1Y= +1;
-
-        if(keys & KEY_UP){
-            v1Y= -1;
+        if(keys & KEY_UP && !charcterVerticalcheck()){
+            d1Y= -1;
+            v1Y=30; // mischien =v1X*15 // beste is 2verschillende ticks ofzo
         }
 
     //kijken als nieuwe locatie mag
-        collisionBewegen();
+        collisionBewegen(v1X,v1Y);
     if (keys & KEY_START) {}
-        if (v1X > 0) {
+        if (d1X > 0) {
             charcter.get()->flipHorizontally(false);
         }
-        if (v1X < 0) {
+        if (d1X < 0) {
             charcter.get()->flipHorizontally(true);
         }
-        if (v1X == 0) {
+        if (d1X == 0) {
             charcter.get()->stopAnimating();
             //charcter.get()->animateToFrame(5);
         }
@@ -49,46 +53,46 @@ void GenericScene::tick(u16 keys) {
         } if (keys & KEY_A) {
             backgroundPalette.get()->increaseBrightness(1);
         }
-
-
-
-
-
-
 }
-void GenericScene::collisionBewegen(){
-    //loop voor meerde pixels tegelijk veranderen
-
-   if(charcteraHorizontaalCheck()){x+=v1X;}
-    if(charcterVerticalcheck()){y+=v1Y;};
-  //  x+=v1X;
-  // y+=v1Y;
-    move();
-
+void GenericScene::collisionBewegen(int speedX,int speedY){
+    int grootsteSnelheid =speedX;
+    if(speedY>speedX){grootsteSnelheid=speedY;}
+    for(int i=0;i<grootsteSnelheid;i++)
+    {
+        if(i<speedX)
+        {
+            if(charcteraHorizontaalCheck()){x+=d1X;}
+        }
+        if(i<speedY)
+        {
+            if(charcterVerticalcheck()){y+=d1Y;};
+        }
+        move();
+    }
 }
 bool GenericScene::charcteraHorizontaalCheck(){
-    if(v1X<0)//left
+    if(d1X<0)//left
     {
         //get tiles aan linkerkant op nieuwe positite x=x-v1X
         std::vector< unsigned short> tiles;
 
         for (int i = 0; i < 4 ; i++) { //char height
-            tiles.push_back(Level_Tiles[getTilenumber((x-2-v1X)/8,(y+7)/8+i)]);
+            tiles.push_back(Level_Tiles[getTilenumber((x-2-d1X)/8,(y+7)/8+i)]);
         }
-        for (int i = 0; i < tiles.size(); ++i) { //nagaan als j ehier mag staan
+        for (int i = 0; i < tiles.size(); ++i) {
             if(tiles.data()[i] != 0){
                 return false;
             }
             //nagaan als je nu dood bent
         }
     }
-    if(v1X>0)//right
+    if(d1X>0)//right
     {
         //get tiles aan rechterkant op nieuwe positite x=x+v1X + dikte char
         std::vector< unsigned short> tiles;
 
             for (int i = 0; i < 4 ; i++) { //char height
-                tiles.push_back(Level_Tiles[getTilenumber((x+15+v1X)/8,(y+7)/8+i)]);
+                tiles.push_back(Level_Tiles[getTilenumber((x+15+d1X)/8,(y+7)/8+i)]);
             }
             for (int i = 0; i < tiles.size(); ++i) {
                 if(tiles.data()[i] != 0){
@@ -101,24 +105,22 @@ bool GenericScene::charcteraHorizontaalCheck(){
 }
 
 bool GenericScene::charcterVerticalcheck(){
-    if(v1Y>0) //omlaag
+    if(d1Y>0) //omlaag
     {
         std::vector< unsigned short> tiles;
-        for (int i = 0; i < 3 ; i++) { //char height
-            tiles.push_back(Level_Tiles[getTilenumber((x)/8+i,(y+31+v1Y)/8)]);
-        }
+        tiles.push_back(Level_Tiles[getTilenumber(((x+1)/8),(y+31+d1Y)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber(((x+15)/8),(y+31+d1Y)/8)]);
         for (int i = 0; i < tiles.size(); ++i) {
             if (tiles.data()[i] != 0) {
                 return false;
             }
         }
     }
-    if(v1Y<0)//omhoog
+    if(d1Y<0)//omhoog
     {
         std::vector< unsigned short> tiles;
-        for (int i = 0; i < 3 ; i++) { //char height
-            tiles.push_back(Level_Tiles[getTilenumber((x+7)/8+i,(y-v1Y)/8)]);
-        }
+        tiles.push_back(Level_Tiles[getTilenumber((x+1)/8,(y-d1Y)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x+15)/8,(y-d1Y)/8)]);
         for (int i = 0; i < tiles.size(); ++i) {
             if (tiles.data()[i] != 0) {
                 return false;
@@ -235,73 +237,6 @@ void GenericScene::movebg1(int x, int y){
 
 
 void GenericScene::move() {
-//    if(((charcterY+Charcter_heigth+128) - bg1Y < GBA_SCREEN_HEIGHT)|| ((Scene_heigth*8)-bg1Y <= GBA_SCREEN_HEIGHT) )
-//    {
-//        movecharcter(0,y);
-//    }
-//    else
-//    {
-//        movebg1(0,y);
-//    }
-//    if(Scene_width + bg1X >= GBA_SCREEN_WIDTH && x > 0)
-//    {
-//        movecharcter(x,0);
-//    }
-//    else
-//    {
-//        movebg1(x,0);
-//    }
-
- /*  if(x > 0) {
-        if ((Scene_width * 8 >= bg1X + (GBA_SCREEN_WIDTH / 2)) || (charcterX < (GBA_SCREEN_WIDTH / 2))) {
-            movecharcter(x, 0);
-        } else {
-            movebg1(x, 0);
-        }
-    }*/
- /*   if(x>0)
-    {
-       if((charcterX <=(GBA_SCREEN_WIDTH/2) ) || ((bg1X+ (GBA_SCREEN_WIDTH))  >=Scene_width*8))
-        {
-            movecharcter(x,0);
-        }
-        else
-        {
-           movebg1(x,0);
-        }
-
-
-    }
-
-    if(x < 0)
-    {
-        if((charcterX <=(GBA_SCREEN_WIDTH/2) ) || ((bg1X+ (GBA_SCREEN_WIDTH))  >=Scene_width*8))
-        {
-            movecharcter(x, 0);
-        } else {
-            movebg1(x, 0);
-        }
-    }
-
-    if(y<0)
-    {
-        if ((Scene_heigth * 8 <= bg1Y + GBA_SCREEN_HEIGHT) || charcterY < GBA_SCREEN_HEIGHT / 2) {
-            movecharcter(0, y);
-        } else {
-            movebg1(0, y);
-        }
-    }
-
-    if(y > 0)
-    {
-        if(bg1Y <= 0 || charcterY > GBA_SCREEN_HEIGHT / 2)
-        {
-            movecharcter(0, y);
-        }
-        else {
-            movebg1(0, y);
-        }
-    }*/
 
     /*    if((charcterX+15) < (GBA_SCREEN_WIDTH/2) && (bg1X==0)) {
             charcterX += x;
@@ -372,8 +307,7 @@ void GenericScene::move() {
         charcterY = GBA_SCREEN_HEIGHT/2-56;
     }
 
-    //    charcterY -=y;
-     //  bg1Y-=y;
+
 
 
     charcter.get()->moveTo(charcterX,charcterY);

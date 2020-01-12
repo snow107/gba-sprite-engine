@@ -24,10 +24,10 @@ protected:
     std::unique_ptr<Sprite> charcter;
     int charcterX,charcterY;
     int bg1X,bg1Y;
-    int v1X,v1Y,d1x,d1y;
+    int v1X,v1Y,d1X,d1Y;
     int x,y;
     int collisionX,colissionY;
-    void collisionBewegen();
+    void collisionBewegen(int speedX,int speedY);
     void movebg1(int x, int y);
     void movecharcter(int x, int y);
     bool charcterVerticalcheck();
