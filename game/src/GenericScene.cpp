@@ -34,14 +34,14 @@ void GenericScene::tick(u16 keys) {
         if(charcterVerticalcheck())
         {
             v1Y++;
-            d1Y= +1;
+
         }
         else
         {
             v1Y=0;
         }
         if(keys & KEY_UP && !charcterVerticalcheck()){
-            d1Y= -1;
+
             v1Y=-8; //naar 6 voor 3
         }
 
@@ -141,7 +141,7 @@ bool GenericScene::charcteraHorizontaalCheck(){
 }
 
 bool GenericScene::charcterVerticalcheck(){
-    if(d1Y>0) //omlaag
+    if(v1Y>0) //omlaag
     {
         std::vector< unsigned short> tiles;
         tiles.push_back(Level_Tiles[getTilenumber(((x+1)/8),(y+32)/8)]);
@@ -152,7 +152,7 @@ bool GenericScene::charcterVerticalcheck(){
             }
         }
     }
-    if(d1Y<0)//omhoog
+    if(v1Y<0)//omhoog
     {
         std::vector< unsigned short> tiles;
         tiles.push_back(Level_Tiles[getTilenumber((x+1)/8,(y-1)/8)]);
@@ -179,12 +179,13 @@ int GenericScene::getTilenumber(int tilex, int tiley) {
 }
 
 std::vector<unsigned short> GenericScene::tilesBelowCharcter() {
-    int charXtile=getCharcterXTile();
-    int charYtile=getCharcterYTile();
-    std::vector< unsigned short> tiles;
-    for (int i = 0; i < 16/8; ++i) { //char with
+
+    int charXtile = getCharcterXTile();
+    int charYtile = getCharcterYTile();
+    std::vector<unsigned short> tiles;
+    for (int i = 0; i < 16 / 8; ++i) { //char with
         //  tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + i, getCharcterYTile() + (Charcter_heigth + Charcter_y_offset) / 8)]);
-        tiles.push_back(Level_Tiles[getTilenumber(charXtile +1+ i, charYtile+1) ]);
+        tiles.push_back(Level_Tiles[getTilenumber(charXtile + 1 + i, charYtile + 1)]);
     }
     return tiles;
 }
