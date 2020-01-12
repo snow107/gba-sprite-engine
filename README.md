@@ -20,3 +20,7 @@ Our game uses 2 backgrounds and a sprite for the character. Background 1 is our 
 between our level and our character. Background 2 is just a aesthetic background.
 
 The second scene has a level of 64x64 tiles (every tile is 8x8).  
+
+### Screenshot from the game
+
+![alt text](https://raw.githubusercontent.com/snow107/gba-sprite-engine/master/img/game.png)
