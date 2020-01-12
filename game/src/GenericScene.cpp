@@ -11,7 +11,7 @@
 #include "GenericScene.h"
 
 void GenericScene::tick(u16 keys) {
-    if (!(ticknumber % 5)) { //searching for better solution (ideas are welcome)
+  //  if (!(ticknumber % 5)) { //searching for better solution (ideas are welcome)
         if (keys & KEY_LEFT) {
             if (v1X > 0) {
                 v1X -= 2;
@@ -32,17 +32,12 @@ void GenericScene::tick(u16 keys) {
                 v1X++;
             }
         }
-       if (keys & KEY_START) {}
-        if (!charcterOnGround()) {
-            v1Y -= 1;
-        }
-        else{
-            v1Y = 0;
-            if (keys & KEY_UP) {
-                v1Y += 4;
-            }
-        }
-    }
+
+
+
+        if (keys & KEY_START) {}
+
+   // }
     if (keys & KEY_DOWN) {
 
     } else if (keys & KEY_B) {
@@ -63,7 +58,18 @@ void GenericScene::tick(u16 keys) {
     } else{
         charcter.get()->animate();
     }
-
+    if (!charcterOnGround()) {
+        v1Y -= 1;
+    }
+    else if (keys & KEY_UP && charcterOnGround()) {
+        v1Y += 10;
+    }
+    else{
+        v1Y=0;
+    }
+  /*  if(charcterOnGround()){
+        v1Y=0;
+    }*/
 
       if(charcteragainstwall(true ) && v1X > 0 )
     {
@@ -232,9 +238,9 @@ std::vector<unsigned short> GenericScene::tilesBelowCharcter() {
     int charXtile=getCharcterXTile();
     int charYtile=getCharcterYTile();
     std::vector< unsigned short> tiles;
-    for (int i = 0; i < Charcter_width/8; ++i) {
+    for (int i = 0; i < 32/8; ++i) {
       //  tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + i, getCharcterYTile() + (Charcter_heigth + Charcter_y_offset) / 8)]);
-        tiles.push_back(Level_Tiles[getTilenumber(charXtile +2+ i, charYtile) ]);
+        tiles.push_back(Level_Tiles[getTilenumber(charXtile +1+ i, charYtile+1) ]);
     }
     return tiles;
 }
@@ -244,7 +250,7 @@ unsigned short GenericScene::getCharcterXTile(){
 }
 
 unsigned short GenericScene::getCharcterYTile(){
-     return (bg1Y+charcterY+32)/8;
+     return (bg1Y+charcterY+24)/8;
 
 }
 
@@ -253,13 +259,13 @@ std::vector<unsigned short> GenericScene::tilesAgainstCharcter(bool right) {
     int charYtile=getCharcterYTile();
     std::vector< unsigned short> tiles;
     if (right) {
-        for (int i = 0; i < Charcter_heigth / 8; i++) {
+        for (int i = 0; i < 32 / 8; i++) {
       //      tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + (Charcter_width) / 8 + 1, getCharcterYTile() + i)]);
             tiles.push_back(Level_Tiles[getTilenumber(charXtile + 4, charYtile- i)]);
         }
     }
     else {
-        for (int i = 0; i < Charcter_heigth / 8; ++i) {
+        for (int i = 0; i < 32 / 8; ++i) {
         //    tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() - 1, getCharcterYTile() + i)]);
             tiles.push_back(Level_Tiles[getTilenumber(charXtile , charYtile - i)]);
         }
