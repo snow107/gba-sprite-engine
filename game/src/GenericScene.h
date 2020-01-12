@@ -25,14 +25,17 @@ protected:
     int charcterX,charcterY;
     int bg1X,bg1Y;
     int v1X,v1Y;
+    int x,y;
+    int collisionX,colissionY;
+    void collisionBewegen();
     void movebg1(int x, int y);
     void movecharcter(int x, int y);
-    bool charcterOnGround();
-    bool charcteragainstwall(bool right); //otherwise left
+    bool charcterVerticalcheck();
+    bool charcteraHorizontaalCheck();
     std::vector<unsigned short> tilesBelowCharcter();
     std::vector<unsigned short> tilesAgainstCharcter(bool right); //otherwise lift
     int getBottemLeftCharcterTile();
-    void move(int x,int y);
+    void move();
     int getTilenumber(int tilex,int tiley);
     unsigned short getCharcterXTile(); //returns left tile number
     unsigned short getCharcterYTile(); //returns top tile number
