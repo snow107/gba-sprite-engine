@@ -14,39 +14,46 @@ void GenericScene::tick(u16 keys) {
     onTick(keys);
     //keys inlezen en snelheid zetten
         if (keys & KEY_LEFT) {
-            v1X+=1;
-            if(v1X>5){v1X=5;}
-           d1X = -1;
+            v1X-=1;
+            if(v1X<5){v1X=-5;}
+
         }
         else if (keys & KEY_RIGHT) {
             v1X+=1;
-            if(v1X>5){v1X=5;}
-            d1X =+1;
+            if(v1X>5){v1X=+5;}
+
         }
         else{
             v1X--;
-            d1X=0;
-        }
-            v1Y=3;
-            d1Y= +1;
+            if(v1X<0){v1X=0;}
 
+        }
+        if(charcterVerticalcheck())
+        {
+            v1Y++;
+            d1Y= +1;
+        }
+        else
+        {
+            v1Y=0;
+        }
         if(keys & KEY_UP && !charcterVerticalcheck()){
             d1Y= -1;
-            v1Y=30; // mischien =v1X*15 // beste is 2verschillende ticks ofzo
+            v1Y=-7; // mischien =v1X*15 // beste is 2verschillende ticks ofzo
         }
 
     //kijken als nieuwe locatie mag
         collisionBewegen(v1X,v1Y);
     if (keys & KEY_START) {}
-        if (d1X > 0) {
+        if (v1X > 0) {
             charcter.get()->flipHorizontally(false);
         }
-        if (d1X < 0) {
+        if (v1X < 0) {
             charcter.get()->flipHorizontally(true);
         }
-        if (d1X == 0) {
+        if (v1X == 0) {
             charcter.get()->stopAnimating();
-            //charcter.get()->animateToFrame(5);
+           // charcter.get()->animateToFrame(8);
         }
         else {
             charcter.get()->animate();
@@ -57,29 +64,45 @@ void GenericScene::tick(u16 keys) {
         }
 }
 void GenericScene::collisionBewegen(int speedX,int speedY){
-    int grootsteSnelheid =speedX;
-    if(speedY>speedX){grootsteSnelheid=speedY;}
+
+    int grootsteSnelheid =abs(speedX);
+    if(abs(speedY)>abs(speedX)){grootsteSnelheid=abs(speedY);}
     for(int i=0;i<grootsteSnelheid;i++)
     {
-        if(i<speedX)
+        if(i<abs(speedX))
         {
-            if(charcteraHorizontaalCheck()){x+=d1X;}
+            if(speedX>0)
+            {
+                if(charcteraHorizontaalCheck()){x+=1;}
+            }
+            if(speedX<0)
+            {
+                if(charcteraHorizontaalCheck()){x-=1;}
+            }
         }
-        if(i<speedY)
+        if(i<abs(speedY))
         {
-            if(charcterVerticalcheck()){y+=d1Y;};
+            if(speedY>0)
+            {
+                if(charcterVerticalcheck()){y+=1;};
+            }
+            if(speedY<0)
+            {
+                if(charcterVerticalcheck()){y-=1;};
+            }
+
         }
         move();
     }
 }
 bool GenericScene::charcteraHorizontaalCheck(){
-    if(d1X<0)//left
+    if(v1X<0)//left
     {
         //get tiles aan linkerkant op nieuwe positite x=x-v1X
         std::vector< unsigned short> tiles;
 
         for (int i = 0; i < 4 ; i++) { //char height
-            tiles.push_back(Level_Tiles[getTilenumber((x-2-d1X)/8,(y+7)/8+i)]);
+            tiles.push_back(Level_Tiles[getTilenumber((x-2-1)/8,(y+7)/8+i)]);
         }
         for (int i = 0; i < tiles.size(); ++i) {
             if(tiles.data()[i] != 0){
@@ -88,13 +111,13 @@ bool GenericScene::charcteraHorizontaalCheck(){
             //nagaan als je nu dood bent
         }
     }
-    if(d1X>0)//right
+    if(v1X>0)//right
     {
         //get tiles aan rechterkant op nieuwe positite x=x+v1X + dikte char
         std::vector< unsigned short> tiles;
 
             for (int i = 0; i < 4 ; i++) { //char height
-                tiles.push_back(Level_Tiles[getTilenumber((x+15+d1X)/8,(y+7)/8+i)]);
+                tiles.push_back(Level_Tiles[getTilenumber((x+15+1)/8,(y+7)/8+i)]);
             }
             for (int i = 0; i < tiles.size(); ++i) {
                 if(tiles.data()[i] != 0){
@@ -110,8 +133,8 @@ bool GenericScene::charcterVerticalcheck(){
     if(d1Y>0) //omlaag
     {
         std::vector< unsigned short> tiles;
-        tiles.push_back(Level_Tiles[getTilenumber(((x+1)/8),(y+31+d1Y)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber(((x+15)/8),(y+31+d1Y)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber(((x+1)/8),(y+31+1)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber(((x+15)/8),(y+31+1)/8)]);
         for (int i = 0; i < tiles.size(); ++i) {
             if (tiles.data()[i] != 0) {
                 return false;
@@ -121,8 +144,8 @@ bool GenericScene::charcterVerticalcheck(){
     if(d1Y<0)//omhoog
     {
         std::vector< unsigned short> tiles;
-        tiles.push_back(Level_Tiles[getTilenumber((x+1)/8,(y-d1Y)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber((x+15)/8,(y-d1Y)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x+1)/8,(y-1)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x+15)/8,(y-1)/8)]);
         for (int i = 0; i < tiles.size(); ++i) {
             if (tiles.data()[i] != 0) {
                 return false;
