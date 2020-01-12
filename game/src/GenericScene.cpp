@@ -52,7 +52,7 @@ void GenericScene::tick(u16 keys) {
 
 
 
-        move();
+
 
 
 }
@@ -63,7 +63,7 @@ void GenericScene::collisionBewegen(){
     if(charcterVerticalcheck()){y+=v1Y;};
   //  x+=v1X;
   // y+=v1Y;
-
+    move();
 
 }
 bool GenericScene::charcteraHorizontaalCheck(){
