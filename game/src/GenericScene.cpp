@@ -14,12 +14,15 @@ void GenericScene::tick(u16 keys) {
     onTick(keys);
     //keys inlezen en snelheid zetten
         if (keys & KEY_LEFT) {
-            v1X-=1;
+//            engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
+           v1X-=1;
+        // v1X=-1;
             if(v1X<5){v1X=-5;}
 
         }
         else if (keys & KEY_RIGHT) {
             v1X+=1;
+         //  v1X=1;
             if(v1X>5){v1X=+5;}
 
         }
@@ -39,7 +42,7 @@ void GenericScene::tick(u16 keys) {
         }
         if(keys & KEY_UP && !charcterVerticalcheck()){
             d1Y= -1;
-            v1Y=-7; // mischien =v1X*15 // beste is 2verschillende ticks ofzo
+            v1Y=-8; //naar 6 voor 3
         }
 
     //kijken als nieuwe locatie mag
@@ -101,9 +104,11 @@ bool GenericScene::charcteraHorizontaalCheck(){
         //get tiles aan linkerkant op nieuwe positite x=x-v1X
         std::vector< unsigned short> tiles;
 
-        for (int i = 0; i < 4 ; i++) { //char height
-            tiles.push_back(Level_Tiles[getTilenumber((x-2-1)/8,(y+7)/8+i)]);
-        }
+        tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+1)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+9)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+17)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+25)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+31)/8)]);
         for (int i = 0; i < tiles.size(); ++i) {
             if(tiles.data()[i] != 0){
                 return false;
@@ -116,9 +121,15 @@ bool GenericScene::charcteraHorizontaalCheck(){
         //get tiles aan rechterkant op nieuwe positite x=x+v1X + dikte char
         std::vector< unsigned short> tiles;
 
-            for (int i = 0; i < 4 ; i++) { //char height
+          /*  for (int i = 0; i < 4 ; i++) { //char height
                 tiles.push_back(Level_Tiles[getTilenumber((x+15+1)/8,(y+7)/8+i)]);
-            }
+            }*/
+        tiles.push_back(Level_Tiles[getTilenumber((x+16)/8,(y+1)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x+16)/8,(y+9)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x+16)/8,(y+17)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x+16)/8,(y+25)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x+16)/8,(y+31)/8)]);
+
             for (int i = 0; i < tiles.size(); ++i) {
                 if(tiles.data()[i] != 0){
                  return false;
@@ -133,8 +144,8 @@ bool GenericScene::charcterVerticalcheck(){
     if(d1Y>0) //omlaag
     {
         std::vector< unsigned short> tiles;
-        tiles.push_back(Level_Tiles[getTilenumber(((x+1)/8),(y+31+1)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber(((x+15)/8),(y+31+1)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber(((x+1)/8),(y+32)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber(((x+15)/8),(y+32)/8)]);
         for (int i = 0; i < tiles.size(); ++i) {
             if (tiles.data()[i] != 0) {
                 return false;
@@ -288,7 +299,7 @@ void GenericScene::move() {
             if(charcterX+32 >= GBA_SCREEN_WIDTH) charcterX=GBA_SCREEN_WIDTH-32;
         }*/
 
-
+    // beneath code used from  https://wiki.nycresistor.com/wiki/GB101:Collision_Detection for moving bg1 or char
   if (x < 0)
         x = 0;
     else if (x+16> Scene_width*8)
@@ -316,7 +327,7 @@ void GenericScene::move() {
         bg1X=x-GBA_SCREEN_WIDTH/2;
        charcterX=GBA_SCREEN_WIDTH/2;
     }
-//y
+
     if (y < GBA_SCREEN_HEIGHT/2-56) {
         bg1Y = 0;
         charcterY = y;
@@ -331,7 +342,7 @@ void GenericScene::move() {
         bg1Y = y - GBA_SCREEN_HEIGHT/2+56;
         charcterY = GBA_SCREEN_HEIGHT/2-56;
     }
-   // code used from  https://wiki.nycresistor.com/wiki/GB101:Collision_Detection
+   // end code used from  https://wiki.nycresistor.com/wiki/GB101:Collision_Detection
 
 
 
