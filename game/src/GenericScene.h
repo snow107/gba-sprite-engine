@@ -24,7 +24,7 @@ protected:
     std::unique_ptr<Sprite> charcter;
     int charcterX,charcterY;
     int bg1X,bg1Y;
-    int v1X,v1Y;
+    int v1X,v1Y,d1x,d1y;
     int x,y;
     int collisionX,colissionY;
     void collisionBewegen();

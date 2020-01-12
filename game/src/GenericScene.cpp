@@ -22,15 +22,13 @@ void GenericScene::tick(u16 keys) {
         else{
             v1X=0;
         }
-        if (keys & KEY_DOWN) {
+
             v1Y= +1;
-        }
-        else if(keys & KEY_UP){
+
+        if(keys & KEY_UP){
             v1Y= -1;
         }
-        else{
-            v1Y=0;
-        }
+
     //kijken als nieuwe locatie mag
         collisionBewegen();
     if (keys & KEY_START) {}
@@ -106,8 +104,8 @@ bool GenericScene::charcterVerticalcheck(){
     if(v1Y>0) //omlaag
     {
         std::vector< unsigned short> tiles;
-        for (int i = 0; i < 2 ; i++) { //char height
-            tiles.push_back(Level_Tiles[getTilenumber(x/8+i,(y+31+v1Y)/8)]);
+        for (int i = 0; i < 3 ; i++) { //char height
+            tiles.push_back(Level_Tiles[getTilenumber((x)/8+i,(y+31+v1Y)/8)]);
         }
         for (int i = 0; i < tiles.size(); ++i) {
             if (tiles.data()[i] != 0) {
@@ -118,8 +116,8 @@ bool GenericScene::charcterVerticalcheck(){
     if(v1Y<0)//omhoog
     {
         std::vector< unsigned short> tiles;
-        for (int i = 0; i < 2 ; i++) { //char height
-            tiles.push_back(Level_Tiles[getTilenumber(x/8+i,(y-v1Y)/8)]);
+        for (int i = 0; i < 3 ; i++) { //char height
+            tiles.push_back(Level_Tiles[getTilenumber((x+7)/8+i,(y-v1Y)/8)]);
         }
         for (int i = 0; i < tiles.size(); ++i) {
             if (tiles.data()[i] != 0) {
@@ -129,9 +127,6 @@ bool GenericScene::charcterVerticalcheck(){
     }
     return true;
 }
-
-
-
 int GenericScene::getTilenumber(int tilex, int tiley) {
     int tile = tilex + tiley*32;
     if (tilex >= 32){
@@ -236,17 +231,8 @@ void GenericScene::movebg1(int x, int y){
     bg1.get()->scroll(bg1X,bg1Y);
 }
 
-void GenericScene::movecharcter(int x, int y) {
-    charcterX += x;
-    charcterY -= y;
-    charcter.get()->moveTo(charcterX,charcterY);
-}
 
-int GenericScene::getBottemLeftCharcterTile() {
-    int charctertileY = ((bg1Y + charcterY + Charcter_heigth) / 8)*Scene_width;
-    int charctertileX = (bg1X + charcterX + Charcter_x_offset)/8;
-    return charctertileX + charctertileY;
-}
+
 
 void GenericScene::move() {
 //    if(((charcterY+Charcter_heigth+128) - bg1Y < GBA_SCREEN_HEIGHT)|| ((Scene_heigth*8)-bg1Y <= GBA_SCREEN_HEIGHT) )
@@ -371,19 +357,19 @@ void GenericScene::move() {
        charcterX=GBA_SCREEN_WIDTH/2;
     }
 //y
-    if (y < GBA_SCREEN_HEIGHT/2) {
+    if (y < GBA_SCREEN_HEIGHT/2-56) {
         bg1Y = 0;
         charcterY = y;
     }
         // If we're too close to the bottom, lock the screen and move the sprite
-    else if (y > Scene_heigth*8-GBA_SCREEN_HEIGHT/2) {
+    else if (y > Scene_heigth*8-(GBA_SCREEN_HEIGHT/2)-56) {
         bg1Y = Scene_heigth*8-GBA_SCREEN_HEIGHT;
         charcterY = y - bg1Y;
     }
         // Lock the sprite and move the screen otherwise
     else {
-        bg1Y = y - GBA_SCREEN_HEIGHT/2;
-        charcterY = GBA_SCREEN_HEIGHT/2;
+        bg1Y = y - GBA_SCREEN_HEIGHT/2+56;
+        charcterY = GBA_SCREEN_HEIGHT/2-56;
     }
 
     //    charcterY -=y;
