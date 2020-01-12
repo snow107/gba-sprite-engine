@@ -9,7 +9,7 @@ We tried to code in a way that it is easy to create new levels and add more mech
 
 We have implemented the following diagram: 
 
-![alt text](https://github.com/snow107/gba-sprite-engine/tree/master/img/Diagram.png)
+![alt text](https://raw.githubusercontent.com/snow107/gba-sprite-engine/master/img/Diagram.png)
 
 The Engine has a scene which we need to Inherit to work with. We made a generic scene for our game which inherits from the engine scene.
 In the genericScenen we have the mechanics of our game. This makes it easy to create more scenes.
