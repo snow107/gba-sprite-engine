@@ -62,9 +62,9 @@ void GenericScene::collisionBewegen(){
     //loop voor meerde pixels tegelijk veranderen
 
    if(charcteraHorizontaalCheck()){x+=v1X;}
-  //  charcterVerticalcheck();
+    if(charcterVerticalcheck()){y+=v1Y;};
   //  x+=v1X;
-   y+=v1Y;
+  // y+=v1Y;
 
 
 }
@@ -75,12 +75,13 @@ bool GenericScene::charcteraHorizontaalCheck(){
         std::vector< unsigned short> tiles;
 
         for (int i = 0; i < 4 ; i++) { //char height
-            tiles.push_back(Level_Tiles[getTilenumber((x-v1X)/8,y/8+i)]);
+            tiles.push_back(Level_Tiles[getTilenumber((x-2-v1X)/8,(y+7)/8+i)]);
         }
-        for (int i = 0; i < tiles.size(); ++i) {
+        for (int i = 0; i < tiles.size(); ++i) { //nagaan als j ehier mag staan
             if(tiles.data()[i] != 0){
                 return false;
             }
+            //nagaan als je nu dood bent
         }
     }
     if(v1X>0)//right
@@ -89,22 +90,44 @@ bool GenericScene::charcteraHorizontaalCheck(){
         std::vector< unsigned short> tiles;
 
             for (int i = 0; i < 4 ; i++) { //char height
-                tiles.push_back(Level_Tiles[getTilenumber((x+16+v1X)/8,y/8+i)]);
+                tiles.push_back(Level_Tiles[getTilenumber((x+15+v1X)/8,(y+7)/8+i)]);
             }
             for (int i = 0; i < tiles.size(); ++i) {
                 if(tiles.data()[i] != 0){
                  return false;
                 }
+                //nagaan als je nu dood bent
             }
-
-
-
     }
     return true;
 }
 
 bool GenericScene::charcterVerticalcheck(){
-
+    if(v1Y>0) //omlaag
+    {
+        std::vector< unsigned short> tiles;
+        for (int i = 0; i < 2 ; i++) { //char height
+            tiles.push_back(Level_Tiles[getTilenumber(x/8+i,(y+31+v1Y)/8)]);
+        }
+        for (int i = 0; i < tiles.size(); ++i) {
+            if (tiles.data()[i] != 0) {
+                return false;
+            }
+        }
+    }
+    if(v1Y<0)//omhoog
+    {
+        std::vector< unsigned short> tiles;
+        for (int i = 0; i < 2 ; i++) { //char height
+            tiles.push_back(Level_Tiles[getTilenumber(x/8+i,(y-v1Y)/8)]);
+        }
+        for (int i = 0; i < tiles.size(); ++i) {
+            if (tiles.data()[i] != 0) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 

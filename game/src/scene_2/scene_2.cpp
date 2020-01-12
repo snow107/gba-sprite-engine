@@ -32,11 +32,12 @@ void scene_2::load() {
     bg1=std::unique_ptr<Background>(CreateBackground(1, Pal_transTiles, sizeof(Pal_transTiles), mapScene2, sizeof(mapScene2), MAP64X64));
     bg2=std::unique_ptr<Background>(CreateBackground(2,Pal_transTiles, sizeof(Pal_transTiles),Main_background,sizeof(Main_background),MAP32X32));
 
-    charcterX = 20;
-    charcterY = 50;
-    bg1X = 0;
-    bg1Y = 5;
-    v1Y =0;v1X=0;
+  //  charcterX = 20;
+ //   charcterY = 50;
+  //  bg1X = 0;
+ //   bg1Y = 5;
+  //  v1Y =0;v1X=0;
+   x=0,y=0;
     bg1.get()->scroll(bg1X,bg1Y);
 
     SpriteBuilder<Sprite> builder;
