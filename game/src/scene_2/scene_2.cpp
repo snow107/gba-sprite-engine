@@ -10,14 +10,14 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
 #include "../scene_1/Main_background.h"
-#include "map/mapScene2.h"
-#include "../Tileset/tileset.h"
+//#include "../Tileset/tileset.h"
 #include "../scene_1/scene_1.h"
 #include "../scene_start/sonic_smaller16pixelsBreed.h"
 #include "../sprites/shared_star_circle_sonic.h"
 #include "../sprites/sonic_for_star_circle.h"
 #include "../sprites/star.h"
 //#include "map/maptest6464.h"
+#include "../Tileset/tilesSpel.c"
 
 
 std::vector<Background *> scene_2::backgrounds() {
@@ -32,9 +32,9 @@ void scene_2::load() {
     engine.get()->disableText();
 
     foregroundPalette=std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
-    backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Pal_transPal, sizeof(Pal_transPal)));
-    bg1=std::unique_ptr<Background>(CreateBackground(1, Pal_transTiles, sizeof(Pal_transTiles), maptest6464, sizeof(maptest6464), MAP64X64));
-    bg2=std::unique_ptr<Background>(CreateBackground(2,Pal_transTiles, sizeof(Pal_transTiles),Main_background,sizeof(Main_background),MAP32X32));
+    backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tilesSpelPal, sizeof(tilesSpelPal)));
+    bg1=std::unique_ptr<Background>(CreateBackground(1, tilesSpelTiles, sizeof(tilesSpelTiles), mapScene2, sizeof(mapScene2), MAP64X64));
+    bg2=std::unique_ptr<Background>(CreateBackground(2,tilesSpelTiles, sizeof(tilesSpelTiles),Main_background,sizeof(Main_background),MAP32X32));
 
   //  charcterX = 20;
  //   charcterY = 50;

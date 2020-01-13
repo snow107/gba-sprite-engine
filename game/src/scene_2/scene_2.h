@@ -23,8 +23,8 @@ class scene_2 : public  GenericScene{
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
-    scene_2(std::shared_ptr<GBAEngine> engine) : GenericScene(engine, 64,
-            64,0,0,star2X,star2Y, maptest6464) {}
+    scene_2(std::shared_ptr<GBAEngine> engine) : GenericScene(engine, mapScene2_width,
+            mapScene2_height,0,0,star2X,star2Y, mapScene2) {}
 
     void load() override;
     void onTick(u16 keys) override;
