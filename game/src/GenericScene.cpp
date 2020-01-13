@@ -332,7 +332,7 @@ void GenericScene::move() {
    // end code used from  https://wiki.nycresistor.com/wiki/GB101:Collision_Detection
 
 
-    if(bg1X>=64*8-GBA_SCREEN_WIDTH-16)ster.get()->moveTo(272-bg1X+222,96-bg1Y+80);
+    if(bg1X>=Scene_width*8-GBA_SCREEN_WIDTH-16 && bg1Y>=Scene_heigth*8-GBA_SCREEN_HEIGHT-16)ster.get()->moveTo(Scene_width*8-GBA_SCREEN_WIDTH-bg1X+starX,Scene_heigth*8-GBA_SCREEN_HEIGHT-bg1Y+starY);
     else{ster.get()->moveTo(0,200);}
     charcter.get()->moveTo(charcterX,charcterY);
     bg1.get()->scroll(bg1X,bg1Y);

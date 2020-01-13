@@ -16,6 +16,7 @@ private:
 
     short Scene_width;
     short Scene_heigth;
+    int starX,starY;
     void tick(u16 keys) override;
     int  collisionArray[6] = {0x02, 0x06, 0x07, 0x09, 0x0A, 0x18};
 
@@ -50,8 +51,8 @@ protected:
 
 public:
     GenericScene(std::shared_ptr<GBAEngine> engine, short sceneWidth,
-                 short sceneHeigth,int resetX,int resetY,  const unsigned short *levelTiles)
-            : Scene(engine), Scene_width(sceneWidth),Scene_heigth(sceneHeigth), Level_Tiles(levelTiles),resetX(resetX),resetY(resetY) {}
+                 short sceneHeigth,int resetX,int resetY,int starX,int starY,  const unsigned short *levelTiles)
+            : Scene(engine), Scene_width(sceneWidth),Scene_heigth(sceneHeigth), Level_Tiles(levelTiles),resetX(resetX),resetY(resetY),starX(starX),starY(starY) {}
     virtual void onTick(u16 keys) =0;
 };
 

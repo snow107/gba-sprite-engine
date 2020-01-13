@@ -56,11 +56,12 @@ void scene_2::load() {
             .withData(starTiles,sizeof(starTiles))
             .withSize(SIZE_16_16)
             .withAnimated(1,1)
-            .withLocation(0,200)//222/80
+            .withLocation(0,200)//222/40
             .buildPtr();
 }
 
 void scene_2::onTick(u16 keys) {
+    
     if (keys & KEY_START) {
         engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
     }
