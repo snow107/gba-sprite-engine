@@ -37,7 +37,7 @@ void scene_2::load() {
  //   charcterY = 50;
   //  bg1X = 0;
  //   bg1Y = 5;
-  //  v1Y =0;v1X=0;
+    v1Y =0;v1X=0;
    x=0,y=0;
     bg1.get()->scroll(bg1X,bg1Y);
 
@@ -53,15 +53,15 @@ void scene_2::load() {
 }
 
 void scene_2::onTick(u16 keys) {
-//    int collisionArray[] = {0x07, 0x08,0x18,0x02,0x09,0x0A};
-//    if (!(ticknumber % 5)) {
-//        for (int i = 0; i < COLLISIONARRAYSIZE; ++i) {
-//            if (charcterOnTile(collisionArray[i]) || charterAgainstTile(true, collisionArray[i]) ||
-//                charterAgainstTile(false, collisionArray[i])) {
-//                engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
-//                //you died
-//            }
-//        }
-//    }
+    int collisionArray[] = {0x07, 0x08,0x18,0x02,0x09,0x0A};
+   if (!(ticknumber % 5)) {
+        for (int i = 0; i < COLLISIONARRAYSIZE; ++i) {
+            if (charcterOnTile(collisionArray[i]) || charterAgainstTile(true, collisionArray[i]) ||
+               charterAgainstTile(false, collisionArray[i])) {
+               engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
+               //you died
+            }
+       }
+   }
 
 }
