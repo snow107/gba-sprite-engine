@@ -57,7 +57,7 @@ void scene_1::load() {
 
 void scene_1::onTick(u16 keys) {
     int collisionArray[] = {0x07, 0x08,0x18,0x02,0x09,0x0A};
-    if (!(ticknumber % 5)) {
+
         if (keys & KEY_START)
         {
             engine->transitionIntoScene(new scene_2(engine), new FadeOutScene(2));
@@ -71,6 +71,6 @@ void scene_1::onTick(u16 keys) {
         }
     }
 
-}
+
 
 
