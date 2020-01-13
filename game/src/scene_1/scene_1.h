@@ -10,16 +10,6 @@
 #include "Main_level.h"
 #include "map/testmap.h"
 
-#define CHARTER_X_OFFSET 5
-#define CHARTER_Y_OFFSET 5
-
-#define CHARTERHEIGTH 32 //pixels
-#define CHARTERWIDTH 16 //pixels
-
-#define SCENE_WIDTH 64 //tiles
-#define SCENE_HEIGTH 32 //tiles
-
-
 #define COLLISIONARRAYSIZE 6
 
 
@@ -31,10 +21,8 @@ class scene_1 : public  GenericScene{
         std::vector<Sprite *> sprites() override;
         std::vector<Background *> backgrounds() override;
 
-        scene_1(std::shared_ptr<GBAEngine> engine) : GenericScene(engine, SCENE_WIDTH,
-                                                                  SCENE_HEIGTH, CHARTERWIDTH,
-                                                                  CHARTERHEIGTH, CHARTER_X_OFFSET, CHARTER_Y_OFFSET,
-                                                                  Main_level) {}
+        scene_1(std::shared_ptr<GBAEngine> engine) : GenericScene(engine, Main_level_Map_Whith,
+                                                                  Main_level_Map_Height,20,150, Main_level) {}
 
         void load() override;
         void onTick(u16 keys) override;

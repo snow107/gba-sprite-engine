@@ -2,8 +2,8 @@
 //Bin converted to hex in labview, program created by Michiel
 
 
-#ifndef GBA_SPRITE_ENGINE_PROJECT_TESTMAP,H_H
-#define GBA_SPRITE_ENGINE_PROJECT_TESTMAP,H_H
+#ifndef GBA_SPRITE_ENGINE_PROJECT_TESTMAPH_H
+#define GBA_SPRITE_ENGINE_PROJECT_TESTMAPH_H
 #define  testmap_Map_Height  32
 #define  testmap_Map_Width  64
 

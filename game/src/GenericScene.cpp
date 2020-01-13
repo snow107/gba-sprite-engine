@@ -1,7 +1,7 @@
 //
 // Created by jelle on 2019/11/29.
 //
-
+#include <array>
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
@@ -31,7 +31,7 @@ void GenericScene::tick(u16 keys) {
             if(v1X<0){v1X=0;}
 
         }
-        if(charcterVerticalcheck())
+        if(charcterVerticalcheck(0))
         {
             v1Y++;
 
@@ -40,7 +40,7 @@ void GenericScene::tick(u16 keys) {
         {
             v1Y=0;
         }
-        if(keys & KEY_UP && !charcterVerticalcheck()){
+        if(keys & KEY_UP && !charcterVerticalcheck(0)){
 
             v1Y=-8; //naar 6 voor 3
         }
@@ -60,8 +60,7 @@ void GenericScene::tick(u16 keys) {
         }
         else {
             charcter.get()->animate();
-        }if (keys & KEY_B) {
-            movebg1(32, 0); //test function
+
         } if (keys & KEY_A) {
             backgroundPalette.get()->increaseBrightness(1);
         }
@@ -76,78 +75,103 @@ void GenericScene::collisionBewegen(int speedX,int speedY){
         {
             if(speedX>0)
             {
-                if(charcteraHorizontaalCheck()){x+=1;}
+                if(charcteraHorizontaalCheck(0)){x+=1;}
             }
             if(speedX<0)
             {
-                if(charcteraHorizontaalCheck()){x-=1;}
+                if(charcteraHorizontaalCheck(0)){x-=1;}
             }
         }
         if(i<abs(speedY))
         {
             if(speedY>0)
             {
-                if(charcterVerticalcheck()){y+=1;};
+                if(charcterVerticalcheck(0)){y+=1;};
             }
             if(speedY<0)
             {
-                if(charcterVerticalcheck()){y-=1;};
+                if(charcterVerticalcheck(0)){y-=1;};
             }
 
         }
+        if(dead){y=resetY;x=resetX;dead=false;v1X=0;v1Y=0;}
         move();
     }
 }
-bool GenericScene::charcteraHorizontaalCheck(){
+bool GenericScene::charcteraHorizontaalCheck(int tileNumber){
     if(v1X<0)//left
     {
-        //get tiles aan linkerkant op nieuwe positite x=x-v1X
+
         std::vector< unsigned short> tiles;
 
         tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+1)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+9)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+17)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+25)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+31)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+Charcter_height-1)/8)]);
+        for(int k=0;k<6;k++)
+        {
+            for (int j=0;j<tiles.size();j++)
+            {
+                if(tiles.data()[j]== collisionArray[k])
+                {
+                    dead=true;
+                }
+            }
+        }
         for (int i = 0; i < tiles.size(); ++i) {
-            if(tiles.data()[i] != 0){
+            if(tiles.data()[i] != tileNumber){
                 return false;
             }
-            //nagaan als je nu dood bent
+
         }
     }
     if(v1X>0)//right
     {
-        //get tiles aan rechterkant op nieuwe positite x=x+v1X + dikte char
         std::vector< unsigned short> tiles;
-
-          /*  for (int i = 0; i < 4 ; i++) { //char height
-                tiles.push_back(Level_Tiles[getTilenumber((x+15+1)/8,(y+7)/8+i)]);
-            }*/
-        tiles.push_back(Level_Tiles[getTilenumber((x+16)/8,(y+1)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber((x+16)/8,(y+9)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber((x+16)/8,(y+17)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber((x+16)/8,(y+25)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber((x+16)/8,(y+31)/8)]);
-
-            for (int i = 0; i < tiles.size(); ++i) {
-                if(tiles.data()[i] != 0){
-                 return false;
+        tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width)/8,(y+1)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width)/8,(y+9)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width)/8,(y+17)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width)/8,(y+25)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width)/8,(y+Charcter_height-1)/8)]);
+        for(int k=0;k<6;k++)
+        {
+            for (int j=0;j<tiles.size();j++)
+            {
+                if(tiles.data()[j]== collisionArray[k])
+                {
+                    dead=true;
                 }
-                //nagaan als je nu dood bent
             }
+        }
+        for (int i = 0; i < tiles.size(); ++i) {
+            if(tiles.data()[i] != tileNumber){
+                return false;
+            }
+
+        }
     }
     return true;
 }
 
-bool GenericScene::charcterVerticalcheck(){
+bool GenericScene::charcterVerticalcheck(int tileNumber){
     if(v1Y>0) //omlaag
     {
         std::vector< unsigned short> tiles;
-        tiles.push_back(Level_Tiles[getTilenumber(((x+1)/8),(y+32)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber(((x+15)/8),(y+32)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber(((x+1)/8),(y+Charcter_height)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber(((x+Charcter_width-1)/8),(y+Charcter_height)/8)]);
+        for(int k=0;k<6;k++)
+        {
+            for (int j=0;j<tiles.size();j++)
+            {
+                if(tiles.data()[j]== collisionArray[k])
+                {
+                    dead=true;
+                }
+            }
+        }
         for (int i = 0; i < tiles.size(); ++i) {
-            if (tiles.data()[i] != 0) {
+            if (tiles.data()[i] != tileNumber) {
                 return false;
             }
         }
@@ -156,9 +180,19 @@ bool GenericScene::charcterVerticalcheck(){
     {
         std::vector< unsigned short> tiles;
         tiles.push_back(Level_Tiles[getTilenumber((x+1)/8,(y-1)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber((x+15)/8,(y-1)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width-1)/8,(y-1)/8)]);
+        for(int k=0;k<6;k++)
+        {
+            for (int j=0;j<tiles.size();j++)
+            {
+                if(tiles.data()[j]== collisionArray[k])
+                {
+                    dead=true;
+                }
+            }
+        }
         for (int i = 0; i < tiles.size(); ++i) {
-            if (tiles.data()[i] != 0) {
+            if (tiles.data()[i] != tileNumber) {
                 return false;
             }
         }
@@ -177,6 +211,20 @@ int GenericScene::getTilenumber(int tilex, int tiley) {
     return tile;
     //code used from: https://www.coranac.com/tonc/text/regbg.htm
 }
+void GenericScene::deadCheck() {
+    int collisionArray[] = {0x07, 0x08,0x18,0x02,0x09,0x0A};
+    for(int i=0;i<6;i++)
+    {
+        if(!charcterVerticalcheck(collisionArray[i]))
+        {
+            dead=true;
+        }
+    /*    if(!charcteraHorizontaalCheck(collisionArray[i]))
+        {
+            dead =true;
+        }*/
+    }
+}
 
 std::vector<unsigned short> GenericScene::tilesBelowCharcter() {
 
@@ -190,7 +238,7 @@ std::vector<unsigned short> GenericScene::tilesBelowCharcter() {
     return tiles;
 }
 unsigned short GenericScene::getCharcterXTile(){
-    // return (bg1X+charcterX+Charcter_x_offset)/8;
+
     return(bg1X+charcterX)/8;
 }
 
@@ -206,7 +254,7 @@ std::vector<unsigned short> GenericScene::tilesAgainstCharcter(bool right) {
     if (right) {
         for (int i = 0; i < 32 / 8; i++) { //char height
             //      tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + (Charcter_width) / 8 + 1, getCharcterYTile() + i)]);
-            tiles.push_back(Level_Tiles[getTilenumber(charXtile + 2, charYtile- i)]);
+            tiles.push_back(Level_Tiles[getTilenumber((x+16)/8, charYtile- i)]);
         }
     }
     else {
@@ -218,7 +266,6 @@ std::vector<unsigned short> GenericScene::tilesAgainstCharcter(bool right) {
 
     return tiles;
 }
-
 bool GenericScene::charcterOnTile(unsigned short tilenumber){ //returns true if charcters stands on this tile
     std::vector<unsigned short> tiles = tilesBelowCharcter();
     for (int i = 0; i < tiles.size(); ++i) {
@@ -228,20 +275,6 @@ bool GenericScene::charcterOnTile(unsigned short tilenumber){ //returns true if 
     }
     return  false;
 }
-
-bool GenericScene::charcterNotOnTile(unsigned short tilenumber){ //returns true if charcters stands not on this tile
-    std::vector<unsigned short> tiles = tilesBelowCharcter();
-    for (int i = 0; i < tiles.size(); ++i) {
-        if(tiles.data()[i] != tilenumber){
-            return true;
-        }
-    }
-    return  false;
-}
-
-
-
-
 bool GenericScene::charterAgainstTile(bool right, int tilenumber) {
     std::vector<unsigned short> tiles = tilesAgainstCharcter(right);
     for (int i = 0; i < tiles.size(); ++i) {
@@ -251,56 +284,9 @@ bool GenericScene::charterAgainstTile(bool right, int tilenumber) {
     }
     return  false;
 }
-
-bool GenericScene::charterNotAgainstTile(bool right, int tilenumber) {
-    std::vector<unsigned short> tiles = tilesAgainstCharcter(right);
-    for (int i = 0; i < tiles.size(); ++i) {
-        if(tiles.data()[i] != tilenumber){
-            return true;
-        }
-    }
-    return  false;
-}
-
-
-
-void GenericScene::movebg1(int x, int y){
-    bg1X += x;
-    bg1Y -= y;
-    bg1.get()->scroll(bg1X,bg1Y);
-}
-
-
-
-
 void GenericScene::move() {
 
-    /*    if((charcterX+15) < (GBA_SCREEN_WIDTH/2) && (bg1X==0)) {
-            charcterX += x;
-            if(charcterX<=0)charcterX=0;
-            if (charcterX +16>= (GBA_SCREEN_WIDTH / 2)) {
-                charcterX = (GBA_SCREEN_WIDTH / 2)-16;
-            }
-        }
-        if((charcterX+16 )== (GBA_SCREEN_WIDTH/2) && (bg1X<Scene_width*8-GBA_SCREEN_WIDTH)) {
-            bg1X += x;
-            if((bg1X+GBA_SCREEN_WIDTH>=Scene_width*8)){
-                bg1X=Scene_width*8-GBA_SCREEN_WIDTH;
-            }
-            if(bg1X<0)bg1X=0;
-        }
-        if((charcterX+16)>=(GBA_SCREEN_WIDTH/2) && (bg1X==Scene_width*8-GBA_SCREEN_WIDTH))
-        {
-            charcterX+=x;
-            if(charcterX+16<=GBA_SCREEN_WIDTH/2)
-            {
-                charcterX = (GBA_SCREEN_WIDTH / 2)-16;
-                bg1X-=1;
-            }
-            if(charcterX+32 >= GBA_SCREEN_WIDTH) charcterX=GBA_SCREEN_WIDTH-32;
-        }*/
-
-    // beneath code used from  https://wiki.nycresistor.com/wiki/GB101:Collision_Detection for moving bg1 or char
+      // beneath code used from  https://wiki.nycresistor.com/wiki/GB101:Collision_Detection for moving bg1 or char
   if (x < 0)
         x = 0;
     else if (x+16> Scene_width*8)

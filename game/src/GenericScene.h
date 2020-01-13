@@ -6,32 +6,33 @@
 #define GBA_SPRITE_ENGINE_PROJECT_GENERICSCENE_H
 
 #include <libgba-sprite-engine/scene.h>
-
-
+#define Charcter_height 32
+#define Charcter_width 16
 
 class GenericScene : public Scene {
 private:
     const unsigned short* Level_Tiles;
-    short Charcter_heigth;
-    short Charcter_width;
-    short Charcter_y_offset;
-    short Charcter_x_offset;
+
     short Scene_width;
     short Scene_heigth;
     void tick(u16 keys) override;
+    int  collisionArray[6] = {0x02, 0x06, 0x07, 0x09, 0x0A, 0x18};
+
 protected:
     std::unique_ptr<Background> bg1;
     std::unique_ptr<Sprite> charcter;
     int charcterX,charcterY;
     int bg1X,bg1Y;
     int v1X,v1Y,d1X,d1Y;
-    int x,y;
+    int x,y,resetX,resetY;
     int collisionX,colissionY;
+    bool dead = false;
     void collisionBewegen(int speedX,int speedY);
     void movebg1(int x, int y);
     void movecharcter(int x, int y);
-    bool charcterVerticalcheck();
-    bool charcteraHorizontaalCheck();
+    void deadCheck();
+    bool charcterVerticalcheck(int tileNumber);
+    bool charcteraHorizontaalCheck(int tileNumber);
     std::vector<unsigned short> tilesBelowCharcter();
     std::vector<unsigned short> tilesAgainstCharcter(bool right); //otherwise lift
     int getBottemLeftCharcterTile();
@@ -47,11 +48,8 @@ protected:
 
 public:
     GenericScene(std::shared_ptr<GBAEngine> engine, short sceneWidth,
-                 short sceneHeigth, short charterwidth, short charterheigth, short charterXOffsetTiles,
-                 short charterYOffsetTiles, const unsigned short *levelTiles)
-            : Scene(engine), Charcter_width(charterwidth) , Charcter_heigth(charterheigth)
-            , Charcter_x_offset(charterXOffsetTiles), Charcter_y_offset(charterYOffsetTiles), Scene_width(sceneWidth),
-              Scene_heigth(sceneHeigth), Level_Tiles(levelTiles) {}
+                 short sceneHeigth,int resetX,int resetY,  const unsigned short *levelTiles)
+            : Scene(engine), Scene_width(sceneWidth),Scene_heigth(sceneHeigth), Level_Tiles(levelTiles),resetX(resetX),resetY(resetY) {}
     virtual void onTick(u16 keys) =0;
 };
 

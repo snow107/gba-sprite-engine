@@ -14,7 +14,6 @@
 #include "Main_level.h"
 #include "../Tileset/tileset.h"
 #include "../scene_2/scene_2.h"
-#include "map/testmap.h"
 #include "../scene_start/sonic_smaller16pixelsBreed.h"
 
 
@@ -39,8 +38,9 @@ void scene_1::load() {
   //  charcterY = 32+23;
   //  bg1X = 0;
  //   bg1Y = 32*8-GBA_SCREEN_HEIGHT;
+    dead=false;
     v1Y =0;v1X=0;
-    x=20;y=150;
+    x=20;y=170;
 
     bg1.get()->scroll(bg1X,bg1Y);
 
@@ -56,20 +56,12 @@ void scene_1::load() {
 }
 
 void scene_1::onTick(u16 keys) {
-    int collisionArray[] = {0x07, 0x08,0x18,0x02,0x09,0x0A};
 
-        if (keys & KEY_START)
-        {
-            engine->transitionIntoScene(new scene_2(engine), new FadeOutScene(2));
-        }
-        for (int i = 0; i < COLLISIONARRAYSIZE; ++i) {
-            if (charcterOnTile(collisionArray[i]) || charterAgainstTile(true, collisionArray[i]) ||
-                charterAgainstTile(false, collisionArray[i])) {
-                engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
-                //you died
-            }
-        }
+
+    if (keys & KEY_START) {
+        engine->transitionIntoScene(new scene_2(engine), new FadeOutScene(2));
     }
+}
 
 
 
