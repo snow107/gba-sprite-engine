@@ -8,13 +8,15 @@
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
-#include "../scene_start/mainCharcters.h"
+
 #include "../scene_1/Main_background.h"
 #include "map/mapScene2.h"
 #include "../Tileset/tileset.h"
 #include "../scene_1/scene_1.h"
 #include "../scene_start/sonic_smaller16pixelsBreed.h"
-
+#include "../sprites/shared_star_circle_sonic.h"
+#include "../sprites/sonic_for_star_circle.h"
+#include "../sprites/star.h"
 
 
 std::vector<Background *> scene_2::backgrounds() {
@@ -22,13 +24,13 @@ std::vector<Background *> scene_2::backgrounds() {
 }
 
 std::vector<Sprite *> scene_2::sprites() {
-    return {charcter.get()};
+    return {charcter.get(),ster.get()};
 }
 
 void scene_2::load() {
     engine.get()->disableText();
 
-    foregroundPalette=std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sonic_smaller16pixelsBreedPal, sizeof(sonic_smaller16pixelsBreedPal)));
+    foregroundPalette=std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Pal_transPal, sizeof(Pal_transPal)));
     bg1=std::unique_ptr<Background>(CreateBackground(1, Pal_transTiles, sizeof(Pal_transTiles), mapScene2, sizeof(mapScene2), MAP64X64));
     bg2=std::unique_ptr<Background>(CreateBackground(2,Pal_transTiles, sizeof(Pal_transTiles),Main_background,sizeof(Main_background),MAP32X32));
@@ -44,12 +46,18 @@ void scene_2::load() {
     SpriteBuilder<Sprite> builder;
 
     charcter = builder
-            .withData(sonic_smaller16pixelsBreedTiles, sizeof(sonic_smaller16pixelsBreedTiles))
+            .withData(sonicTiles, sizeof(sonicTiles))
             .withSize(SIZE_16_32)
             .withAnimated(16,10)
             .withLocation(charcterX, charcterY)
             .buildPtr();
     charcter.get()->setStayWithinBounds(true);
+    ster = builder
+            .withData(starTiles,sizeof(starTiles))
+            .withSize(SIZE_16_16)
+            .withAnimated(1,1)
+            .withLocation(0,200)//222/80
+            .buildPtr();
 }
 
 void scene_2::onTick(u16 keys) {

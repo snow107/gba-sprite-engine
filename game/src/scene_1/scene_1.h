@@ -16,7 +16,7 @@
 class scene_1 : public  GenericScene{
     private:
         std::unique_ptr<Background> bg2;
-      //  std::unique_ptr<Sprite> ster;
+
 
     public:
         std::vector<Sprite *> sprites() override;
