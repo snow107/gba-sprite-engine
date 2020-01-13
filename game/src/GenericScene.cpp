@@ -14,9 +14,9 @@ void GenericScene::tick(u16 keys) {
     onTick(keys);
     //keys inlezen en snelheid zetten
         if (keys & KEY_LEFT) {
-//            engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
-           v1X-=1;
-        // v1X=-1;
+//
+           v1X-=1;     // v1X=-1;
+
             if(v1X<5){v1X=-5;}
 
         }
@@ -29,12 +29,10 @@ void GenericScene::tick(u16 keys) {
         else{
             v1X--;
             if(v1X<0){v1X=0;}
-
         }
         if(charcterVerticalcheck(0))
         {
             v1Y++;
-
         }
         else
         {
@@ -44,10 +42,8 @@ void GenericScene::tick(u16 keys) {
 
             v1Y=-8; //naar 6 voor 3
         }
-
     //kijken als nieuwe locatie mag
         collisionBewegen(v1X,v1Y);
-    if (keys & KEY_START) {}
         if (v1X > 0) {
             charcter.get()->flipHorizontally(false);
         }
@@ -159,8 +155,10 @@ bool GenericScene::charcterVerticalcheck(int tileNumber){
     {
         std::vector< unsigned short> tiles;
         tiles.push_back(Level_Tiles[getTilenumber(((x+1)/8),(y+Charcter_height)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber(((x+9)/8),(y+Charcter_height)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber(((x+Charcter_width-1)/8),(y+Charcter_height)/8)]);
-        for(int k=0;k<6;k++)
+        for(int k=0;k<COLLISIONARRAYSIZE;k++)
+     //  for(auto &k:collisionArray)
         {
             for (int j=0;j<tiles.size();j++)
             {
@@ -180,6 +178,7 @@ bool GenericScene::charcterVerticalcheck(int tileNumber){
     {
         std::vector< unsigned short> tiles;
         tiles.push_back(Level_Tiles[getTilenumber((x+1)/8,(y-1)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x+9)/8,(y-1)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width-1)/8,(y-1)/8)]);
         for(int k=0;k<6;k++)
         {
