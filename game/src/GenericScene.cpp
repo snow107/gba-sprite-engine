@@ -33,16 +33,16 @@ void GenericScene::tick(u16 keys) {
         }
         if(charcterVerticalcheck(0))
         {
-            v1Y++;
+           v1Y++;
         }
         else
         {
             v1Y=0;
         }
         if(keys & KEY_UP && !charcterVerticalcheck(0)){
+           v1Y = -8; //naar 6 voor 3
+         }
 
-            v1Y=-8; //naar 6 voor 3
-        }
     //kijken als nieuwe locatie mag
         collisionBewegen(v1X,v1Y);
         if (v1X > 0) {
@@ -332,7 +332,8 @@ void GenericScene::move() {
    // end code used from  https://wiki.nycresistor.com/wiki/GB101:Collision_Detection
 
 
-
+    if(bg1X>=64*8-GBA_SCREEN_WIDTH-16)ster.get()->moveTo(272-bg1X+222,96-bg1Y+80);
+    else{ster.get()->moveTo(0,200);}
     charcter.get()->moveTo(charcterX,charcterY);
     bg1.get()->scroll(bg1X,bg1Y);
 }

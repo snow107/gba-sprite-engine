@@ -22,6 +22,7 @@ private:
 protected:
     std::unique_ptr<Background> bg1;
     std::unique_ptr<Sprite> charcter;
+    std::unique_ptr<Sprite> ster;
     int charcterX,charcterY;
     int bg1X,bg1Y;
     int v1X,v1Y,d1X,d1Y;
