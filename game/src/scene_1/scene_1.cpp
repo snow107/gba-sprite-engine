@@ -9,12 +9,12 @@
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
-#include "../scene_start/mainCharcters.h"
 #include "Main_background.h"
 #include "Main_level.h"
 #include "../Tileset/tileset.h"
 #include "../scene_2/scene_2.h"
-#include "../scene_start/sonic_smaller16pixelsBreed.h"
+#include "../sprites/shared_star_circle_sonic.h"
+#include "../sprites/sonic_for_star_circle.h"
 
 
 
@@ -29,7 +29,7 @@ std::vector<Sprite *> scene_1::sprites() {
 void scene_1::load() {
     engine.get()->disableText();
 
-    foregroundPalette=std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sonic_smaller16pixelsBreedPal, sizeof(sonic_smaller16pixelsBreedPal)));
+    foregroundPalette=std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Pal_transPal, sizeof(Pal_transPal)));
     bg1=std::unique_ptr<Background>(CreateBackground(1, Pal_transTiles, sizeof(Pal_transTiles), Main_level, sizeof(Main_level), MAP32X64));
     bg2=std::unique_ptr<Background>(CreateBackground(2,Pal_transTiles, sizeof(Pal_transTiles),Main_background,sizeof(Main_background),MAP32X32));
@@ -47,7 +47,7 @@ void scene_1::load() {
     SpriteBuilder<Sprite> builder;
 
     charcter = builder
-            .withData(sonic_smaller16pixelsBreedTiles, sizeof(sonic_smaller16pixelsBreedTiles))
+            .withData(sonicTiles, sizeof(sonicTiles))
             .withSize(SIZE_16_32)
             .withAnimated(16,10)
             .withLocation(charcterX, charcterY)
