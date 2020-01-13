@@ -1,20 +1,20 @@
 
-//{{BLOCK(Pal_trans)
+//{{BLOCK(tileset)
 
 //======================================================================
 //
-//	Pal_trans, 64x40@8, 
+//	tileset, 64x40@8, 
 //	+ palette 256 entries, not compressed
 //	+ 40 tiles not compressed
 //	Total size: 512 + 2560 = 3072
 //
-//	Time-stamp: 2020-01-13, 20:43:39
+//	Time-stamp: 2020-01-13, 20:44:44
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.3
 //	( http://www.coranac.com/projects/#grit )
 //
 //======================================================================
 
-const unsigned short Pal_transTiles[1280] __attribute__((aligned(4)))=
+const unsigned short tilesetTiles[1280] __attribute__((aligned(4)))=
 {
 	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
 	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
@@ -197,7 +197,7 @@ const unsigned short Pal_transTiles[1280] __attribute__((aligned(4)))=
 	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
 };
 
-const unsigned short Pal_transPal[256] __attribute__((aligned(4)))=
+const unsigned short tilesetPal[256] __attribute__((aligned(4)))=
 {
 	0x0000,0x7021,0x7F86,0x7E66,0x7F74,0x0158,0x7473,0x1800,
 	0x7FFF,0x18C5,0x0421,0x7FE6,0x7FF5,0x6318,0x318C,0x3C00,
@@ -236,4 +236,4 @@ const unsigned short Pal_transPal[256] __attribute__((aligned(4)))=
 	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
 };
 
-//}}BLOCK(Pal_trans)
+//}}BLOCK(tileset)

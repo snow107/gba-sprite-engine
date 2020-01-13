@@ -8,7 +8,7 @@
 #include <libgba-sprite-engine/scene.h>
 #define Charcter_height 32
 #define Charcter_width 16
-#define  COLLISIONARRAYSIZE 6
+#define  COLLISIONARRAYSIZE 7
 
 class GenericScene : public Scene {
 private:
@@ -18,7 +18,7 @@ private:
     short Scene_heigth;
     int starX,starY;
     void tick(u16 keys) override;
-    int  collisionArray[6] = {0x02, 0x06, 0x07, 0x09, 0x0A, 0x18};
+    int  collisionArray[7] = {0x02, 0x06, 0x07, 0x09, 0x0A, 0x18,0x29};
 
 protected:
     std::unique_ptr<Background> bg1;

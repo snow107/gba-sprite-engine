@@ -17,6 +17,7 @@
 #include "../sprites/shared_star_circle_sonic.h"
 #include "../sprites/sonic_for_star_circle.h"
 #include "../sprites/star.h"
+//#include "map/maptest6464.h"
 
 
 std::vector<Background *> scene_2::backgrounds() {
@@ -32,7 +33,7 @@ void scene_2::load() {
 
     foregroundPalette=std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Pal_transPal, sizeof(Pal_transPal)));
-    bg1=std::unique_ptr<Background>(CreateBackground(1, Pal_transTiles, sizeof(Pal_transTiles), mapScene2, sizeof(mapScene2), MAP64X64));
+    bg1=std::unique_ptr<Background>(CreateBackground(1, Pal_transTiles, sizeof(Pal_transTiles), maptest6464, sizeof(maptest6464), MAP64X64));
     bg2=std::unique_ptr<Background>(CreateBackground(2,Pal_transTiles, sizeof(Pal_transTiles),Main_background,sizeof(Main_background),MAP32X32));
 
   //  charcterX = 20;
@@ -61,7 +62,7 @@ void scene_2::load() {
 }
 
 void scene_2::onTick(u16 keys) {
-    
+
     if (keys & KEY_START) {
         engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
     }

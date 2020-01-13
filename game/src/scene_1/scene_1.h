@@ -7,10 +7,11 @@
 
 #include <libgba-sprite-engine/scene.h>
 #include "../GenericScene.h"
-#include "Main_level.h"
+//#include "Main_level.h"
+#include "Main_level2.h"
 #include "map/testmap.h"
 #include <libgba-sprite-engine/sprites/affine_sprite.h>
-#define COLLISIONARRAYSIZE 6
+
 #define star1X 222
 #define star1Y 80
 
@@ -23,8 +24,8 @@ class scene_1 : public  GenericScene{
         std::vector<Sprite *> sprites() override;
         std::vector<Background *> backgrounds() override;
 
-        scene_1(std::shared_ptr<GBAEngine> engine) : GenericScene(engine, Main_level_Map_Whith,
-                                                                  Main_level_Map_Height,20,150,star1X,star1Y, Main_level) {}
+        scene_1(std::shared_ptr<GBAEngine> engine) : GenericScene(engine, Main_level2_width,
+                                                                  Main_level2_height,20,150,star1X,star1Y, Main_level2) {}
 
         void load() override;
         void onTick(u16 keys) override;

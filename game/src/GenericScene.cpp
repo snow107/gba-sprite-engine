@@ -91,7 +91,7 @@ void GenericScene::collisionBewegen(int speedX,int speedY){
             }
 
         }
-     //   if(dead){y=resetY;x=resetX;dead=false;v1X=0;v1Y=0;}
+       if(dead){y=resetY;x=resetX;dead=false;v1X=0;v1Y=0;}
         move();
     }
 }
@@ -106,7 +106,7 @@ bool GenericScene::charcteraHorizontaalCheck(int tileNumber){
         tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+17)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+25)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+Charcter_height-1)/8)]);
-        for(int k=0;k<6;k++)
+        for(int k=0;k<7;k++)
         {
             for (int j=0;j<tiles.size();j++)
             {
@@ -131,7 +131,7 @@ bool GenericScene::charcteraHorizontaalCheck(int tileNumber){
         tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width)/8,(y+17)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width)/8,(y+25)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width)/8,(y+Charcter_height-1)/8)]);
-        for(int k=0;k<6;k++)
+        for(int k=0;k<7;k++)
         {
             for (int j=0;j<tiles.size();j++)
             {
@@ -181,7 +181,7 @@ bool GenericScene::charcterVerticalcheck(int tileNumber){
         tiles.push_back(Level_Tiles[getTilenumber((x+1)/8,(y-1)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x+9)/8,(y-1)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width-1)/8,(y-1)/8)]);
-        for(int k=0;k<6;k++)
+        for(int k=0;k<7;k++)
         {
             for (int j=0;j<tiles.size();j++)
             {
@@ -211,20 +211,7 @@ int GenericScene::getTilenumber(int tilex, int tiley) {
     return tile;
     //code used from: https://www.coranac.com/tonc/text/regbg.htm
 }
-void GenericScene::deadCheck() {
-    int collisionArray[] = {0x07, 0x08,0x18,0x02,0x09,0x0A};
-    for(int i=0;i<6;i++)
-    {
-        if(!charcterVerticalcheck(collisionArray[i]))
-        {
-            dead=true;
-        }
-    /*    if(!charcteraHorizontaalCheck(collisionArray[i]))
-        {
-            dead =true;
-        }*/
-    }
-}
+
 
 std::vector<unsigned short> GenericScene::tilesBelowCharcter() {
 
@@ -332,7 +319,7 @@ void GenericScene::move() {
    // end code used from  https://wiki.nycresistor.com/wiki/GB101:Collision_Detection
 
 
-    if(bg1X>=Scene_width*8-GBA_SCREEN_WIDTH-16 && bg1Y>=Scene_heigth*8-GBA_SCREEN_HEIGHT-16)ster.get()->moveTo(Scene_width*8-GBA_SCREEN_WIDTH-bg1X+starX,Scene_heigth*8-GBA_SCREEN_HEIGHT-bg1Y+starY);
+    if(bg1X>=Scene_width*8-GBA_SCREEN_WIDTH-16 && bg1Y>=Scene_heigth*8-GBA_SCREEN_HEIGHT-16-80)ster.get()->moveTo(Scene_width*8-GBA_SCREEN_WIDTH-bg1X+starX,Scene_heigth*8-GBA_SCREEN_HEIGHT-bg1Y+starY);
     else{ster.get()->moveTo(0,200);}
     charcter.get()->moveTo(charcterX,charcterY);
     bg1.get()->scroll(bg1X,bg1Y);
