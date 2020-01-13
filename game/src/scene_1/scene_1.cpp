@@ -5,6 +5,7 @@
 #include "scene_1.h"
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
+#include <libgba-sprite-engine/sprites/affine_sprite.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
@@ -15,6 +16,7 @@
 #include "../scene_2/scene_2.h"
 #include "../sprites/shared_star_circle_sonic.h"
 #include "../sprites/sonic_for_star_circle.h"
+#include "../sprites/star.h"
 
 
 
@@ -23,7 +25,7 @@ std::vector<Background *> scene_1::backgrounds() {
 }
 
 std::vector<Sprite *> scene_1::sprites() {
-    return {charcter.get()};
+    return {charcter.get(),ster.get()};
 }
 
 void scene_1::load() {
@@ -34,10 +36,7 @@ void scene_1::load() {
     bg1=std::unique_ptr<Background>(CreateBackground(1, Pal_transTiles, sizeof(Pal_transTiles), Main_level, sizeof(Main_level), MAP32X64));
     bg2=std::unique_ptr<Background>(CreateBackground(2,Pal_transTiles, sizeof(Pal_transTiles),Main_background,sizeof(Main_background),MAP32X32));
 
-  //  charcterX = 20;
-  //  charcterY = 32+23;
-  //  bg1X = 0;
- //   bg1Y = 32*8-GBA_SCREEN_HEIGHT;
+
     dead=false;
     v1Y =0;v1X=0;
     x=20;y=170;
@@ -45,6 +44,7 @@ void scene_1::load() {
     bg1.get()->scroll(bg1X,bg1Y);
 
     SpriteBuilder<Sprite> builder;
+    SpriteBuilder<AffineSprite> affineBuilder;
 
     charcter = builder
             .withData(sonicTiles, sizeof(sonicTiles))
@@ -53,10 +53,18 @@ void scene_1::load() {
             .withLocation(charcterX, charcterY)
             .buildPtr();
     charcter.get()->setStayWithinBounds(true);
+
+    ster = affineBuilder
+            .withData(starTiles,sizeof(starTiles))
+            .withSize(SIZE_16_16)
+            .withLocation(20,100)
+            .buildPtr();
+
 }
 
 void scene_1::onTick(u16 keys) {
-
+   // rotation+=rotationdiff;
+  // ster.get()->rotate(rotation);
 
     if (keys & KEY_START) {
         engine->transitionIntoScene(new scene_2(engine), new FadeOutScene(2));

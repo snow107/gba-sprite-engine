@@ -9,13 +9,16 @@
 #include "../GenericScene.h"
 #include "Main_level.h"
 #include "map/testmap.h"
-
+#include <libgba-sprite-engine/sprites/affine_sprite.h>
 #define COLLISIONARRAYSIZE 6
 
 
 class scene_1 : public  GenericScene{
     private:
         std::unique_ptr<Background> bg2;
+        std::unique_ptr<AffineSprite> ster;
+        int rotationdiff=20;
+        int rotation;
 
     public:
         std::vector<Sprite *> sprites() override;
