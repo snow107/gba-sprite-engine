@@ -65,7 +65,7 @@ void scene_1::load() {
 }
 
 void scene_1::onTick(u16 keys) {
-    if(bg1X>=64*8-GBA_SCREEN_WIDTH)ster.get()->moveTo(222,80);
+    if(bg1X>=64*8-GBA_SCREEN_WIDTH-16)ster.get()->moveTo(222,96-bg1Y+80);
     else{ster.get()->moveTo(0,200);}
    if(charcter.get()->collidesWith(*ster.get())){
        if (!engine->isTransitioning()) {
