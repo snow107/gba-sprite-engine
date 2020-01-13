@@ -44,7 +44,7 @@ void scene_1::load() {
     bg1.get()->scroll(bg1X,bg1Y);
 
     SpriteBuilder<Sprite> builder;
-    SpriteBuilder<AffineSprite> affineBuilder;
+
 
     charcter = builder
             .withData(sonicTiles, sizeof(sonicTiles))
@@ -54,18 +54,25 @@ void scene_1::load() {
             .buildPtr();
     charcter.get()->setStayWithinBounds(true);
 
-    ster = affineBuilder
+    ster = builder
             .withData(starTiles,sizeof(starTiles))
             .withSize(SIZE_16_16)
-            .withLocation(20,100)
+            .withAnimated(1,1)
+            .withLocation(0,200)//222/80
             .buildPtr();
+
 
 }
 
 void scene_1::onTick(u16 keys) {
-   // rotation+=rotationdiff;
-  // ster.get()->rotate(rotation);
 
+    if(bg1X>=64*8-GBA_SCREEN_WIDTH)ster.get()->moveTo(222,80);
+    else{ster.get()->moveTo(0,200);}
+   if(charcter.get()->collidesWith(*ster.get())){keys=keys| 0x0008;}
+
+    if (trans) {
+        engine->transitionIntoScene(new scene_2(engine), new FadeOutScene(10));
+    }
     if (keys & KEY_START) {
         engine->transitionIntoScene(new scene_2(engine), new FadeOutScene(2));
     }

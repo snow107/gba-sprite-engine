@@ -91,7 +91,7 @@ void GenericScene::collisionBewegen(int speedX,int speedY){
             }
 
         }
-        if(dead){y=resetY;x=resetX;dead=false;v1X=0;v1Y=0;}
+     //   if(dead){y=resetY;x=resetX;dead=false;v1X=0;v1Y=0;}
         move();
     }
 }
