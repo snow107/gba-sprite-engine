@@ -65,16 +65,18 @@ void scene_1::load() {
 }
 
 void scene_1::onTick(u16 keys) {
-
     if(bg1X>=64*8-GBA_SCREEN_WIDTH)ster.get()->moveTo(222,80);
     else{ster.get()->moveTo(0,200);}
-   if(charcter.get()->collidesWith(*ster.get())){keys=keys| 0x0008;}
+   if(charcter.get()->collidesWith(*ster.get())){
+       if (!trans) {
+           engine->transitionIntoScene(new scene_2(engine), new FadeOutScene(2));
+       }
+       trans=true;
+   }
 
-    if (trans) {
-        engine->transitionIntoScene(new scene_2(engine), new FadeOutScene(10));
-    }
+
     if (keys & KEY_START) {
-        engine->transitionIntoScene(new scene_2(engine), new FadeOutScene(2));
+        //engine->transitionIntoScene(new scene_2(engine), new FadeOutScene(2));
     }
 }
 
