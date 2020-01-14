@@ -40,7 +40,7 @@ void GenericScene::tick(u16 keys) {
             v1Y=0;
         }
         if(keys & KEY_UP && !charcterVerticalcheck(0)){
-           v1Y = -8; //naar 6 voor 3
+           v1Y = -8;
          }
 
     //kijken als nieuwe locatie mag
@@ -93,6 +93,17 @@ void GenericScene::collisionBewegen(int speedX,int speedY){
         }
        if(dead){ y=resetY;x=resetX;dead=false;v1X=0;v1Y=0; }
         move();
+       if(specialjumpActive && specialjump)
+       {
+           v1Y=-15;
+           specialjump=false;
+           for(int j=0;j<abs(v1Y);j++)
+           {
+               if(charcterVerticalcheck(0)){y-=1;}
+               if(dead){ y=resetY;x=resetX;dead=false;v1X=0;v1Y=0; }
+               move();
+           }
+       }
     }
 }
 bool GenericScene::charcteraHorizontaalCheck(int tileNumber){
@@ -131,6 +142,7 @@ bool GenericScene::charcterVerticalcheck(int tileNumber){
         tiles.push_back(Level_Tiles[getTilenumber(((x+9)/8),(y+Charcter_height)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber(((x+Charcter_width-1)/8),(y+Charcter_height)/8)]);
         deadCheck(tiles);
+    if(specialjumpActive){specialJumpCheck(tiles);}
         if(groundCheck(tiles,tileNumber))return false;
     }
     if(v1Y<0)//omhoog
@@ -172,6 +184,18 @@ void GenericScene::deadCheck(std::vector<unsigned short> tiles) {
             if(tiles.data()[j]== collisionArray[k])
             {
                 dead=true;
+            }
+        }
+    }
+}
+void GenericScene::specialJumpCheck(std::vector<unsigned short> tiles){
+    for(int k=0;k<SPECIALJUMPARRAYSIZE;k++)
+    {
+        for (int j=0;j<tiles.size();j++)
+        {
+            if(tiles.data()[j]== specialJumpArray[k])
+            {
+                specialjump=true;
             }
         }
     }

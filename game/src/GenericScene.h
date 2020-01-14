@@ -9,6 +9,7 @@
 #define Charcter_height 32
 #define Charcter_width 16
 #define  COLLISIONARRAYSIZE 7
+#define SPECIALJUMPARRAYSIZE 4
 
 class GenericScene : public Scene {
 private:
@@ -19,6 +20,7 @@ private:
     int starX,starY;
     void tick(u16 keys) override;
     int  collisionArray[7] = {0x02, 0x06, 0x07, 0x09, 0x0A, 0x18,0x29};
+    int specialJumpArray[4]={0x41,0x42,0x43,0x44};
 
 protected:
     std::unique_ptr<Background> bg1;
@@ -29,9 +31,12 @@ protected:
     int v1X,v1Y,d1X,d1Y;
     int x,y,resetX,resetY;
     bool dead = false;
+    bool specialjump=false;
+    bool specialjumpActive=false;
     void collisionBewegen(int speedX,int speedY);
-    void deadCheck(std::vector<unsigned short> tiles);
     bool groundCheck(std::vector<unsigned short> tiles,int tileNumber);
+    void deadCheck(std::vector<unsigned short> tiles);
+    void specialJumpCheck(std::vector<unsigned short>  tiles);
     bool charcterVerticalcheck(int tileNumber);
     bool charcteraHorizontaalCheck(int tileNumber);
     void move();

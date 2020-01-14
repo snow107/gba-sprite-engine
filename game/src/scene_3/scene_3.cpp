@@ -9,13 +9,12 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
 #include "../scene_1/Main_background.h"
-//#include "../Tileset/tileset.h"
-//#include "../scene_1/scene_1.h"
+
 #include "../scene_start/sonic_smaller16pixelsBreed.h"
 #include "../sprites/shared_star_circle_sonic.h"
 #include "../sprites/sonic_for_star_circle.h"
 #include "../sprites/star.h"
-//#include "map/maptest6464.h"
+
 #include "../Tileset/tilesSpel.c"
 
 
@@ -32,15 +31,12 @@ void scene_3::load() {
 
     foregroundPalette=std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tilesSpelPal, sizeof(tilesSpelPal)));
-    bg1=std::unique_ptr<Background>(CreateBackground(1, tilesSpelTiles, sizeof(tilesSpelTiles), maptest6464, sizeof(maptest6464), MAP64X64));
+    bg1=std::unique_ptr<Background>(CreateBackground(1, tilesSpelTiles, sizeof(tilesSpelTiles),mapScene3 , sizeof(mapScene3), MAP64X32));
     bg2=std::unique_ptr<Background>(CreateBackground(2,tilesSpelTiles, sizeof(tilesSpelTiles),Main_background,sizeof(Main_background),MAP32X32));
 
-    //  charcterX = 20;
-    //   charcterY = 50;
-    //  bg1X = 0;
-    //   bg1Y = 5;
+    specialjumpActive=true;
     v1Y =0;v1X=0;
-    x=0,y=0;
+    x=0,y=460;
     bg1.get()->scroll(bg1X,bg1Y);
 
     SpriteBuilder<Sprite> builder;
