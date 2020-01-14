@@ -16,7 +16,7 @@
 
 
 #define star3X 222
-#define star3Y 160
+#define star3Y 128+16
 
 
 class scene_3 : public  GenericScene{

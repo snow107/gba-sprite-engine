@@ -1,9 +1,8 @@
 //
 // Created by michi on 14/01/2020.
 //
-#include "../scene_1/scene_1.h"
-#include "../scene_4/scene_4.h"
-#include "scene_3.h"
+
+#include "scene_4.h"
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba_engine.h>
@@ -19,25 +18,26 @@
 #include "../Tileset/tilesSpel.c"
 
 
-std::vector<Background *> scene_3::backgrounds() {
-    return {bg1.get(),bg2.get()};
+std::vector<Background *> scene_4::backgrounds() {
+    return {bg1.get(),bg2.get(),bg0.get()};
 }
 
-std::vector<Sprite *> scene_3::sprites() {
+std::vector<Sprite *> scene_4::sprites() {
     return {charcter.get(),ster.get()};
 }
 
-void scene_3::load() {
+void scene_4::load() {
     engine.get()->disableText();
 
     foregroundPalette=std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tilesSpelPal, sizeof(tilesSpelPal)));
-    bg1=std::unique_ptr<Background>(CreateBackground(1, tilesSpelTiles, sizeof(tilesSpelTiles),mapScene3 , sizeof(mapScene3), MAP64X32));
+    bg0=std::unique_ptr<Background>(CreateBackground(0, tilesSpelTiles, sizeof(tilesSpelTiles),mapScene4water , sizeof(mapScene4water), MAP64X64));
+    bg1=std::unique_ptr<Background>(CreateBackground(1, tilesSpelTiles, sizeof(tilesSpelTiles),mapScene4 , sizeof(mapScene4), MAP64X64));
     bg2=std::unique_ptr<Background>(CreateBackground(2,tilesSpelTiles, sizeof(tilesSpelTiles),Main_background,sizeof(Main_background),MAP32X32));
 
     specialjumpActive=true;
     v1Y =0;v1X=0;
-    x=0,y=460;
+    x=0,y=0;
     bg1.get()->scroll(bg1X,bg1Y);
 
     SpriteBuilder<Sprite> builder;
@@ -55,17 +55,14 @@ void scene_3::load() {
             .withAnimated(1,1)
             .withLocation(0,200)//222/40
             .buildPtr();
+
 }
 
-void scene_3::onTick(u16 keys) {
-  if(charcter.get()->collidesWith(*ster.get())){
-        if (!engine->isTransitioning()) {
-            engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
-        }
-    }
+void scene_4::onTick(u16 keys) {
 
-    if (keys & KEY_START) {
-        engine->transitionIntoScene(new scene_4(engine), new FadeOutScene(2));
-    }
+
+    /*   if (keys & KEY_START) {
+           engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
+       }*/
 
 }

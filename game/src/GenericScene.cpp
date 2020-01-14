@@ -15,17 +15,12 @@ void GenericScene::tick(u16 keys) {
     onTick(keys);
     //keys inlezen en snelheid zetten
         if (keys & KEY_LEFT) {
-//
-           v1X-=1;     // v1X=-1;
-
-            if(v1X<5){v1X=-5;}
-
+           v1X-=1;
+           if(v1X<5){v1X=-5;}
         }
         else if (keys & KEY_RIGHT) {
             v1X+=1;
-         //  v1X=1;
             if(v1X>5){v1X=+5;}
-
         }
         else{
             v1X--;
@@ -95,7 +90,7 @@ void GenericScene::collisionBewegen(int speedX,int speedY){
         move();
        if(specialjumpActive && specialjump)
        {
-           v1Y=-15;
+           v1Y=-14;
            specialjump=false;
            for(int j=0;j<abs(v1Y);j++)
            {
@@ -190,21 +185,16 @@ void GenericScene::deadCheck(std::vector<unsigned short> tiles) {
     }
 }
 void GenericScene::specialJumpCheck(std::vector<unsigned short> tiles){
-
-
-
         for (int j=0;j<tiles.size();j++)
         {
             bool leftleg =false;
             bool rightleg=false;
             if(tiles.data()[j]== specialJumpArray[0]){leftleg=true;}
-            if(tiles.data()[j+2]==specialJumpArray[1]){rightleg=true;}
+            if(tiles.data()[j+1]==specialJumpArray[1]){rightleg=true;}
             if(leftleg && rightleg){specialjump=true; break;}
         }
-
 }
 void GenericScene::move() {
-
       // beneath code used from  https://wiki.nycresistor.com/wiki/GB101:Collision_Detection for moving bg1 or char
   if (x < 0)
         x = 0;
@@ -226,14 +216,11 @@ void GenericScene::move() {
     else if (x > Scene_width*8-GBA_SCREEN_WIDTH/2) {
         bg1X=Scene_width*8-GBA_SCREEN_WIDTH;
         charcterX=x-bg1X;
-
     }
-
     else {
         bg1X=x-GBA_SCREEN_WIDTH/2;
        charcterX=GBA_SCREEN_WIDTH/2;
     }
-
     if (y < GBA_SCREEN_HEIGHT/2-56) {
         bg1Y = 0;
         charcterY = y;
@@ -251,7 +238,7 @@ void GenericScene::move() {
    // end code used from  https://wiki.nycresistor.com/wiki/GB101:Collision_Detection
 
 
-    if(bg1X>=Scene_width*8-GBA_SCREEN_WIDTH-16 && bg1Y>=Scene_heigth*8-GBA_SCREEN_HEIGHT-16-80)ster.get()->moveTo(Scene_width*8-GBA_SCREEN_WIDTH-bg1X+starX,Scene_heigth*8-GBA_SCREEN_HEIGHT-bg1Y+starY);
+    if(bg1X>=Scene_width*8-GBA_SCREEN_WIDTH-16 && bg1Y>=Scene_heigth*8-GBA_SCREEN_HEIGHT-16-80)ster.get()->moveTo(Scene_width*8-GBA_SCREEN_WIDTH-bg1X+starX+1,Scene_heigth*8-GBA_SCREEN_HEIGHT-bg1Y+starY);
     else{ster.get()->moveTo(0,200);}
     charcter.get()->moveTo(charcterX,charcterY);
     bg1.get()->scroll(bg1X,bg1Y);
