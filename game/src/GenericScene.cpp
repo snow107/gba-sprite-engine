@@ -184,19 +184,22 @@ void GenericScene::deadCheck(std::vector<unsigned short> tiles) {
             if(tiles.data()[j]== collisionArray[k])
             {
                 dead=true;
+                break;
             }
         }
     }
 }
 void GenericScene::specialJumpCheck(std::vector<unsigned short> tiles){
+
     for(int k=0;k<SPECIALJUMPARRAYSIZE;k++)
     {
         for (int j=0;j<tiles.size();j++)
         {
-            if(tiles.data()[j]== specialJumpArray[k])
-            {
-                specialjump=true;
-            }
+            bool leftleg =false;
+            bool rightleg=false;
+            if(tiles.data()[j]== specialJumpArray[k]){leftleg=true;}
+            if(tiles.data()[j+2]==specialJumpArray[k+1]){rightleg=true;}
+            if(leftleg && rightleg){specialjump=true; break;}
         }
     }
 }
