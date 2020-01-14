@@ -14,6 +14,8 @@
 
 #define star1X 222
 #define star1Y 80
+#define resetX 0
+#define resetY 175
 
 class scene_1 : public  GenericScene{
     private:
@@ -25,7 +27,7 @@ class scene_1 : public  GenericScene{
         std::vector<Background *> backgrounds() override;
 
         scene_1(std::shared_ptr<GBAEngine> engine) : GenericScene(engine, Main_level2_width,
-                                                                  Main_level2_height,20,150,star1X,star1Y, Main_level2) {}
+                                                                  Main_level2_height,resetX,resetY,star1X,star1Y, Main_level2) {}
 
         void load() override;
         void onTick(u16 keys) override;

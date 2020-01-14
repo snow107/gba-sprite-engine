@@ -41,7 +41,7 @@ void scene_1::load() {
 
     dead=false;
     v1Y =0;v1X=0;
-    x=20;y=170;
+    x=resetX;y=resetY;
 
     bg1.get()->scroll(bg1X,bg1Y);
 
@@ -74,7 +74,12 @@ void scene_1::onTick(u16 keys) {
            engine->transitionIntoScene(new scene_2(engine), new FadeOutScene(2));
        }
    }
-
+  /* if(dead)
+   {
+       if (!engine->isTransitioning()) {
+           engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
+       }
+   }*/
 
     if (keys & KEY_START) {
         engine->transitionIntoScene(new scene_2(engine), new FadeOutScene(2));

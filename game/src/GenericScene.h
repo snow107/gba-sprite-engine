@@ -28,26 +28,14 @@ protected:
     int bg1X,bg1Y;
     int v1X,v1Y,d1X,d1Y;
     int x,y,resetX,resetY;
-    int collisionX,colissionY;
     bool dead = false;
     void collisionBewegen(int speedX,int speedY);
-    void movebg1(int x, int y);
-    void movecharcter(int x, int y);
-    void deadCheck();
+    void deadCheck(std::vector<unsigned short> tiles);
+    bool groundCheck(std::vector<unsigned short> tiles,int tileNumber);
     bool charcterVerticalcheck(int tileNumber);
     bool charcteraHorizontaalCheck(int tileNumber);
-    std::vector<unsigned short> tilesBelowCharcter();
-    std::vector<unsigned short> tilesAgainstCharcter(bool right); //otherwise lift
-    int getBottemLeftCharcterTile();
     void move();
     int getTilenumber(int tilex,int tiley);
-    unsigned short getCharcterXTile(); //returns left tile number
-    unsigned short getCharcterYTile(); //returns top tile number
-    bool charcterOnTile(unsigned short tilenumber);
-    bool charcterNotOnTile(unsigned short tilenumber);
-    bool charterAgainstTile(bool right, int tilenumber); //otherwise left
-    bool charterNotAgainstTile(bool right, int tilenumber); //otherwise left
-    int ticknumber;
 
 public:
     GenericScene(std::shared_ptr<GBAEngine> engine, short sceneWidth,

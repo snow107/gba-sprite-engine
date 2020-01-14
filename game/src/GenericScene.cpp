@@ -91,7 +91,7 @@ void GenericScene::collisionBewegen(int speedX,int speedY){
             }
 
         }
-       if(dead){y=resetY;x=resetX;dead=false;v1X=0;v1Y=0;}
+       if(dead){ y=resetY;x=resetX;dead=false;v1X=0;v1Y=0; }
         move();
     }
 }
@@ -106,22 +106,8 @@ bool GenericScene::charcteraHorizontaalCheck(int tileNumber){
         tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+17)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+25)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+Charcter_height-1)/8)]);
-        for(int k=0;k<7;k++)
-        {
-            for (int j=0;j<tiles.size();j++)
-            {
-                if(tiles.data()[j]== collisionArray[k])
-                {
-                    dead=true;
-                }
-            }
-        }
-        for (int i = 0; i < tiles.size(); ++i) {
-            if(tiles.data()[i] != tileNumber){
-                return false;
-            }
-
-        }
+        deadCheck(tiles);
+        if(groundCheck(tiles,tileNumber))return false;
     }
     if(v1X>0)//right
     {
@@ -131,22 +117,8 @@ bool GenericScene::charcteraHorizontaalCheck(int tileNumber){
         tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width)/8,(y+17)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width)/8,(y+25)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width)/8,(y+Charcter_height-1)/8)]);
-        for(int k=0;k<7;k++)
-        {
-            for (int j=0;j<tiles.size();j++)
-            {
-                if(tiles.data()[j]== collisionArray[k])
-                {
-                    dead=true;
-                }
-            }
-        }
-        for (int i = 0; i < tiles.size(); ++i) {
-            if(tiles.data()[i] != tileNumber){
-                return false;
-            }
-
-        }
+       deadCheck(tiles);
+      if(groundCheck(tiles,tileNumber))return false;
     }
     return true;
 }
@@ -158,22 +130,8 @@ bool GenericScene::charcterVerticalcheck(int tileNumber){
         tiles.push_back(Level_Tiles[getTilenumber(((x+1)/8),(y+Charcter_height)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber(((x+9)/8),(y+Charcter_height)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber(((x+Charcter_width-1)/8),(y+Charcter_height)/8)]);
-        for(int k=0;k<COLLISIONARRAYSIZE;k++)
-     //  for(auto &k:collisionArray)
-        {
-            for (int j=0;j<tiles.size();j++)
-            {
-                if(tiles.data()[j]== collisionArray[k])
-                {
-                    dead=true;
-                }
-            }
-        }
-        for (int i = 0; i < tiles.size(); ++i) {
-            if (tiles.data()[i] != tileNumber) {
-                return false;
-            }
-        }
+        deadCheck(tiles);
+        if(groundCheck(tiles,tileNumber))return false;
     }
     if(v1Y<0)//omhoog
     {
@@ -181,21 +139,8 @@ bool GenericScene::charcterVerticalcheck(int tileNumber){
         tiles.push_back(Level_Tiles[getTilenumber((x+1)/8,(y-1)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x+9)/8,(y-1)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width-1)/8,(y-1)/8)]);
-        for(int k=0;k<7;k++)
-        {
-            for (int j=0;j<tiles.size();j++)
-            {
-                if(tiles.data()[j]== collisionArray[k])
-                {
-                    dead=true;
-                }
-            }
-        }
-        for (int i = 0; i < tiles.size(); ++i) {
-            if (tiles.data()[i] != tileNumber) {
-                return false;
-            }
-        }
+        deadCheck(tiles);
+        if(groundCheck(tiles,tileNumber))return false;
     }
     return true;
 }
@@ -211,65 +156,25 @@ int GenericScene::getTilenumber(int tilex, int tiley) {
     return tile;
     //code used from: https://www.coranac.com/tonc/text/regbg.htm
 }
-
-
-std::vector<unsigned short> GenericScene::tilesBelowCharcter() {
-
-    int charXtile = getCharcterXTile();
-    int charYtile = getCharcterYTile();
-    std::vector<unsigned short> tiles;
-    for (int i = 0; i < 16 / 8; ++i) { //char with
-        //  tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + i, getCharcterYTile() + (Charcter_heigth + Charcter_y_offset) / 8)]);
-        tiles.push_back(Level_Tiles[getTilenumber(charXtile + 1 + i, charYtile + 1)]);
-    }
-    return tiles;
-}
-unsigned short GenericScene::getCharcterXTile(){
-
-    return(bg1X+charcterX)/8;
-}
-
-unsigned short GenericScene::getCharcterYTile(){
-    return (bg1Y+charcterY+24)/8;
-
-}
-
-std::vector<unsigned short> GenericScene::tilesAgainstCharcter(bool right) {
-    int charXtile=getCharcterXTile();
-    int charYtile=getCharcterYTile();
-    std::vector< unsigned short> tiles;
-    if (right) {
-        for (int i = 0; i < 32 / 8; i++) { //char height
-            //      tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() + (Charcter_width) / 8 + 1, getCharcterYTile() + i)]);
-            tiles.push_back(Level_Tiles[getTilenumber((x+16)/8, charYtile- i)]);
-        }
-    }
-    else {
-        for (int i = 0; i < 32 / 8; ++i) { //char height
-            //    tiles.push_back(Level_Tiles[getTilenumber(getCharcterXTile() - 1, getCharcterYTile() + i)]);
-            tiles.push_back(Level_Tiles[getTilenumber(charXtile , charYtile - i)]);
-        }
-    }
-
-    return tiles;
-}
-bool GenericScene::charcterOnTile(unsigned short tilenumber){ //returns true if charcters stands on this tile
-    std::vector<unsigned short> tiles = tilesBelowCharcter();
+bool GenericScene::groundCheck(std::vector<unsigned short> tiles,int tileNumber) {
     for (int i = 0; i < tiles.size(); ++i) {
-        if(tiles.data()[i] == tilenumber){
+        if (tiles.data()[i] != tileNumber) {
             return true;
         }
     }
-    return  false;
+    return false;
 }
-bool GenericScene::charterAgainstTile(bool right, int tilenumber) {
-    std::vector<unsigned short> tiles = tilesAgainstCharcter(right);
-    for (int i = 0; i < tiles.size(); ++i) {
-        if(tiles.data()[i] == tilenumber){
-            return true;
+void GenericScene::deadCheck(std::vector<unsigned short> tiles) {
+    for(int k=0;k<COLLISIONARRAYSIZE;k++)
+    {
+        for (int j=0;j<tiles.size();j++)
+        {
+            if(tiles.data()[j]== collisionArray[k])
+            {
+                dead=true;
+            }
         }
     }
-    return  false;
 }
 void GenericScene::move() {
 
