@@ -15,7 +15,7 @@
 #define star1X 222
 #define star1Y 80
 #define resetX 0
-#define resetY 175
+#define resetY 170
 
 class scene_1 : public  GenericScene{
     private:
