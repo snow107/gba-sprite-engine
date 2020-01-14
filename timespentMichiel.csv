@@ -1,11 +1,9 @@
 day,hours
 22/11/2019,0.5
-28/11/2019 1 les
-28/11/2019 4 tilemap+tileset+pallet
+28/11/2019 1
+28/11/2019 4
 3/12/2019 3
-5/12/2019 1
-5/12/2019 2
-5/12/2019 2
+5/12/2019 5
 6/12/2019 5
 7/12/2019 2
 9/12/2019 2
@@ -14,18 +12,18 @@ day,hours
 11/01/2018 8
 12/01/2018 8
 13/01/2018 7
-
-engine.get()->disableText();
-
+14/01/2018 3
 
 
-wat doet precies scrollspeed in u bibliotheek van de scene
 
-kunt ge de mode aanpassen ?
 
-waarom is charblock3 al in gebruik en charBlock 0;
 
-gba engine.cpp regel 109
+
+
+
+
+
+
 
 
 

@@ -33,6 +33,7 @@ protected:
     bool dead = false;
     bool specialjump=false;
     bool specialjumpActive=false;
+    bool starActive =true;
     void collisionBewegen(int speedX,int speedY);
     bool groundCheck(std::vector<unsigned short> tiles,int tileNumber);
     void deadCheck(std::vector<unsigned short> tiles);

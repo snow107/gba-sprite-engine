@@ -23,7 +23,7 @@ std::vector<Background *> scene_4::backgrounds() {
 }
 
 std::vector<Sprite *> scene_4::sprites() {
-    return {charcter.get(),ster.get()};
+    return {charcter.get()};
 }
 
 void scene_4::load() {
@@ -35,9 +35,9 @@ void scene_4::load() {
     bg1=std::unique_ptr<Background>(CreateBackground(1, tilesSpelTiles, sizeof(tilesSpelTiles),mapScene4 , sizeof(mapScene4), MAP64X64));
     bg2=std::unique_ptr<Background>(CreateBackground(2,tilesSpelTiles, sizeof(tilesSpelTiles),Main_background,sizeof(Main_background),MAP32X32));
 
-    specialjumpActive=true;
     v1Y =0;v1X=0;
     x=0,y=0;
+    starActive=false;
     bg1.get()->scroll(bg1X,bg1Y);
 
     SpriteBuilder<Sprite> builder;
@@ -49,12 +49,7 @@ void scene_4::load() {
             .withLocation(charcterX, charcterY)
             .buildPtr();
     charcter.get()->setStayWithinBounds(true);
-    ster = builder
-            .withData(starTiles,sizeof(starTiles))
-            .withSize(SIZE_16_16)
-            .withAnimated(1,1)
-            .withLocation(0,200)//222/40
-            .buildPtr();
+
 
 }
 
