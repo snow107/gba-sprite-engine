@@ -191,17 +191,17 @@ void GenericScene::deadCheck(std::vector<unsigned short> tiles) {
 }
 void GenericScene::specialJumpCheck(std::vector<unsigned short> tiles){
 
-    for(int k=0;k<SPECIALJUMPARRAYSIZE;k++)
-    {
+
+
         for (int j=0;j<tiles.size();j++)
         {
             bool leftleg =false;
             bool rightleg=false;
-            if(tiles.data()[j]== specialJumpArray[k]){leftleg=true;}
-            if(tiles.data()[j+2]==specialJumpArray[k+1]){rightleg=true;}
+            if(tiles.data()[j]== specialJumpArray[0]){leftleg=true;}
+            if(tiles.data()[j+2]==specialJumpArray[1]){rightleg=true;}
             if(leftleg && rightleg){specialjump=true; break;}
         }
-    }
+
 }
 void GenericScene::move() {
 
