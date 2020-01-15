@@ -21,7 +21,8 @@ class scene_4 : public  GenericScene{
 private:
     std::unique_ptr<Background> bg2,bg0;
     int bg0Y=0;
-    int timer;
+    int timerNieuw;
+    int timerOld;
 public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;

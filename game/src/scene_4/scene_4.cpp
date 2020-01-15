@@ -34,6 +34,7 @@ void scene_4::load() {
     bg0=std::unique_ptr<Background>(CreateBackground(0, tilesSpelTiles, sizeof(tilesSpelTiles),mapScene4water , sizeof(mapScene4water), MAP64X64));
     bg1=std::unique_ptr<Background>(CreateBackground(1, tilesSpelTiles, sizeof(tilesSpelTiles),mapScene4 , sizeof(mapScene4), MAP64X64));
     bg2=std::unique_ptr<Background>(CreateBackground(2,tilesSpelTiles, sizeof(tilesSpelTiles),Main_background,sizeof(Main_background),MAP32X32));
+    engine.get()->getTimer()->start();
 
     v1Y =0;v1X=0;
     x=0,y=0;
@@ -54,11 +55,14 @@ void scene_4::load() {
 
 void scene_4::onTick(u16 keys) {
     bg0.get()->scroll(0,bg0Y);
-    timer =(int)engine.get()->getTimer();
-    if(timer%1000==0)
+    timerOld=timerNieuw;
+ 
+    timerNieuw =(int)engine.get()->getTimer()->getSecs();
+    if(timerNieuw != timerOld)
     {
-        bg0Y--;
+        bg0Y++;
     }
+
 
     /*   if (keys & KEY_START) {
            engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
