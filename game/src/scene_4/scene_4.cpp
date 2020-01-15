@@ -37,7 +37,7 @@ void scene_4::load() {
     engine.get()->getTimer()->start();
 
     v1Y =0;v1X=0;
-    x=0,y=0;
+    x=0,y=64*8-100;
     starActive=false;
 
     SpriteBuilder<Sprite> builder;
@@ -60,7 +60,9 @@ void scene_4::onTick(u16 keys) {
     timerNieuw =(int)engine.get()->getTimer()->getSecs();
     if(timerNieuw != timerOld)
     {
-        bg0Y--;
+       bg0Y++;
+       if(bg0Y<0){bg0Y=0;}
+       if((bg0Y+160)>=y){dead=true;}
     }
 
 
