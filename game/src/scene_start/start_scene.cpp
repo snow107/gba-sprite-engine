@@ -11,21 +11,19 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include "../Tileset/tilesSpel.h"
 #include "../scene_1/Main_background.h"
-#include "mainCharcters.h"
+#include "startSceneSprites.h"
 #include "../scene_1/scene_1.h"
 
 std::vector<Background *> start_scene::backgrounds() {
-    return {bg1.get()};
+    return {};
 }
 
 std::vector<Sprite *> start_scene::sprites() {
-    return {kurby.get(),sonic.get()};
+    return {kurby.get(),sonic.get(),cicle.get(),star.get()};
 }
 
 void start_scene::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
-    backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tilesSpelPal, sizeof(tilesSpelPal)));
-    bg1=std::unique_ptr<Background>(CreateBackground(1,tilesSpelTiles, sizeof(tilesSpelTiles),Main_background,sizeof(Main_background),MAP32X32));
 
     TextStream::instance().setText("PRESS START TO PLAY", 3, 5);
 
@@ -35,14 +33,28 @@ void start_scene::load() {
             .withData(kurbyTiles, sizeof(kurbyTiles))
             .withSize(SIZE_32_32) //smaller kurby because memory issues? or me stupid
             .withAnimated(12,10)
-            .withLocation(GBA_SCREEN_WIDTH-32, 50)
+            .withLocation(GBA_SCREEN_WIDTH-32, 0)
             .buildPtr();
 
     sonic = builder
             .withData(sonicTiles, sizeof(sonicTiles))
-            .withSize(SIZE_32_32)
+            .withSize(SIZE_16_32)
             .withAnimated(16,10)
             .withLocation(0, 0)
+            .buildPtr();
+
+    star = builder
+            .withData(starTiles, sizeof(starTiles))
+            .withSize(SIZE_16_16)
+            .withAnimated(1,100)
+            .withLocation(GBA_SCREEN_WIDTH/3, 50)
+            .buildPtr();
+
+    cicle = builder
+            .withData(cirkelTiles, sizeof(cirkelTiles))
+            .withSize(SIZE_16_16)
+            .withAnimated(1,100)
+            .withLocation((GBA_SCREEN_WIDTH*2)/3, 50)
             .buildPtr();
 
     engine->getTimer()->start();

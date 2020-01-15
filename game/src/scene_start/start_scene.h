@@ -11,7 +11,8 @@ class start_scene : public Scene {
 private:
     std::unique_ptr<Sprite> kurby;
     std::unique_ptr<Sprite> sonic;
-    std::unique_ptr<Background> bg1;
+    std::unique_ptr<Sprite> star;
+    std::unique_ptr<Sprite> cicle;
 
 public:
     std::vector<Sprite *> sprites() override;

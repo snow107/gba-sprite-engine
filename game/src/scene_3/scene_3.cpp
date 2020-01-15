@@ -59,7 +59,7 @@ void scene_3::load() {
 void scene_3::onTick(u16 keys) {
   if(charcter.get()->collidesWith(*ster.get())){
         if (!engine->isTransitioning()) {
-            engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
+            engine->transitionIntoScene(new scene_4(engine), new FadeOutScene(2));
         }
     }
 
