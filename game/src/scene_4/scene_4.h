@@ -20,15 +20,16 @@
 class scene_4 : public  GenericScene{
 private:
     std::unique_ptr<Background> bg2,bg0;
-    int bg0Y=64*8-160-160;//152/20
+    int bg0Y=64*8-160-160+9*8;//152/20
     int timerNieuw;
     int timerOld;
+    int yHoogte;
 public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
     scene_4(std::shared_ptr<GBAEngine> engine) : GenericScene(engine, mapScene4_width,
-                                                              mapScene4_height, 0, 64*8-100, star4X, star4Y, mapScene4) {}
+                                                              mapScene4_height, 0, 350, star4X, star4Y, mapScene4) {}
 
     void load() override;
     void onTick(u16 keys) override;

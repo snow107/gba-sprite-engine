@@ -34,10 +34,15 @@ void scene_4::load() {
     bg0=std::unique_ptr<Background>(CreateBackground(0, tilesSpelTiles, sizeof(tilesSpelTiles),mapScene4water , sizeof(mapScene4water), MAP64X64));
     bg1=std::unique_ptr<Background>(CreateBackground(1, tilesSpelTiles, sizeof(tilesSpelTiles),mapScene4 , sizeof(mapScene4), MAP64X64));
     bg2=std::unique_ptr<Background>(CreateBackground(2,tilesSpelTiles, sizeof(tilesSpelTiles),Main_background,sizeof(Main_background),MAP32X32));
-    engine.get()->getTimer()->start();
-
+    x=resetX;y=resetY;
     v1Y =0;v1X=0;
-    x=0,y=64*8-100;
+    yHoogte=0;
+    engine.get()->getTimer()->reset();
+    engine.get()->getTimer()->start();
+    bg0.get()->scroll(0,mapScene4water_height*8-GBA_SCREEN_HEIGHT*2+4);//196
+
+
+
     starActive=false;
 
     SpriteBuilder<Sprite> builder;
@@ -54,16 +59,22 @@ void scene_4::load() {
 }
 
 void scene_4::onTick(u16 keys) {
-    bg0.get()->scroll(0,bg0Y);
-    timerOld=timerNieuw;
-
+   timerOld=timerNieuw;
     timerNieuw =(int)engine.get()->getTimer()->getSecs();
-    if(timerNieuw != timerOld)
-    {
-       bg0Y+=8;
-       if(bg0Y>64*8-160){bg0Y=64*8-160;}
-       if((bg0Y+25*8+160)<=y+32){dead=true;}
+    if((timerNieuw != timerOld) && (timerNieuw>5)) {
+        yHoogte += 8;
     }
+       if(yHoogte>mapScene4_height*8){yHoogte=mapScene4_height*8;}//512 is afstand afleggen 160+bg1Y in dit geval 352 = 64*8-160
+       bg0Y=mapScene4water_height*8-GBA_SCREEN_HEIGHT*2+4+yHoogte-(mapScene4_height*8-GBA_SCREEN_HEIGHT-bg1Y);//352 afstand bg1y get locked
+       if(bg0Y<0){bg0Y=0;}
+        bg0.get()->scroll(0,bg0Y);
+       if(yHoogte>=64*8-(y+32))
+       {
+           if (!engine->isTransitioning()) {
+               engine->transitionIntoScene(new scene_4(engine), new FadeOutScene(2));
+           }
+       }
+
 
 
        if (keys & KEY_START) {
