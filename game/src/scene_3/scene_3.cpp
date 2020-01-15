@@ -11,7 +11,6 @@
 
 #include "../scene_1/Main_background.h"
 
-#include "../scene_start/sonic_smaller16pixelsBreed.h"
 #include "../sprites/shared_star_circle_sonic.h"
 #include "../sprites/sonic_for_star_circle.h"
 #include "../sprites/star.h"

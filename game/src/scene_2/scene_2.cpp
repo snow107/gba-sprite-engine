@@ -10,14 +10,11 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
 #include "../scene_1/Main_background.h"
-//#include "../Tileset/tileset.h"
 #include "../scene_1/scene_1.h"
 #include "../scene_3/scene_3.h"
-#include "../scene_start/sonic_smaller16pixelsBreed.h"
 #include "../sprites/shared_star_circle_sonic.h"
 #include "../sprites/sonic_for_star_circle.h"
 #include "../sprites/star.h"
-//#include "map/maptest6464.h"
 #include "../Tileset/tilesSpel.c"
 
 

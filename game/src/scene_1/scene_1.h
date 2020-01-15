@@ -7,9 +7,7 @@
 
 #include <libgba-sprite-engine/scene.h>
 #include "../GenericScene.h"
-//#include "Main_level.h"
-#include "Main_level2.h"
-#include "map/testmap.h"
+#include "Main_level.h"
 #include <libgba-sprite-engine/sprites/affine_sprite.h>
 
 #define star1X 222
@@ -27,7 +25,7 @@ class scene_1 : public  GenericScene{
         std::vector<Background *> backgrounds() override;
 
         scene_1(std::shared_ptr<GBAEngine> engine) : GenericScene(engine, Main_level2_width,
-                                                                  Main_level2_height,resetX,resetY,star1X,star1Y, Main_level2) {}
+                                                                  Main_level2_height, resetX, resetY, star1X, star1Y, Main_level) {}
 
         void load() override;
         void onTick(u16 keys) override;
