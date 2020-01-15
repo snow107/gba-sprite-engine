@@ -38,7 +38,6 @@ void scene_4::load() {
     v1Y =0;v1X=0;
     x=0,y=0;
     starActive=false;
-    bg1.get()->scroll(bg1X,bg1Y);
 
     SpriteBuilder<Sprite> builder;
 
@@ -54,7 +53,12 @@ void scene_4::load() {
 }
 
 void scene_4::onTick(u16 keys) {
-
+    bg0.get()->scroll(0,bg0Y);
+    timer =(int)engine.get()->getTimer();
+    if(timer%1000==0)
+    {
+        bg0Y--;
+    }
 
     /*   if (keys & KEY_START) {
            engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
