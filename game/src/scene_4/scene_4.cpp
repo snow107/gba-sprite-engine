@@ -60,7 +60,7 @@ void scene_4::load() {
 
 void scene_4::onTick(u16 keys) {
    timerOld=timerNieuw;
-    timerNieuw =(int)engine.get()->getTimer()->getSecs();
+    timerNieuw =(int)engine.get()->getTimer()->getSecs()+(int)engine->getTimer()->getMinutes()*60;
     if((timerNieuw != timerOld) && (timerNieuw>5)) {
         yHoogte += 8;
     }
