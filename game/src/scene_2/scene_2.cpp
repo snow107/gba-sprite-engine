@@ -10,7 +10,7 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
 #include "../scene_1/Main_background.h"
-#include "../scene_1/scene_1.h"
+
 #include "../scene_3/scene_3.h"
 #include "../sprites/shared_star_circle_sonic.h"
 #include "../sprites/sonic_for_star_circle.h"

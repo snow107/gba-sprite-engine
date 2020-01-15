@@ -2,13 +2,11 @@
 // Created by jelle on 2019/11/29.
 //
 #include <array>
-#include <libgba-sprite-engine/sprites/sprite_builder.h>
+
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
-#include <libgba-sprite-engine/sprites/affine_sprite.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
-
 #include "GenericScene.h"
 
 void GenericScene::tick(u16 keys) {
@@ -20,20 +18,14 @@ void GenericScene::tick(u16 keys) {
         }
         else if (keys & KEY_RIGHT) {
             v1X+=1;
-            if(v1X>5){v1X=+5;}
+            if(v1X>5)v1X=+5;
         }
         else{
             v1X--;
-            if(v1X<0){v1X=0;}
+            if(v1X<0)v1X=0;
         }
-        if(charcterVerticalcheck(0))
-        {
-           v1Y++;
-        }
-        else
-        {
-            v1Y=0;
-        }
+        if(charcterVerticalcheck(0))v1Y++;
+        else v1Y=0;
         if(keys & KEY_UP && !charcterVerticalcheck(0)){
            v1Y = -8;
          }
@@ -67,26 +59,25 @@ void GenericScene::collisionBewegen(int speedX,int speedY){
         {
             if(speedX>0)
             {
-                if(charcteraHorizontaalCheck(0)){x+=1;}
+                if(charcteraHorizontaalCheck(0))x+=1;
             }
             if(speedX<0)
             {
-                if(charcteraHorizontaalCheck(0)){x-=1;}
+                if(charcteraHorizontaalCheck(0))x-=1;
             }
         }
         if(i<abs(speedY))
         {
             if(speedY>0)
             {
-                if(charcterVerticalcheck(0)){y+=1;};
+                if(charcterVerticalcheck(0))y+=1;
             }
             if(speedY<0)
             {
-                if(charcterVerticalcheck(0)){y-=1;};
+                if(charcterVerticalcheck(0))y-=1;
             }
 
         }
-       if(dead){ y=resetY;x=resetX;dead=false;v1X=0;v1Y=0; }
         move();
        if(specialjumpActive && specialjump)
        {
@@ -94,8 +85,7 @@ void GenericScene::collisionBewegen(int speedX,int speedY){
            specialjump=false;
            for(int j=0;j<abs(v1Y);j++)
            {
-               if(charcterVerticalcheck(0)){y-=1;}
-               if(dead){ y=resetY;x=resetX;dead=false;v1X=0;v1Y=0; }
+               if(charcterVerticalcheck(0))y-=1;
                move();
            }
        }
@@ -104,9 +94,7 @@ void GenericScene::collisionBewegen(int speedX,int speedY){
 bool GenericScene::charcteraHorizontaalCheck(int tileNumber){
     if(v1X<0)//left
     {
-
         std::vector< unsigned short> tiles;
-
         tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+1)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+9)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+17)/8)]);
@@ -137,7 +125,7 @@ bool GenericScene::charcterVerticalcheck(int tileNumber){
         tiles.push_back(Level_Tiles[getTilenumber(((x+9)/8),(y+Charcter_height)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber(((x+Charcter_width-1)/8),(y+Charcter_height)/8)]);
         deadCheck(tiles);
-    if(specialjumpActive){specialJumpCheck(tiles);}
+        if(specialjumpActive) specialJumpCheck(tiles);
         if(groundCheck(tiles,tileNumber))return false;
     }
     if(v1Y<0)//omhoog
@@ -165,9 +153,7 @@ int GenericScene::getTilenumber(int tilex, int tiley) {
 }
 bool GenericScene::groundCheck(std::vector<unsigned short> tiles,int tileNumber) {
     for (int i = 0; i < tiles.size(); ++i) {
-        if (tiles.data()[i] != tileNumber) {
-            return true;
-        }
+        if (tiles.data()[i] != tileNumber)return true;
     }
     return false;
 }
@@ -178,8 +164,10 @@ void GenericScene::deadCheck(std::vector<unsigned short> tiles) {
         {
             if(tiles.data()[j]== collisionArray[k])
             {
-                dead=true;
-                break;
+                y=resetY;x=resetX;v1X=0;v1Y=0;
+               /* if (!engine->isTransitioning()) {
+                    engine->transitionIntoScene(new (engine), new FadeOutScene(2));
+                }*/
             }
         }
     }
@@ -189,15 +177,15 @@ void GenericScene::specialJumpCheck(std::vector<unsigned short> tiles){
         {
             bool leftleg =false;
             bool rightleg=false;
-            if(tiles.data()[j]== specialJumpArray[0]){leftleg=true;}
-            if(tiles.data()[j+1]==specialJumpArray[1]){rightleg=true;}
+            if(tiles.data()[j]== specialJumpArray[0])leftleg=true;
+            if(tiles.data()[j+1]==specialJumpArray[1])rightleg=true;
             if(leftleg && rightleg){specialjump=true; break;}
         }
 }
 void GenericScene::move() {
       // beneath code used from  https://wiki.nycresistor.com/wiki/GB101:Collision_Detection for moving bg1 or char
   if (x < 0)
-        x = 0;
+          x = 0;
     else if (x+16> Scene_width*8)
         x = Scene_width*8-16;
 
@@ -239,8 +227,11 @@ void GenericScene::move() {
 
     if(starActive)
     {
-        if(bg1X>=Scene_width*8-GBA_SCREEN_WIDTH-16 && bg1Y>=Scene_heigth*8-GBA_SCREEN_HEIGHT-16-80)ster.get()->moveTo(Scene_width*8-GBA_SCREEN_WIDTH-bg1X+starX+1,Scene_heigth*8-GBA_SCREEN_HEIGHT-bg1Y+starY);
-        else{ster.get()->moveTo(0,200);}
+        if(bg1X>=Scene_width*8-GBA_SCREEN_WIDTH-16 && bg1Y>=Scene_heigth*8-GBA_SCREEN_HEIGHT-16-80)
+        {
+            ster.get()->moveTo(Scene_width*8-GBA_SCREEN_WIDTH-bg1X+starX+1,Scene_heigth*8-GBA_SCREEN_HEIGHT-bg1Y+starY);
+        }
+        else ster.get()->moveTo(0,200);
     }
     charcter.get()->moveTo(charcterX,charcterY);
     bg1.get()->scroll(bg1X,bg1Y);

@@ -9,8 +9,6 @@
 
 
 #include "../GenericScene.h"
-//#include "map/mapScene2.h"
-//#include "map/maptest6464.h"
 #include "map/mapScene3.h"
 
 

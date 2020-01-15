@@ -3,18 +3,14 @@
 //
 
 #include "scene_4.h"
+#include "../end_scene/end_scene.h"
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
-
 #include "../scene_1/Main_background.h"
-
-
 #include "../sprites/shared_star_circle_sonic.h"
 #include "../sprites/sonic_for_star_circle.h"
-#include "../sprites/star.h"
-
 #include "../Tileset/tilesSpel.c"
 
 
@@ -74,11 +70,8 @@ void scene_4::onTick(u16 keys) {
                engine->transitionIntoScene(new scene_4(engine), new FadeOutScene(2));
            }
        }
-
-
-
        if (keys & KEY_START) {
-           engine->transitionIntoScene(new scene_4(engine), new FadeOutScene(2));
+           engine->transitionIntoScene(new end_scene(engine), new FadeOutScene(2));
        }
 
 }

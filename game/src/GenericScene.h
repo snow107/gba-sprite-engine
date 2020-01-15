@@ -30,7 +30,7 @@ protected:
     int bg1X,bg1Y;
     int v1X,v1Y,d1X,d1Y;
     int x,y,resetX,resetY;
-    bool dead = false;
+ //   bool dead = false;
     bool specialjump=false;
     bool specialjumpActive=false;
     bool starActive =true;

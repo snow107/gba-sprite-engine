@@ -13,8 +13,6 @@
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
-#include "../Tileset/tilesSpel.h"
-#include "../scene_1/Main_background.h"
 #include "../scene_start/startSceneSprites.h"
 #include "../scene_1/scene_1.h"
 

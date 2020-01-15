@@ -35,7 +35,7 @@ void scene_1::load() {
     bg1=std::unique_ptr<Background>(CreateBackground(1, tilesSpelTiles, sizeof(tilesSpelTiles), Main_level, sizeof(Main_level), MAP32X64));
     bg2=std::unique_ptr<Background>(CreateBackground(2,tilesSpelTiles, sizeof(tilesSpelTiles),Main_background,sizeof(Main_background),MAP32X32));
 
-    dead=false;
+
     v1Y =0;v1X=0;
     x=resetX;y=resetY;
 
