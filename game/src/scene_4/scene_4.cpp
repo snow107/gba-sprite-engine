@@ -10,7 +10,7 @@
 
 #include "../scene_1/Main_background.h"
 
-#include "../scene_start/sonic_smaller16pixelsBreed.h"
+
 #include "../sprites/shared_star_circle_sonic.h"
 #include "../sprites/sonic_for_star_circle.h"
 #include "../sprites/star.h"
@@ -60,14 +60,14 @@ void scene_4::onTick(u16 keys) {
     timerNieuw =(int)engine.get()->getTimer()->getSecs();
     if(timerNieuw != timerOld)
     {
-       bg0Y++;
-       if(bg0Y<0){bg0Y=0;}
-       if((bg0Y+160)>=y){dead=true;}
+       bg0Y+=8;
+       if(bg0Y>64*8-160){bg0Y=64*8-160;}
+       if((bg0Y+25*8+160)<=y+32){dead=true;}
     }
 
 
-    /*   if (keys & KEY_START) {
-           engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
-       }*/
+       if (keys & KEY_START) {
+           engine->transitionIntoScene(new scene_4(engine), new FadeOutScene(2));
+       }
 
 }
