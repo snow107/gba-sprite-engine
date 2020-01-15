@@ -20,7 +20,7 @@
 class scene_4 : public  GenericScene{
 private:
     std::unique_ptr<Background> bg2,bg0;
-    int bg0Y=0;
+    int bg0Y=64*8;
     int timerNieuw;
     int timerOld;
 public:

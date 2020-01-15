@@ -56,11 +56,11 @@ void scene_4::load() {
 void scene_4::onTick(u16 keys) {
     bg0.get()->scroll(0,bg0Y);
     timerOld=timerNieuw;
- 
+
     timerNieuw =(int)engine.get()->getTimer()->getSecs();
     if(timerNieuw != timerOld)
     {
-        bg0Y++;
+        bg0Y--;
     }
 
 
