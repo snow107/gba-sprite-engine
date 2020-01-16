@@ -72,7 +72,7 @@ void end_scene::load() {
 
 void end_scene::tick(u16 keys) {
 
-    TextStream::instance().setText(engine->getTimer()->to_string(), 18, 1);
+
 
     if(((keys & KEY_A) || (keys & KEY_B))) {
         engine->getTimer()->toggle();

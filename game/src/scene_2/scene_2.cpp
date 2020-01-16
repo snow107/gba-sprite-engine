@@ -57,7 +57,6 @@ void scene_2::onTick(u16 keys) {
             engine->transitionIntoScene(new scene_3(engine), new FadeOutScene(2));
         }
     }
-
     if (keys & KEY_START) {
         engine->transitionIntoScene(new scene_3(engine), new FadeOutScene(2));
     }
