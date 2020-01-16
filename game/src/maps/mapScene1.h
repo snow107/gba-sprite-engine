@@ -1,8 +1,8 @@
 /* created by GBA Tile Editor
    regular map */
 
-#define Main_level2_width 64
-#define Main_level2_height 32
+#define MAP_LEVEL1_WIDTH 32
+#define MAP_LEVEL1_HEIGHT 32
 
 const unsigned short Main_level [] = {
     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 

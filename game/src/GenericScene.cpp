@@ -100,18 +100,18 @@ bool GenericScene::charcteraHorizontaalCheck(int tileNumber){
         tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+9)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+17)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+25)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber((x-1)/8,(y+Charcter_height-1)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x-1)/8, (y + CHARACTER_HEIGHT - 1) / 8)]);
         deadCheck(tiles);
         if(groundCheck(tiles,tileNumber))return false;
     }
     if(v1X>0)//right
     {
         std::vector< unsigned short> tiles;
-        tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width)/8,(y+1)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width)/8,(y+9)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width)/8,(y+17)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width)/8,(y+25)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width)/8,(y+Charcter_height-1)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x + CHARACTER_WIDTH) / 8, (y + 1) / 8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x + CHARACTER_WIDTH) / 8, (y + 9) / 8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x + CHARACTER_WIDTH) / 8, (y + 17) / 8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x + CHARACTER_WIDTH) / 8, (y + 25) / 8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x + CHARACTER_WIDTH) / 8, (y + CHARACTER_HEIGHT - 1) / 8)]);
        deadCheck(tiles);
       if(groundCheck(tiles,tileNumber))return false;
     }
@@ -122,9 +122,9 @@ bool GenericScene::charcterVerticalcheck(int tileNumber){
     if(v1Y>0) //omlaag
     {
         std::vector< unsigned short> tiles;
-        tiles.push_back(Level_Tiles[getTilenumber(((x+1)/8),(y+Charcter_height)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber(((x+9)/8),(y+Charcter_height)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber(((x+Charcter_width-1)/8),(y+Charcter_height)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber(((x+1)/8), (y + CHARACTER_HEIGHT) / 8)]);
+        tiles.push_back(Level_Tiles[getTilenumber(((x+9)/8), (y + CHARACTER_HEIGHT) / 8)]);
+        tiles.push_back(Level_Tiles[getTilenumber(((x + CHARACTER_WIDTH - 1) / 8), (y + CHARACTER_HEIGHT) / 8)]);
         deadCheck(tiles);
         if(specialjumpActive) specialJumpCheck(tiles);
         if(groundCheck(tiles,tileNumber))return false;
@@ -134,7 +134,7 @@ bool GenericScene::charcterVerticalcheck(int tileNumber){
         std::vector< unsigned short> tiles;
         tiles.push_back(Level_Tiles[getTilenumber((x+1)/8,(y-1)/8)]);
         tiles.push_back(Level_Tiles[getTilenumber((x+9)/8,(y-1)/8)]);
-        tiles.push_back(Level_Tiles[getTilenumber((x+Charcter_width-1)/8,(y-1)/8)]);
+        tiles.push_back(Level_Tiles[getTilenumber((x + CHARACTER_WIDTH - 1) / 8, (y - 1) / 8)]);
         deadCheck(tiles);
         if(groundCheck(tiles,tileNumber))return false;
     }
@@ -159,7 +159,7 @@ bool GenericScene::groundCheck(std::vector<unsigned short> tiles,int tileNumber)
     return false;
 }
 void GenericScene::deadCheck(std::vector<unsigned short> tiles) {
-    for(int k=0;k<std::end(collisionArray)-std::begin(collisionArray);k++)
+  for(int k=0;k<std::end(collisionArray)-std::begin(collisionArray);k++)
     {
         for (int j=0;j<tiles.size();j++)
         {

@@ -6,8 +6,8 @@
 #define GBA_SPRITE_ENGINE_PROJECT_GENERICSCENE_H
 
 #include <libgba-sprite-engine/scene.h>
-#define Charcter_height 32
-#define Charcter_width 16
+#define CHARACTER_HEIGHT 32
+#define CHARACTER_WIDTH 16
 
 
 

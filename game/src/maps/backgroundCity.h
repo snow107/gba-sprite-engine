@@ -4,8 +4,8 @@
 
 #ifndef GBA_SPRITE_ENGINE_PROJECT_BACKGROUNDCITY_H
 #define GBA_SPRITE_ENGINE_PROJECT_BACKGROUNDCITY_H
-#define  Main_background_Map_Height  32
-#define  Main_background_Map_Whith  32
+#define  MAIN_BACKGROUND_HEIGHT  32
+#define  MAIN_BACKGROUND_WIDTH  32
 
 const unsigned short Main_background [] = { 
 

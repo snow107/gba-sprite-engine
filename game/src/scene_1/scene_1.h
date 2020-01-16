@@ -10,10 +10,10 @@
 #include "../maps/mapScene1.h"
 
 
-#define star1X 222
-#define star1Y 80
-#define reset1X 0
-#define reset1Y 170
+#define STAR1X 222
+#define STAR1Y 80
+#define RESET1X 0
+#define RESET1Y 170
 
 class scene_1 : public  GenericScene{
     private:
@@ -24,8 +24,8 @@ class scene_1 : public  GenericScene{
         std::vector<Sprite *> sprites() override;
         std::vector<Background *> backgrounds() override;
 
-        scene_1(std::shared_ptr<GBAEngine> engine) : GenericScene(engine, Main_level2_width,
-                                                                  Main_level2_height, reset1X, reset1Y, star1X, star1Y, Main_level) {}
+        scene_1(std::shared_ptr<GBAEngine> engine) : GenericScene(engine, MAP_LEVEL1_WIDTH,
+                                                                  MAP_LEVEL1_HEIGHT, RESET1X, RESET1Y, STAR1X, STAR1Y, Main_level) {}
 
         void load() override;
         void onTick(u16 keys) override;

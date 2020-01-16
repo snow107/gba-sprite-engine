@@ -1,8 +1,8 @@
 /* created by GBA Tile Editor
    regular map */
 
-#define mapScene2_width 64
-#define mapScene2_height 64
+#define MAP_LEVEL2_WIDTH 64
+#define MAP_LEVEL2_HEIGHT 64
 
 const unsigned short mapScene2 [] = {
     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 

@@ -13,8 +13,8 @@
 
 
 
-#define star3X 222
-#define star3Y 136
+#define STAR3X 222
+#define STAR3Y 136
 #define RESET3X 0
 #define RESET3Y 460
 
@@ -27,8 +27,8 @@ public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
-    scene_3(std::shared_ptr<GBAEngine> engine) : GenericScene(engine, mapScene3_width,
-                                                              mapScene3_height, RESET3X, RESET3Y, star3X, star3Y, mapScene3) {}
+    scene_3(std::shared_ptr<GBAEngine> engine) : GenericScene(engine, MAP_LEVEL3_WIDTH,
+                                                              MAP_LEVEL3_HEIGHT, RESET3X, RESET3Y, STAR3X, STAR3Y, mapScene3) {}
 
     void load() override;
     void onTick(u16 keys) override;

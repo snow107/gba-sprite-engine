@@ -32,12 +32,12 @@ void scene_4::load() {
     bg0=std::unique_ptr<Background>(CreateBackground(0, tilesSpelTiles, sizeof(tilesSpelTiles),mapScene4water , sizeof(mapScene4water), MAP64X64));
     bg1=std::unique_ptr<Background>(CreateBackground(1, tilesSpelTiles, sizeof(tilesSpelTiles),mapScene4 , sizeof(mapScene4), MAP64X64));
     bg2=std::unique_ptr<Background>(CreateBackground(2,tilesSpelTiles, sizeof(tilesSpelTiles),Main_background,sizeof(Main_background),MAP32X32));
-    x=reset4X;y=reset4Y;
+    x=RESET4X;y=RESET4Y;
     v1Y =0;v1X=0;
     yHoogte=0;
     engine.get()->getTimer()->reset();
     engine.get()->getTimer()->start();
-    bg0.get()->scroll(0,mapScene4water_height*8-GBA_SCREEN_HEIGHT*2+4);//196
+    bg0.get()->scroll(0, MAP_LEVEL4_WATER_HEIGHT * 8 - GBA_SCREEN_HEIGHT * 2 + 4);//196
     starActive=false;
 
     SpriteBuilder<Sprite> builder;
@@ -63,8 +63,8 @@ void scene_4::onTick(u16 keys) {
     if((timerNieuw != timerOld) && (timerNieuw>7)) {
         yHoogte += 8;
     }
-   if(yHoogte>mapScene4_height*8){yHoogte=mapScene4_height*8;}//512 is afstand afleggen 160+bg1Y in dit geval 352 = 64*8-160
-   bg0Y=mapScene4water_height*8-GBA_SCREEN_HEIGHT*2+4+yHoogte-(mapScene4_height*8-GBA_SCREEN_HEIGHT-bg1Y);//352 afstand bg1y get locked
+   if(yHoogte > MAP_LEVEL4_HEIGHT * 8){ yHoogte= MAP_LEVEL4_HEIGHT * 8;}//512 is afstand afleggen 160+bg1Y in dit geval 352 = 64*8-160
+   bg0Y= MAP_LEVEL4_WATER_HEIGHT * 8 - GBA_SCREEN_HEIGHT * 2 + 4 + yHoogte - (MAP_LEVEL4_HEIGHT * 8 - GBA_SCREEN_HEIGHT - bg1Y);//352 afstand bg1y get locked
    if(bg0Y<0){bg0Y=0;}
     bg0.get()->scroll(0,bg0Y);
    if(yHoogte>=64*8-(y+32))

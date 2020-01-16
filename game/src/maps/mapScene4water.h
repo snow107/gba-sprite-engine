@@ -1,8 +1,8 @@
 /* created by GBA Tile Editor
    regular map */
 
-#define mapScene4water_width 64
-#define mapScene4water_height 64
+#define MAP_LEVEL4_WATER_WIDTH 64
+#define MAP_LEVEL4_WATER_HEIGHT 64
 
 const unsigned short mapScene4water [] = {
     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 

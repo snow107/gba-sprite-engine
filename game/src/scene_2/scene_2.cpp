@@ -31,7 +31,7 @@ void scene_2::load() {
     bg2=std::unique_ptr<Background>(CreateBackground(2,tilesSpelTiles, sizeof(tilesSpelTiles),Main_background,sizeof(Main_background),MAP32X32));
 
      v1Y =0;v1X=0;
-     x=reset2X;y=reset2Y;
+     x=RESET2X;y=RESET2Y;
     bg1.get()->scroll(bg1X,bg1Y);
 
     SpriteBuilder<Sprite> builder;
