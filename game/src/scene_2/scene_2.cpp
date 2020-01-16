@@ -10,9 +10,7 @@
 
 #include "../maps/backgroundCity.h"
 #include "../scene_3/scene_3.h"
-#include "../sprites/shared_star_circle_sonic.h"
-#include "../sprites/sonic_for_star_circle.h"
-#include "../sprites/star.h"
+#include "../sprites/spritesPal.h"
 #include "../Tileset/tilesSpel.h"
 
 
