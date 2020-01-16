@@ -5,12 +5,10 @@
 #include "scene_2.h"
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
-#include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
 #include "../maps/backgroundCity.h"
-
 #include "../scene_3/scene_3.h"
 #include "../sprites/shared_star_circle_sonic.h"
 #include "../sprites/sonic_for_star_circle.h"
@@ -34,12 +32,8 @@ void scene_2::load() {
     bg1=std::unique_ptr<Background>(CreateBackground(1, tilesSpelTiles, sizeof(tilesSpelTiles), mapScene2, sizeof(mapScene2), MAP64X64));
     bg2=std::unique_ptr<Background>(CreateBackground(2,tilesSpelTiles, sizeof(tilesSpelTiles),Main_background,sizeof(Main_background),MAP32X32));
 
-  //  charcterX = 20;
- //   charcterY = 50;
-  //  bg1X = 0;
- //   bg1Y = 5;
-    v1Y =0;v1X=0;
-   x=0,y=0;
+     v1Y =0;v1X=0;
+     x=reset2X;y=reset2Y;
     bg1.get()->scroll(bg1X,bg1Y);
 
     SpriteBuilder<Sprite> builder;

@@ -3,16 +3,17 @@
 //
 
 #include "scene_4.h"
-#include "../end_scene/end_scene.h"
+
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
-#include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
+
 #include "../maps/backgroundCity.h"
+#include "../maps/mapScene4water.h"
 #include "../sprites/shared_kurby_sonic.h"
 #include "../sprites/kurby.h"
 #include "../sprites/sonic_for_kurby.h"
-
+#include "../end_scene/end_scene.h"
 #include "../Tileset/tilesSpel.h"
 
 
@@ -32,15 +33,12 @@ void scene_4::load() {
     bg0=std::unique_ptr<Background>(CreateBackground(0, tilesSpelTiles, sizeof(tilesSpelTiles),mapScene4water , sizeof(mapScene4water), MAP64X64));
     bg1=std::unique_ptr<Background>(CreateBackground(1, tilesSpelTiles, sizeof(tilesSpelTiles),mapScene4 , sizeof(mapScene4), MAP64X64));
     bg2=std::unique_ptr<Background>(CreateBackground(2,tilesSpelTiles, sizeof(tilesSpelTiles),Main_background,sizeof(Main_background),MAP32X32));
-    x=resetX;y=resetY;
+    x=reset4X;y=reset4Y;
     v1Y =0;v1X=0;
     yHoogte=0;
     engine.get()->getTimer()->reset();
     engine.get()->getTimer()->start();
     bg0.get()->scroll(0,mapScene4water_height*8-GBA_SCREEN_HEIGHT*2+4);//196
-
-
-
     starActive=false;
 
     SpriteBuilder<Sprite> builder;

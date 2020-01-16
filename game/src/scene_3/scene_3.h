@@ -12,11 +12,11 @@
 #include "../maps/mapScene3.h"
 
 
-#define RESET3X 0
 
-#define RESET3Y 0
 #define star3X 222
 #define star3Y 136
+#define RESET3X 0
+#define RESET3Y 460
 
 
 class scene_3 : public  GenericScene{
@@ -28,7 +28,7 @@ public:
     std::vector<Background *> backgrounds() override;
 
     scene_3(std::shared_ptr<GBAEngine> engine) : GenericScene(engine, mapScene3_width,
-                                                              mapScene3_height, 0, 0, star3X, star3Y, mapScene3) {}
+                                                              mapScene3_height, RESET3X, RESET3Y, star3X, star3Y, mapScene3) {}
 
     void load() override;
     void onTick(u16 keys) override;

@@ -5,11 +5,9 @@
 #include "scene_1.h"
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
-#include <libgba-sprite-engine/sprites/affine_sprite.h>
-#include <libgba-sprite-engine/background/text_stream.h>
-#include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
+
 #include "../maps/backgroundCity.h"
 #include "../Tileset/tilesSpel.h"
 #include "../scene_2/scene_2.h"
@@ -70,14 +68,7 @@ void scene_1::onTick(u16 keys) {
            engine->transitionIntoScene(new scene_2(engine), new FadeOutScene(2));
        }
    }
-  /* if(dead)
-   {
-       if (!engine->isTransitioning()) {
-           engine->transitionIntoScene(new scene_1(engine), new FadeOutScene(2));
-       }
-   }*/
-
-    if (keys & KEY_START) {
+   if (keys & KEY_START) {
         engine->transitionIntoScene(new scene_2(engine), new FadeOutScene(2));
     }
 }

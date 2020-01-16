@@ -1,20 +1,19 @@
 //
 // Created by michi on 14/01/2020.
 //
-#include "../scene_1/scene_1.h"
-#include "../scene_4/scene_4.h"
+
+
 #include "scene_3.h"
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
-#include <libgba-sprite-engine/background/text_stream.h>
+
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
 #include "../maps/backgroundCity.h"
-
+#include "../scene_4/scene_4.h"
 #include "../sprites/shared_star_circle_sonic.h"
 #include "../sprites/sonic_for_star_circle.h"
 #include "../sprites/star.h"
-
 #include "../Tileset/tilesSpel.h"
 
 
@@ -36,7 +35,7 @@ void scene_3::load() {
 
     specialjumpActive=true;
     v1Y =0;v1X=0;
-    x=0,y=460;
+    x=RESET3X,y=RESET3Y;
     bg1.get()->scroll(bg1X,bg1Y);
 
     SpriteBuilder<Sprite> builder;
@@ -52,7 +51,7 @@ void scene_3::load() {
             .withData(starTiles,sizeof(starTiles))
             .withSize(SIZE_16_16)
             .withAnimated(1,1)
-            .withLocation(0,200)//222/40
+            .withLocation(0,200)
             .buildPtr();
 }
 

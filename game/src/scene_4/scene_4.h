@@ -7,12 +7,14 @@
 
 #include "../GenericScene.h"
 #include "../maps/mapScene4.h"
-#include "../maps/mapScene4water.h"
+
 
 
 
 #define star4X 0
 #define star4Y 200
+#define reset4X 88
+#define reset4Y 0
 
 
 class scene_4 : public  GenericScene{
@@ -28,7 +30,7 @@ public:
     std::vector<Background *> backgrounds() override;
 
     scene_4(std::shared_ptr<GBAEngine> engine) : GenericScene(engine, mapScene4_width,
-                                                              mapScene4_height, 88, 0, star4X, star4Y, mapScene4) {}
+                                                              mapScene4_height, reset4X, reset4Y, star4X, star4Y, mapScene4) {}
 
     void load() override;
     void onTick(u16 keys) override;
