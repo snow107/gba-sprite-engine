@@ -84,7 +84,7 @@ void scene_4::onTick(u16 keys) {
             engine->transitionIntoScene(new end_scene(engine), new FadeOutScene(2));
         }
     }
-    if(x>64*8-50 && y<17){ //bovenstaand werkt niet voor een reden
+    if(x>64*8-50 && y<17){ //bovenstaand werkt niet voor een onbekende reden
         if (!engine->isTransitioning()) {
             engine->transitionIntoScene(new end_scene(engine), new FadeOutScene(2));
         }
