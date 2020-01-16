@@ -11,7 +11,7 @@
 #include "../maps/backgroundCity.h"
 #include "../maps/mapScene4water.h"
 
-#include "../scene_start/startSceneSprites.h"
+#include "../sprites/spritesPal.h"
 #include "../end_scene/end_scene.h"
 #include "../Tileset/tilesSpel.h"
 
