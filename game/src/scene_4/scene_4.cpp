@@ -11,7 +11,7 @@
 #include "../maps/backgroundCity.h"
 #include "../maps/mapScene4water.h"
 
-#include "../sprites/spritesPal.h"
+#include "../sprites/sprites.h"
 #include "../end_scene/end_scene.h"
 #include "../Tileset/tilesSpel.h"
 
@@ -70,6 +70,7 @@ void scene_4::onTick(u16 keys) {
    if(yHoogte>=64*8-(y+32))
    {
        if (!engine->isTransitioning()) {
+           bg0Y = 0;
            engine->transitionIntoScene(new scene_4(engine), new FadeOutScene(2));
        }
    }

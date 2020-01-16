@@ -10,7 +10,7 @@
 
 #include "../maps/backgroundCity.h"
 #include "../scene_3/scene_3.h"
-#include "../sprites/spritesPal.h"
+#include "../sprites/sprites.h"
 #include "../Tileset/tilesSpel.h"
 
 

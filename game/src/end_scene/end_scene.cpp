@@ -13,7 +13,7 @@
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
-#include "../sprites/spritesPal.h"
+#include "../sprites/sprites.h"
 #include "../scene_1/scene_1.h"
 #include "../maps/backgroundCity.h"
 #include "../Tileset/tilesSpel.h"
@@ -34,8 +34,8 @@ void end_scene::load() {
     backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tilesSpelPal,sizeof(tilesSpelPal)));
     bg1=std::unique_ptr<Background>(CreateBackground(1,tilesSpelTiles,sizeof(tilesSpelTiles),Main_background,sizeof(Main_background),MAP32X32));
 
-    TextStream::instance().setText("THE END", 3, 7);
-    TextStream::instance().setText("BY MICHIEL AND JELLE", 6, 2);
+    TextStream::instance().setText("THE END", 3, 12);
+    TextStream::instance().setText("BY MICHIEL AND JELLE", 6, 7);
 
     SpriteBuilder<Sprite> builder;
 

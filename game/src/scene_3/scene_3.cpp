@@ -11,7 +11,7 @@
 
 #include "../maps/backgroundCity.h"
 #include "../scene_4/scene_4.h"
-#include "../sprites/spritesPal.h"
+#include "../sprites/sprites.h"
 #include "../Tileset/tilesSpel.h"
 
 
