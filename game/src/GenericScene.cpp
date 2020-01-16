@@ -164,10 +164,8 @@ void GenericScene::deadCheck(std::vector<unsigned short> tiles) {
         {
             if(tiles.data()[j]== collisionArray[k])
             {
-                y=resetY;x=resetX;v1X=0;v1Y=0;
-               /* if (!engine->isTransitioning()) {
-                    engine->transitionIntoScene(new (engine), new FadeOutScene(2));
-                }*/
+                y=resetY;x=resetX;
+                v1X=0;v1Y=0;
             }
         }
     }

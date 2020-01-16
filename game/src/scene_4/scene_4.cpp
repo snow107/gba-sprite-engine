@@ -9,8 +9,10 @@
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include "../scene_1/Main_background.h"
-#include "../sprites/shared_star_circle_sonic.h"
-#include "../sprites/sonic_for_star_circle.h"
+#include "../sprites/shared_kurby_sonic.h"
+#include "../sprites/kurby.h"
+#include "../sprites/sonic_for_kurby.h"
+
 #include "../Tileset/tilesSpel.c"
 
 
@@ -50,6 +52,13 @@ void scene_4::load() {
             .withLocation(charcterX, charcterY)
             .buildPtr();
     charcter.get()->setStayWithinBounds(true);
+    kurby = builder
+            .withData(kurbyTiles, sizeof(kurbyTiles))
+            .withSize(SIZE_16_16) //smaller kurby because memory issues? or me stupid
+            .withAnimated(12,10)
+            .withLocation(100, 20)
+            .buildPtr();
+
 
 
 }
@@ -57,7 +66,7 @@ void scene_4::load() {
 void scene_4::onTick(u16 keys) {
    timerOld=timerNieuw;
     timerNieuw =(int)engine.get()->getTimer()->getSecs()+(int)engine->getTimer()->getMinutes()*60;
-    if((timerNieuw != timerOld) && (timerNieuw>5)) {
+    if((timerNieuw != timerOld) && (timerNieuw>7)) {
         yHoogte += 8;
     }
        if(yHoogte>mapScene4_height*8){yHoogte=mapScene4_height*8;}//512 is afstand afleggen 160+bg1Y in dit geval 352 = 64*8-160

@@ -12,7 +12,9 @@
 #include "map/mapScene3.h"
 
 
+#define RESET3X 0
 
+#define RESET3Y 0
 #define star3X 222
 #define star3Y 136
 
