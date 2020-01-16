@@ -13,7 +13,7 @@
 
 #define star4X 0
 #define star4Y 200
-#define reset4X 88
+#define reset4X 420//88
 #define reset4Y 0
 
 

@@ -10,9 +10,8 @@
 
 #include "../maps/backgroundCity.h"
 #include "../maps/mapScene4water.h"
-#include "../sprites/shared_kurby_sonic.h"
-#include "../sprites/kurby.h"
-#include "../sprites/sonic_for_kurby.h"
+
+#include "../scene_start/startSceneSprites.h"
 #include "../end_scene/end_scene.h"
 #include "../Tileset/tilesSpel.h"
 
@@ -56,9 +55,6 @@ void scene_4::load() {
             .withAnimated(12,10)
             .withLocation(kurbyX, kurbyY)
             .buildPtr();
-
-
-
 }
 
 void scene_4::onTick(u16 keys) {
@@ -84,6 +80,11 @@ void scene_4::onTick(u16 keys) {
     else kurby.get()->moveTo(0,200);
 
     if(charcter.get()->collidesWith(*kurby.get())){
+        if (!engine->isTransitioning()) {
+            engine->transitionIntoScene(new end_scene(engine), new FadeOutScene(2));
+        }
+    }
+    if(x>64*8-50 && y<17){ //bovenstaand werkt niet voor een reden
         if (!engine->isTransitioning()) {
             engine->transitionIntoScene(new end_scene(engine), new FadeOutScene(2));
         }
