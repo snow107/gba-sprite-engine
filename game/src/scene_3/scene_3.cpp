@@ -9,13 +9,13 @@
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
-#include "../scene_1/Main_background.h"
+#include "../maps/backgroundCity.h"
 
 #include "../sprites/shared_star_circle_sonic.h"
 #include "../sprites/sonic_for_star_circle.h"
 #include "../sprites/star.h"
 
-#include "../Tileset/tilesSpel.c"
+#include "../Tileset/tilesSpel.h"
 
 
 std::vector<Background *> scene_3::backgrounds() {

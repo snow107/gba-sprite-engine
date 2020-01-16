@@ -34,4 +34,3 @@ add_subdirectory(demos/demo3-foodthrowing)
 add_subdirectory(demos/demo4-conway)
 
 add_subdirectory(game)
-add_subdirectory(Michiel_achtergrondTest)

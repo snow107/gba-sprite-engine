@@ -8,12 +8,12 @@
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
-#include "../scene_1/Main_background.h"
+#include "../maps/backgroundCity.h"
 #include "../sprites/shared_kurby_sonic.h"
 #include "../sprites/kurby.h"
 #include "../sprites/sonic_for_kurby.h"
 
-#include "../Tileset/tilesSpel.c"
+#include "../Tileset/tilesSpel.h"
 
 
 std::vector<Background *> scene_4::backgrounds() {

@@ -6,7 +6,7 @@
 #define GBA_SPRITE_ENGINE_PROJECT_SCENE_2_H
 
 #include "../GenericScene.h"
-#include "map/mapScene2.h"
+#include "../maps/mapScene2.h"
 
 
 

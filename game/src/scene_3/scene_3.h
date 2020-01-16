@@ -9,7 +9,7 @@
 
 
 #include "../GenericScene.h"
-#include "map/mapScene3.h"
+#include "../maps/mapScene3.h"
 
 
 #define RESET3X 0

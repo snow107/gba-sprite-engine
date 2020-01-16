@@ -6,8 +6,8 @@
 #define GBA_SPRITE_ENGINE_PROJECT_SCENE_4_H
 
 #include "../GenericScene.h"
-#include "map/mapScene4.h"
-#include "map/mapScene4water.h"
+#include "../maps/mapScene4.h"
+#include "../maps/mapScene4water.h"
 
 
 

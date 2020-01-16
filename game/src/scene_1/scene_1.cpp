@@ -10,8 +10,8 @@
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
-#include "Main_background.h"
-#include "../Tileset/tilesSpel.c"
+#include "../maps/backgroundCity.h"
+#include "../Tileset/tilesSpel.h"
 #include "../scene_2/scene_2.h"
 #include "../sprites/shared_star_circle_sonic.h"
 #include "../sprites/sonic_for_star_circle.h"

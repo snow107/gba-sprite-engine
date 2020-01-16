@@ -2,8 +2,8 @@
 //Bin converted to hex in labview, program created by Michiel
 
 
-#ifndef GBA_SPRITE_ENGINE_PROJECT_MAIN_BACKGROUND_H
-#define GBA_SPRITE_ENGINE_PROJECT_MAIN_BACKGROUND_H
+#ifndef GBA_SPRITE_ENGINE_PROJECT_BACKGROUNDCITY_H
+#define GBA_SPRITE_ENGINE_PROJECT_BACKGROUNDCITY_H
 #define  Main_background_Map_Height  32
 #define  Main_background_Map_Whith  32
 
@@ -74,4 +74,4 @@ const unsigned short Main_background [] = {
 0x000F, 0x000F, 0x000F, 0x000F, 0x000F, 0x0011, 0x0008, 0x0008, 0x0008, 0x0008, 0x0008, 0x0008, 0x0012, 0x000F, 0x000F, 0x000F, 
 0x000F, 0x000F, 0x000F, 0x0011, 0x0008, 0x0008, 0x0008, 0x0008, 0x0012, 0x000F, 0x000F, 0x000F, 0x000F, 0x000F, 0x000F, 0x000F, 
 };
- #endif  // GBA_SPRITE_ENGINE_PROJECT_MAIN_BACKGROUND_H
+ #endif  //GBA_SPRITE_ENGINE_PROJECT_BACKGROUNDCITY_H

@@ -7,7 +7,7 @@
 
 #include <libgba-sprite-engine/scene.h>
 #include "../GenericScene.h"
-#include "Main_level.h"
+#include "../maps/mapScene1.h"
 #include <libgba-sprite-engine/sprites/affine_sprite.h>
 
 #define star1X 222
