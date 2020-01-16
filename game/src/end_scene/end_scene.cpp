@@ -15,11 +15,12 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include "../sprites/spritesPal.h"
 #include "../scene_1/scene_1.h"
-
+#include "../maps/backgroundCity.h"
+#include "../Tileset/tilesSpel.h"
 #include <libgba-sprite-engine/gba/tonc_core.h>
 
 std::vector<Background *> end_scene::backgrounds() {
-    return {};
+    return {bg1.get()};
 }
 
 std::vector<Sprite *> end_scene::sprites() {
@@ -30,6 +31,8 @@ void end_scene::load() {
     engine->cleanBgRegisters();
     engine->enableText();
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
+    backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tilesSpelPal,sizeof(tilesSpelPal)));
+    bg1=std::unique_ptr<Background>(CreateBackground(1,tilesSpelTiles,sizeof(tilesSpelTiles),Main_background,sizeof(Main_background),MAP32X32));
 
     TextStream::instance().setText("THE END", 3, 7);
     TextStream::instance().setText("BY MICHIEL AND JELLE", 6, 2);

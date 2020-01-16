@@ -181,6 +181,8 @@ void GBAEngine::cleanBgRegisters(){
                 (1 << 13) |       /* wrapping flag */
                 (0 << 14) |
                 (0<<15);
+        REG_BG_OFS[i].x = 0;
+        REG_BG_OFS[i].y = 0;
     }
 
 
