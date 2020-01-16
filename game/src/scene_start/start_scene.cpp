@@ -11,9 +11,11 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include "startSceneSprites.h"
 #include "../scene_1/scene_1.h"
+#include "../Tileset/tilesSpel.h"
+#include "../maps/backgroundCity.h"
 
 std::vector<Background *> start_scene::backgrounds() {
-    return {};
+    return {bg1.get()};
 }
 
 std::vector<Sprite *> start_scene::sprites() {
@@ -22,6 +24,8 @@ std::vector<Sprite *> start_scene::sprites() {
 
 void start_scene::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
+    backgroundPalette=std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tilesSpelPal, sizeof(tilesSpelPal)));
+    bg1=std::unique_ptr<Background>(CreateBackground(2,tilesSpelTiles, sizeof(tilesSpelTiles),Main_background,sizeof(Main_background),MAP32X32));
 
     TextStream::instance().setText("PRESS START TO PLAY", 3, 5);
 

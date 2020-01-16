@@ -13,6 +13,7 @@ private:
     std::unique_ptr<Sprite> sonic;
     std::unique_ptr<Sprite> star;
     std::unique_ptr<Sprite> cicle;
+    std::unique_ptr<Background> bg1;
 
 public:
     std::vector<Sprite *> sprites() override;
