@@ -6,8 +6,9 @@
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
-#include <libgba-sprite-engine/effects/fade_out_scene.h>
+
 #include "GenericScene.h"
+#include <array>
 
 void GenericScene::tick(u16 keys) {
     onTick(keys);
@@ -158,7 +159,7 @@ bool GenericScene::groundCheck(std::vector<unsigned short> tiles,int tileNumber)
     return false;
 }
 void GenericScene::deadCheck(std::vector<unsigned short> tiles) {
-    for(int k=0;k<COLLISIONARRAYSIZE;k++)
+    for(int k=0;k<std::end(collisionArray)-std::begin(collisionArray);k++)
     {
         for (int j=0;j<tiles.size();j++)
         {

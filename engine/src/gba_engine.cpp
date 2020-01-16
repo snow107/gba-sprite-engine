@@ -162,6 +162,30 @@ void GBAEngine::cleanupPreviousScene()  {
     delete currentEffectForTransition;
     currentEffectForTransition = nullptr;
 }
+void GBAEngine::cleanBgRegisters(){
+    u32 ControlIndex;
+    for(int i=0;i<4;i++)
+    {
+        switch(i) {
+            case 0: ControlIndex = 0x0008;break;
+            case 1: ControlIndex =0x000A;break;
+            case 2: ControlIndex= 0x000C;break;
+            case 3: ControlIndex= 0x000E;break;
+        }
+        *(vu16 *) (REG_BASE + ControlIndex) =
+                i |        /* priority, 0 is highest, 3 is lowest */
+                (0 << 2) |    /* the char block the image data is stored in */
+                (0 << 6) |       /* the mosaic flag */
+                (1 << 7) |       /* color mode, 0 is 16 colors, 1 is 256 colors */
+                (0 << 8) |       /* the screen block the tile data is stored in */
+                (1 << 13) |       /* wrapping flag */
+                (0 << 14) |
+                (0<<15);
+    }
+
+
+
+}
 
 void GBAEngine::setScene(Scene* scene) {
     dequeueAllSounds();

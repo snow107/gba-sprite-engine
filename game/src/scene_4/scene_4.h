@@ -21,6 +21,7 @@ class scene_4 : public  GenericScene{
 private:
     std::unique_ptr<Background> bg2,bg0;
     std::unique_ptr<Sprite> kurby;
+    int kurbyX=240-32,kurbyY=16;
     int bg0Y=64*8-160-160+9*8;//152/20
     int timerNieuw;
     int timerOld;

@@ -16,6 +16,8 @@
 #include "../scene_start/startSceneSprites.h"
 #include "../scene_1/scene_1.h"
 
+#include <libgba-sprite-engine/gba/tonc_core.h>
+
 std::vector<Background *> end_scene::backgrounds() {
     return {};
 }
@@ -25,6 +27,7 @@ std::vector<Sprite *> end_scene::sprites() {
 }
 
 void end_scene::load() {
+    engine->cleanBgRegisters();
     engine->enableText();
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
 
@@ -65,6 +68,7 @@ void end_scene::load() {
 }
 
 void end_scene::tick(u16 keys) {
+
     TextStream::instance().setText(engine->getTimer()->to_string(), 18, 1);
 
     if(((keys & KEY_A) || (keys & KEY_B))) {
