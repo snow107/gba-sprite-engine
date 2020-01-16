@@ -22,7 +22,7 @@ std::vector<Background *> scene_4::backgrounds() {
 }
 
 std::vector<Sprite *> scene_4::sprites() {
-    return {charcter.get()};
+    return {charcter.get(),kurby.get()};
 }
 
 void scene_4::load() {
@@ -52,7 +52,7 @@ void scene_4::load() {
     charcter.get()->setStayWithinBounds(true);
     kurby = builder
             .withData(kurbyTiles, sizeof(kurbyTiles))
-            .withSize(SIZE_16_16) //smaller kurby because memory issues? or me stupid
+            .withSize(SIZE_32_32)
             .withAnimated(12,10)
             .withLocation(100, 20)
             .buildPtr();
