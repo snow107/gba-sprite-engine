@@ -67,29 +67,31 @@ void scene_4::onTick(u16 keys) {
     if((timerNieuw != timerOld) && (timerNieuw>7)) {
      //   yHoogte += 8;
     }
-       if(yHoogte>mapScene4_height*8){yHoogte=mapScene4_height*8;}//512 is afstand afleggen 160+bg1Y in dit geval 352 = 64*8-160
-       bg0Y=mapScene4water_height*8-GBA_SCREEN_HEIGHT*2+4+yHoogte-(mapScene4_height*8-GBA_SCREEN_HEIGHT-bg1Y);//352 afstand bg1y get locked
-       if(bg0Y<0){bg0Y=0;}
-        bg0.get()->scroll(0,bg0Y);
-       if(yHoogte>=64*8-(y+32))
-       {
-           if (!engine->isTransitioning()) {
-               engine->transitionIntoScene(new scene_4(engine), new FadeOutScene(2));
-           }
+   if(yHoogte>mapScene4_height*8){yHoogte=mapScene4_height*8;}//512 is afstand afleggen 160+bg1Y in dit geval 352 = 64*8-160
+   bg0Y=mapScene4water_height*8-GBA_SCREEN_HEIGHT*2+4+yHoogte-(mapScene4_height*8-GBA_SCREEN_HEIGHT-bg1Y);//352 afstand bg1y get locked
+   if(bg0Y<0){bg0Y=0;}
+    bg0.get()->scroll(0,bg0Y);
+   if(yHoogte>=64*8-(y+32))
+   {
+       if (!engine->isTransitioning()) {
+           engine->transitionIntoScene(new scene_4(engine), new FadeOutScene(2));
        }
-       if (keys & KEY_START) {
-            engine->transitionIntoScene(new end_scene(engine), new FadeOutScene(2));
-           // engine->setScene(new end_scene(engine));
-       }
-        if(bg1X>=64*8-GBA_SCREEN_WIDTH-32 && bg1Y<=GBA_SCREEN_HEIGHT/2-56)
-        {
-            kurby.get()->moveTo(64*8-GBA_SCREEN_WIDTH-bg1X+kurbyX+1,64*8-GBA_SCREEN_HEIGHT-89-bg1Y+kurbyY);
-        }
-        else kurby.get()->moveTo(0,200);
+   }
+    if(bg1X>=64*8-GBA_SCREEN_WIDTH-32 && bg1Y<=GBA_SCREEN_HEIGHT/2-56)
+    {
+        kurby.get()->moveTo(64*8-GBA_SCREEN_WIDTH-bg1X+kurbyX+1,64*8-GBA_SCREEN_HEIGHT-89-bg1Y+kurbyY);
+    }
+    else kurby.get()->moveTo(0,200);
 
-        if(charcter.get()->collidesWith(*kurby.get())){
-            if (!engine->isTransitioning()) {
-                engine->transitionIntoScene(new end_scene(engine), new FadeOutScene(2));
-            }
+    if(charcter.get()->collidesWith(*kurby.get())){
+        if (!engine->isTransitioning()) {
+            engine->transitionIntoScene(new end_scene(engine), new FadeOutScene(2));
         }
+    }
+
+
+    if (keys & KEY_START) {
+        engine->transitionIntoScene(new end_scene(engine), new FadeOutScene(2));
+
+    }
 }
