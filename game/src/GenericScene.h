@@ -8,7 +8,7 @@
 #include <libgba-sprite-engine/scene.h>
 #define Charcter_height 32
 #define Charcter_width 16
-#define  COLLISIONARRAYSIZE 7
+
 
 
 class GenericScene : public Scene {

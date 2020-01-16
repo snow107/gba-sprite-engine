@@ -54,7 +54,7 @@ void scene_4::load() {
             .withData(kurbyTiles, sizeof(kurbyTiles))
             .withSize(SIZE_32_32)
             .withAnimated(12,10)
-            .withLocation(100, 20)
+            .withLocation(kurbyX, kurbyY)
             .buildPtr();
 
 
@@ -65,7 +65,7 @@ void scene_4::onTick(u16 keys) {
    timerOld=timerNieuw;
     timerNieuw =(int)engine.get()->getTimer()->getSecs()+(int)engine->getTimer()->getMinutes()*60;
     if((timerNieuw != timerOld) && (timerNieuw>7)) {
-        yHoogte += 8;
+     //   yHoogte += 8;
     }
        if(yHoogte>mapScene4_height*8){yHoogte=mapScene4_height*8;}//512 is afstand afleggen 160+bg1Y in dit geval 352 = 64*8-160
        bg0Y=mapScene4water_height*8-GBA_SCREEN_HEIGHT*2+4+yHoogte-(mapScene4_height*8-GBA_SCREEN_HEIGHT-bg1Y);//352 afstand bg1y get locked
@@ -78,7 +78,18 @@ void scene_4::onTick(u16 keys) {
            }
        }
        if (keys & KEY_START) {
-           engine->transitionIntoScene(new end_scene(engine), new FadeOutScene(2));
+            engine->transitionIntoScene(new end_scene(engine), new FadeOutScene(2));
+           // engine->setScene(new end_scene(engine));
        }
+        if(bg1X>=64*8-GBA_SCREEN_WIDTH-32 && bg1Y<=GBA_SCREEN_HEIGHT/2-56)
+        {
+            kurby.get()->moveTo(64*8-GBA_SCREEN_WIDTH-bg1X+kurbyX+1,64*8-GBA_SCREEN_HEIGHT-89-bg1Y+kurbyY);
+        }
+        else kurby.get()->moveTo(0,200);
 
+        if(charcter.get()->collidesWith(*kurby.get())){
+            if (!engine->isTransitioning()) {
+                engine->transitionIntoScene(new end_scene(engine), new FadeOutScene(2));
+            }
+        }
 }

@@ -33,6 +33,7 @@ private:
 
     void vsync();
     void cleanupPreviousScene();
+
     void enqueueSound(const s8 *data, int totalSamples, int sampleRate, SoundChannel channel);
 
     void enableTimer0AndVBlank();
@@ -49,6 +50,7 @@ public:
     void dynamicallyAddSprite(Sprite* s) { spriteManager.add(s); }
     void transitionIntoScene(Scene* scene, SceneEffect* effect);
     bool isTransitioning() { return currentEffectForTransition != nullptr; }
+    void cleanBgRegisters();
     void disableText() { this->disableTextBg = true; }
     void enableText() { this->disableTextBg = false; }
     bool isTextEnabled(){return disableTextBg;}
