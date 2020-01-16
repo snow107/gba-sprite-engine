@@ -61,7 +61,7 @@ void scene_4::onTick(u16 keys) {
    timerOld=timerNieuw;
     timerNieuw =(int)engine.get()->getTimer()->getSecs()+(int)engine->getTimer()->getMinutes()*60;
     if((timerNieuw != timerOld) && (timerNieuw>7)) {
-     //   yHoogte += 8;
+        yHoogte += 8;
     }
    if(yHoogte>mapScene4_height*8){yHoogte=mapScene4_height*8;}//512 is afstand afleggen 160+bg1Y in dit geval 352 = 64*8-160
    bg0Y=mapScene4water_height*8-GBA_SCREEN_HEIGHT*2+4+yHoogte-(mapScene4_height*8-GBA_SCREEN_HEIGHT-bg1Y);//352 afstand bg1y get locked
